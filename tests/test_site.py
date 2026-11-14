@@ -222,6 +222,23 @@ def test_graphic_town_and_lab_structure_present() -> None:
     for role in ("Builder", "Strategist", "Philosopher", "Practitioner"):
         assert role in html, f"Missing landmark role {role}"
 
+    # Visual polish pass: centered island viewBox, 5 outward pill badges + 1px pointer lines,
+    # SE winding footpath, layered horizon silhouettes, terracotta roof ribbing, and Horologion sundial
+    assert 'viewBox="0 -30 1600 980"' in html
+    for badge_label in (
+        "NW Acropolis · Strategist",
+        "Kairos Horologion · Practitioner",
+        "Artisan Forge · Builder",
+        "Garden in the Citadel · Philosopher",
+        "Harbor Stoa · About Me",
+    ):
+        assert badge_label in html, f"Missing enriched landmark pill badge: {badge_label}"
+    assert html.count('class="building-leader-line"') == 5
+    assert 'id="se-slope-footpath"' in html
+    assert 'id="horizon-islands"' in html
+    assert 'class="terracotta-ribbing"' in html
+    assert 'id="horologion-sundial"' in html
+
 
 def test_graphic_town_navigation_and_chamber_simulators_in_node() -> None:
     """Verify town building navigation, avatar coordinates, mode switching, and live chamber simulators."""

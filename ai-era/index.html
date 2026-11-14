@@ -320,8 +320,8 @@
     background: linear-gradient(
       180deg,
       var(--sky-top) 0%,
-      var(--sky-horizon) 27%,
-      var(--sea-mid) 27%,
+      var(--sky-horizon) 23.5%,
+      var(--sea-mid) 23.5%,
       var(--sea-deep) 100%
     );
     user-select: none;
@@ -334,7 +334,7 @@
   }
 
   #world-camera {
-    transform-origin: 785px 412px;
+    transform-origin: 785px 425px;
     transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -368,24 +368,76 @@
     outline: none;
   }
 
+  /* 1px Pointer Leader Lines & Outward Margin Map Badges */
+  .building-leader-line {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-opacity: 0.45;
+    transition: stroke 0.22s ease, stroke-opacity 0.22s ease, stroke-width 0.22s ease;
+  }
+
+  .building-leader-dot {
+    fill: var(--surface-solid);
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-opacity: 0.55;
+    transition: fill 0.22s ease, stroke 0.22s ease;
+  }
+
+  .town-building:hover .building-leader-line,
+  .town-building:focus-visible .building-leader-line,
+  .town-building[data-active="true"] .building-leader-line {
+    stroke: var(--gold-glow);
+    stroke-opacity: 0.95;
+    stroke-width: 1.35;
+  }
+
+  .town-building:hover .building-leader-dot,
+  .town-building:focus-visible .building-leader-dot,
+  .town-building[data-active="true"] .building-leader-dot {
+    fill: var(--gold-glow);
+    stroke: #1C252C;
+  }
+
   .town-building .building-pill-bg {
-    transition: fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: fill 0.22s ease, stroke 0.22s ease, stroke-width 0.22s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .town-building .building-pill-text {
+    transition: fill 0.2s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .town-building .building-pill-route {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.22s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), fill 0.2s ease;
+    pointer-events: none;
   }
 
   .town-building:hover .building-pill-bg,
+  .town-building:focus-visible .building-pill-bg,
   .town-building[data-active="true"] .building-pill-bg {
     fill: #1C252C;
     stroke: var(--gold-glow);
-    stroke-width: 2.5;
+    stroke-width: 2.2;
+    transform: scaleX(1.28);
   }
 
   .town-building:hover .building-pill-text,
+  .town-building:focus-visible .building-pill-text,
   .town-building[data-active="true"] .building-pill-text {
     fill: #F5EFE6;
+    transform: translateX(-34px);
   }
 
   .town-building:hover .building-pill-route,
+  .town-building:focus-visible .building-pill-route,
   .town-building[data-active="true"] .building-pill-route {
+    opacity: 1;
+    transform: translateX(0);
     fill: var(--gold-glow);
   }
 
@@ -839,8 +891,12 @@
     <section data-subview="town" id="polis-viewport" class="polis-viewport" aria-label="Interactive 2.5D Isometric Ancient Greek Polis">
 
       <!-- Full-Viewport 2.5D Isometric/Dimetric (30° parallel axes) Illustrated Island SVG -->
-      <svg id="citadel-town-map" class="polis-svg" viewBox="0 0 1600 940" preserveAspectRatio="xMidYMid slice" role="img" aria-label="2.5D Isometric Greek island featuring the NW Acropolis, North Ridge Kairos Horologion, West Artisan Forge, East Cape Garden in the Citadel, and South Cove Harbor Stoa">
+      <svg id="citadel-town-map" class="polis-svg" viewBox="0 -30 1600 980" preserveAspectRatio="xMidYMid slice" role="img" aria-label="2.5D Isometric Greek island featuring the NW Acropolis, North Ridge Kairos Horologion, West Artisan Forge, East Cape Garden in the Citadel, and South Cove Harbor Stoa">
         <defs>
+          <linearGradient id="aegean-sky-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--sky-top)"/>
+            <stop offset="100%" stop-color="var(--sky-horizon)"/>
+          </linearGradient>
           <linearGradient id="aegean-sea-grad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="var(--sea-mid)"/>
             <stop offset="100%" stop-color="var(--sea-deep)"/>
@@ -862,26 +918,36 @@
         <!-- Camera Group (Zooms & Pans smoothly when visiting landmarks) -->
         <g id="world-camera">
 
-          <!-- ── 1. Aegean Sky Horizon, Sun Halo & Distant Isometric Headlands ── -->
-          <circle cx="800" cy="128" r="88" fill="#F7D586" opacity="0.34"/>
-          <circle cx="800" cy="128" r="44" fill="#FCE8B2" opacity="0.68"/>
+          <!-- ── 1. Aegean Sky Horizon, Sun Halo & Asymmetric Layered Horizon Islands ── -->
+          <rect x="-800" y="-600" width="3200" height="810" fill="url(#aegean-sky-grad)"/>
+          <rect x="-800" y="210" width="3200" height="1600" fill="url(#aegean-sea-grad)"/>
 
-          <!-- Distant 30° Isometric Limestone Islands on Horizon -->
-          <polygon points="70,254 195,192 310,254" fill="#8BA6B5" opacity="0.45"/>
-          <polygon points="195,192 310,254 245,254" fill="#6F8A99" opacity="0.45"/>
-          <polygon points="1240,254 1385,184 1520,254" fill="#8BA6B5" opacity="0.4"/>
-          <polygon points="1385,184 1520,254 1435,254" fill="#6F8A99" opacity="0.4"/>
+          <circle cx="800" cy="108" r="88" fill="#F7D586" opacity="0.34"/>
+          <circle cx="800" cy="108" r="44" fill="#FCE8B2" opacity="0.68"/>
+
+          <!-- Asymmetric, Layered Aegean Island Silhouettes on the Horizon (y=210) -->
+          <g id="horizon-islands">
+            <!-- West-Northwest Layered Archipelago Silhouettes -->
+            <path d="M 18 210 C 48 210, 74 176, 118 168 C 154 162, 178 182, 212 174 C 248 165, 276 146, 316 154 C 354 162, 382 196, 424 210 Z" fill="#9BB3C0" opacity="0.32"/>
+            <path d="M 54 210 C 82 204, 112 172, 152 166 C 186 161, 206 181, 238 179 C 268 177, 292 194, 338 210 Z" fill="#7D98A7" opacity="0.46"/>
+            <path d="M 152 166 C 186 161, 206 181, 238 179 C 268 177, 292 194, 338 210 L 218 210 C 198 196, 176 178, 152 166 Z" fill="#647F8E" opacity="0.38"/>
+
+            <!-- East-Northeast Layered Archipelago Silhouettes -->
+            <path d="M 1165 210 C 1205 198, 1238 164, 1284 158 C 1326 152, 1354 174, 1392 162 C 1434 148, 1472 156, 1514 178 C 1542 193, 1566 204, 1590 210 Z" fill="#9BB3C0" opacity="0.3"/>
+            <path d="M 1228 210 C 1262 196, 1296 168, 1338 164 C 1374 160, 1398 182, 1432 176 C 1466 170, 1498 188, 1546 210 Z" fill="#7D98A7" opacity="0.44"/>
+            <path d="M 1338 164 C 1374 160, 1398 182, 1432 176 C 1466 170, 1498 188, 1546 210 L 1388 210 C 1368 192, 1354 176, 1338 164 Z" fill="#647F8E" opacity="0.36"/>
+          </g>
 
           <!-- Drifting Mediterranean Clouds -->
           <g class="anim-cloud-1" fill="#F5EFE6" opacity="0.76">
-            <ellipse cx="265" cy="96" rx="64" ry="18"/>
-            <ellipse cx="304" cy="88" rx="44" ry="14"/>
-            <ellipse cx="1275" cy="108" rx="68" ry="18"/>
-            <ellipse cx="1318" cy="100" rx="44" ry="14"/>
+            <ellipse cx="265" cy="78" rx="64" ry="18"/>
+            <ellipse cx="304" cy="70" rx="44" ry="14"/>
+            <ellipse cx="1275" cy="88" rx="68" ry="18"/>
+            <ellipse cx="1318" cy="80" rx="44" ry="14"/>
           </g>
           <g class="anim-cloud-2" fill="#F5EFE6" opacity="0.58">
-            <ellipse cx="555" cy="76" rx="50" ry="14"/>
-            <ellipse cx="1045" cy="86" rx="46" ry="13"/>
+            <ellipse cx="555" cy="58" rx="50" ry="14"/>
+            <ellipse cx="1045" cy="68" rx="46" ry="13"/>
           </g>
 
           <!-- ── 2. Deep Aegean Teal Water & Animated Shoreline Foam Rings ── -->
@@ -894,12 +960,16 @@
           <!-- Inner Animated Shoreline Foam Ring -->
           <path class="anim-foam-inner" d="M 412 222 L 615 176 L 955 200 L 1318 358 L 1338 432 L 1130 582 L 938 655 L 870 572 L 680 572 L 612 655 L 290 525 L 248 412 Z" fill="none" stroke="#F5EFE6" stroke-width="3.5" opacity="0.72" stroke-linejoin="round"/>
 
-          <!-- Ambient Aegean Wavelets -->
+          <!-- Ambient Aegean Wavelets (Including Generous Southern Open Sea) -->
           <g stroke="#8EE0F0" stroke-width="2" opacity="0.42" fill="none">
             <path d="M 85 455 Q 125 447, 165 455 T 245 455"/>
             <path d="M 1385 525 Q 1425 517, 1465 525 T 1545 525"/>
-            <path d="M 195 745 Q 235 737, 275 745 T 355 745"/>
-            <path d="M 1195 735 Q 1235 727, 1275 735 T 1355 735"/>
+            <path d="M 195 725 Q 235 717, 275 725 T 355 725"/>
+            <path d="M 1195 725 Q 1235 717, 1275 725 T 1355 725"/>
+            <path d="M 455 815 Q 495 807, 535 815 T 615 815"/>
+            <path d="M 735 845 Q 775 837, 815 845 T 895 845"/>
+            <path d="M 985 805 Q 1025 797, 1065 805 T 1145 805"/>
+            <path d="M 595 895 Q 635 887, 675 895 T 755 895"/>
           </g>
 
           <!-- ── 3. Sculpted 2.5D Isometric Rocky Greek Island Terrain ── -->
@@ -950,6 +1020,15 @@
             <line x1="693" y1="483" x2="975" y2="357"/>
           </g>
 
+          <!-- ── Winding Southeast Footpath & Coastal Overlook on the SE Green Slope ── -->
+          <g id="se-slope-landscape">
+            <!-- Winding Limestone & Earth Footpath in the Southeast Green Slope -->
+            <path id="se-slope-footpath" d="M 892 478 C 932 504, 976 488, 1016 508 C 1054 526, 1098 498, 1142 476" fill="none" stroke="#C4B49D" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M 892 478 C 932 504, 976 488, 1016 508 C 1054 526, 1098 498, 1142 476" fill="none" stroke="#EBE1D1" stroke-width="3.8" stroke-dasharray="7 4" stroke-linecap="round"/>
+            <!-- Small Stone Exedra / Cairn Overlook at Footpath End -->
+            <ellipse cx="1148" cy="474" rx="11" ry="5.5" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.3"/>
+          </g>
+
           <!-- ── 4. Isometric Panathenaic Way & Connecting Marble Roads ── -->
           <!-- Primary Central Marble Road from South Harbor Stoa (775,625) through Agora Basin (785,412) to NW Acropolis (565,235) -->
           <path d="M 775 615 L 775 510 L 785 412 L 665 356 L 565 255" fill="none" stroke="#CFC1AC" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
@@ -973,6 +1052,12 @@
             <polygon points="654,335 768,284 768,307 654,358" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.4"/>
             <!-- Isometric Terracotta Ribbed Roof -->
             <polygon points="626,301 740,250 772,265 658,316" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+            <g class="terracotta-ribbing" stroke="var(--terracotta-dark)" stroke-width="1" opacity="0.65">
+              <line x1="648" y1="291" x2="680" y2="306"/>
+              <line x1="670" y1="281" x2="702" y2="296"/>
+              <line x1="692" y1="271" x2="724" y2="286"/>
+              <line x1="714" y1="261" x2="746" y2="276"/>
+            </g>
           </g>
 
           <!-- Central Agora Odeion & Altar of the Twelve Gods (Interactive Reset Node at 785, 412) -->
@@ -988,19 +1073,25 @@
             <circle cx="785" cy="410" r="7" fill="#3B97A8" stroke="var(--marble-light)" stroke-width="2"/>
           </g>
 
-          <!-- Ambient Olive Groves (`#4A6B4D`) & Gentle Swaying Cypress Trees -->
-          <g>
+          <!-- Ambient Olive Groves (`#4A6B4D`) & Gentle Swaying Cypress Trees (Including SE Slope Cluster) -->
+          <g id="island-groves">
             <!-- West & NW Olive Clusters -->
             <circle cx="355" cy="348" r="16" fill="var(--olive-foliage)"/><circle cx="368" cy="342" r="12" fill="var(--olive-highlight)"/>
             <circle cx="408" cy="312" r="14" fill="var(--olive-foliage)"/><circle cx="418" cy="306" r="10" fill="var(--olive-highlight)"/>
             <circle cx="628" cy="482" r="15" fill="var(--olive-foliage)"/><circle cx="640" cy="476" r="11" fill="var(--olive-highlight)"/>
-            <circle cx="912" cy="492" r="16" fill="var(--olive-foliage)"/><circle cx="924" cy="486" r="12" fill="var(--olive-highlight)"/>
-            <!-- Swaying Cypress Trees across the Island -->
+            <!-- Southeast Green Slope Olive & Cypress Cluster (Balancing the Composition) -->
+            <circle cx="916" cy="492" r="15" fill="var(--olive-foliage)"/><circle cx="927" cy="486" r="11" fill="var(--olive-highlight)"/>
+            <circle cx="984" cy="522" r="16" fill="var(--olive-foliage)"/><circle cx="996" cy="516" r="12" fill="var(--olive-highlight)"/>
+            <circle cx="1048" cy="488" r="14" fill="var(--olive-foliage)"/><circle cx="1058" cy="482" r="10" fill="var(--olive-highlight)"/>
+            <circle cx="1096" cy="506" r="13" fill="var(--olive-foliage)"/><circle cx="1105" cy="500" r="9.5" fill="var(--olive-highlight)"/>
+            <!-- Swaying Cypress Trees across the Island & SE Slope -->
             <path class="anim-cypress" d="M 424 275 Q 431 232, 438 275 Z" fill="var(--cypress-dark)"/>
             <path class="anim-cypress-alt" d="M 712 238 Q 719 196, 726 238 Z" fill="var(--cypress-dark)"/>
             <path class="anim-cypress" d="M 1022 282 Q 1029 240, 1036 282 Z" fill="var(--cypress-dark)"/>
             <path class="anim-cypress-alt" d="M 605 538 Q 612 496, 619 538 Z" fill="var(--cypress-dark)"/>
-            <path class="anim-cypress" d="M 948 538 Q 955 496, 962 538 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress" d="M 948 542 Q 955 498, 962 542 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress-alt" d="M 1018 536 Q 1025 492, 1032 536 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress" d="M 1072 522 Q 1079 480, 1086 522 Z" fill="var(--cypress-dark)"/>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
@@ -1035,11 +1126,15 @@
             <!-- Isometric Pitched Terracotta Ribbed Roof (`#C85A32`) & Classical Pediment -->
             <polygon points="492,176 565,142 638,176 565,210" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.8"/>
             <polygon points="492,176 565,154 565,210" fill="#D96B43" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
-            <!-- Ribbed Roof Tile Lines -->
-            <g stroke="var(--terracotta-dark)" stroke-width="1.1" opacity="0.65">
-              <line x1="515" y1="165" x2="565" y2="190"/>
-              <line x1="538" y1="155" x2="565" y2="170"/>
-              <line x1="615" y1="165" x2="565" y2="190"/>
+            <!-- Parallel Terracotta Roof Ribbing Lines -->
+            <g class="terracotta-ribbing" stroke="var(--terracotta-dark)" stroke-width="1.05" opacity="0.7">
+              <line x1="506" y1="170" x2="565" y2="198"/>
+              <line x1="520" y1="163" x2="565" y2="186"/>
+              <line x1="535" y1="156" x2="565" y2="173"/>
+              <line x1="550" y1="149" x2="565" y2="159"/>
+              <line x1="624" y1="170" x2="565" y2="198"/>
+              <line x1="610" y1="163" x2="565" y2="186"/>
+              <line x1="595" y1="156" x2="565" y2="173"/>
             </g>
 
             <!-- Golden Celestial Astrolabe Finial -->
@@ -1049,11 +1144,13 @@
               <circle cx="0" cy="0" r="3.5" fill="#F2B249"/>
             </g>
 
-            <!-- Floating Landmark Label Pill -->
-            <g class="building-pill" transform="translate(565, 312)">
-              <rect class="building-pill-bg" x="-118" y="-15" width="236" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-route" x="-72" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/strategist</text>
-              <text class="building-pill-text" x="34" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">NW Acropolis</text>
+            <!-- 1px Pointer Line & Outward Margin Floating Pill Badge -->
+            <polyline class="building-leader-line" points="412,262 452,262 486,244"/>
+            <circle class="building-leader-dot" cx="486" cy="244" r="2.5"/>
+            <g class="building-pill" transform="translate(280, 262)">
+              <rect class="building-pill-bg" x="-132" y="-15" width="264" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">NW Acropolis · Strategist</text>
+              <text class="building-pill-route" x="108" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/strategist</text>
             </g>
           </g>
 
@@ -1073,8 +1170,13 @@
             <!-- Adjacent Bouleuterion Council Hall (West Wing on the North Ridge) -->
             <polygon points="784,258 844,285 844,242 784,215" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
             <polygon points="844,285 884,266 884,223 844,242" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
-            <!-- Bouleuterion Isometric Terracotta Hip Roof -->
+            <!-- Bouleuterion Isometric Terracotta Hip Roof with Parallel Ribbing -->
             <polygon points="778,215 838,188 890,212 830,239" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.6"/>
+            <g class="terracotta-ribbing" stroke="var(--terracotta-dark)" stroke-width="1" opacity="0.68">
+              <line x1="794" y1="208" x2="846" y2="232"/>
+              <line x1="810" y1="201" x2="862" y2="225"/>
+              <line x1="826" y1="194" x2="878" y2="218"/>
+            </g>
             <!-- Stepped Council Seating Reveal -->
             <ellipse cx="834" cy="256" rx="18" ry="8" fill="#D8CBB8" stroke="var(--cliff-shadow)" stroke-width="1.2"/>
 
@@ -1085,24 +1187,58 @@
             <polygon points="924,280 946,268 946,166 924,178" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
             <!-- Carved Wind-God Frieze Band under the Eaves -->
             <rect x="896" y="182" width="28" height="12" fill="#D8CBB8" stroke="var(--cliff-shadow)" stroke-width="1"/>
-            <!-- Octagonal Pyramidal Terracotta & Bronze Roof -->
+            <!-- Engraved Solar Sundial Rays on the Octagonal Tower Walls -->
+            <g stroke="#9C8B74" stroke-width="0.9" opacity="0.75">
+              <line x1="885" y1="198" x2="878" y2="214"/>
+              <line x1="885" y1="198" x2="885" y2="216"/>
+              <line x1="885" y1="198" x2="892" y2="214"/>
+              <line x1="935" y1="198" x2="928" y2="214"/>
+              <line x1="935" y1="198" x2="935" y2="216"/>
+              <line x1="935" y1="198" x2="942" y2="214"/>
+            </g>
+            <!-- Octagonal Pyramidal Terracotta & Bronze Roof with Parallel Ribbing -->
             <polygon points="870,166 910,132 896,178" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
             <polygon points="896,178 910,132 924,178" fill="#D96B43" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
             <polygon points="924,178 910,132 950,166" fill="var(--terracotta-dark)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
-
-            <!-- Rotating Bronze Horologion Water-Clock Dial -->
-            <g class="anim-spin" transform="translate(910, 226)">
-              <circle cx="0" cy="0" r="18" fill="#1C252C" stroke="#F2B249" stroke-width="3"/>
-              <line x1="-18" y1="0" x2="18" y2="0" stroke="#F2B249" stroke-width="2"/>
-              <line x1="0" y1="-18" x2="0" y2="18" stroke="#F2B249" stroke-width="2"/>
-              <circle cx="0" cy="0" r="4.5" fill="#F2B249"/>
+            <g class="terracotta-ribbing" stroke="var(--terracotta-dark)" stroke-width="0.95" opacity="0.72">
+              <line x1="882" y1="156" x2="938" y2="156"/>
+              <line x1="890" y1="146" x2="930" y2="146"/>
+              <line x1="910" y1="132" x2="910" y2="178"/>
             </g>
 
-            <!-- Floating Landmark Label Pill -->
-            <g class="building-pill" transform="translate(875, 336)">
-              <rect class="building-pill-bg" x="-132" y="-15" width="264" height="30" rx="15" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-route" x="-78" y="4" text-anchor="middle" fill="#2962AB" font-family="monospace" font-size="10.5" font-weight="700">/practitioner</text>
-              <text class="building-pill-text" x="42" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Kairos Horologion</text>
+            <!-- Circular Sundial / Clock Face Detail Mounted on the Front Wall of the Kairos Horologion Tower -->
+            <g id="horologion-sundial" transform="translate(910, 226)">
+              <!-- Outer Carved Marble & Bronze Sundial Bezel -->
+              <circle cx="0" cy="0" r="14.5" fill="var(--marble-light)" stroke="#2962AB" stroke-width="2"/>
+              <circle cx="0" cy="0" r="11.5" fill="#1C252C" stroke="#F2B249" stroke-width="1.8"/>
+              <!-- 8 Radial Sundial / Clock Hour Tick Marks -->
+              <g stroke="#F2B249" stroke-width="1.2" opacity="0.85">
+                <line x1="0" y1="-11.5" x2="0" y2="-8.2"/>
+                <line x1="0" y1="8.2" x2="0" y2="11.5"/>
+                <line x1="-11.5" y1="0" x2="-8.2" y2="0"/>
+                <line x1="8.2" y1="0" x2="11.5" y2="0"/>
+                <line x1="-8" y1="-8" x2="-5.8" y2="-5.8"/>
+                <line x1="8" y1="-8" x2="5.8" y2="-5.8"/>
+                <line x1="-8" y1="8" x2="-5.8" y2="5.8"/>
+                <line x1="8" y1="8" x2="5.8" y2="5.8"/>
+              </g>
+              <!-- Equatorial Sundial Arc -->
+              <path d="M -7.5 -2 A 8 8 0 0 0 7.5 -2" fill="none" stroke="#8EE0F0" stroke-width="0.9" opacity="0.7"/>
+              <!-- Rotating Bronze Gnomon Hand -->
+              <g class="anim-spin">
+                <line x1="0" y1="3" x2="0" y2="-9.5" stroke="#F2B249" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="0" y1="0" x2="6.8" y2="0" stroke="#F5EFE6" stroke-width="1.3" stroke-linecap="round"/>
+              </g>
+              <circle cx="0" cy="0" r="2.6" fill="#F2B249"/>
+            </g>
+
+            <!-- 1px Pointer Line & Outward NE Green Margin Floating Pill Badge -->
+            <polyline class="building-leader-line" points="1038,242 992,242 946,252"/>
+            <circle class="building-leader-dot" cx="946" cy="252" r="2.5"/>
+            <g class="building-pill" transform="translate(1190, 242)">
+              <rect class="building-pill-bg" x="-152" y="-15" width="304" height="30" rx="15" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Kairos Horologion · Practitioner</text>
+              <text class="building-pill-route" x="128" y="4" text-anchor="middle" fill="#2962AB" font-family="monospace" font-size="10.5" font-weight="700">/practitioner</text>
             </g>
           </g>
 
@@ -1142,16 +1278,19 @@
               <rect x="538" y="364" width="6" height="54"/>
             </g>
             <polygon points="416,355 482,324 564,361 498,392" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.8"/>
-            <g stroke="var(--terracotta-dark)" stroke-width="1.1" opacity="0.65">
-              <line x1="442" y1="344" x2="515" y2="378"/>
-              <line x1="465" y1="334" x2="538" y2="368"/>
+            <g class="terracotta-ribbing" stroke="var(--terracotta-dark)" stroke-width="1.05" opacity="0.68">
+              <line x1="432" y1="348" x2="514" y2="385"/>
+              <line x1="448" y1="340" x2="530" y2="377"/>
+              <line x1="464" y1="333" x2="546" y2="370"/>
             </g>
 
-            <!-- Floating Landmark Label Pill -->
-            <g class="building-pill" transform="translate(515, 512)">
-              <rect class="building-pill-bg" x="-112" y="-15" width="224" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-route" x="-66" y="4" text-anchor="middle" fill="var(--terracotta)" font-family="monospace" font-size="10.5" font-weight="700">/builder</text>
-              <text class="building-pill-text" x="30" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Artisan Forge</text>
+            <!-- 1px Pointer Line & Outward SW Green Margin Floating Pill Badge -->
+            <polyline class="building-leader-line" points="357,492 408,492 448,452"/>
+            <circle class="building-leader-dot" cx="448" cy="452" r="2.5"/>
+            <g class="building-pill" transform="translate(235, 492)">
+              <rect class="building-pill-bg" x="-122" y="-15" width="244" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Artisan Forge · Builder</text>
+              <text class="building-pill-route" x="96" y="4" text-anchor="middle" fill="var(--terracotta)" font-family="monospace" font-size="10.5" font-weight="700">/builder</text>
             </g>
           </g>
 
@@ -1175,6 +1314,15 @@
             <!-- NE Stoa Wing -->
             <polygon points="1065,324 1184,378 1167,386 1048,332" fill="#D96B43" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
             <polygon points="1065,348 1167,395 1167,374 1065,328" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.4"/>
+            <!-- Parallel Terracotta Roof Ribbing on Both Stoa Wings -->
+            <g class="terracotta-ribbing" stroke="var(--terracotta-dark)" stroke-width="1" opacity="0.68">
+              <line x1="974" y1="365" x2="991" y2="373"/>
+              <line x1="1002" y1="352" x2="1019" y2="360"/>
+              <line x1="1030" y1="340" x2="1047" y2="348"/>
+              <line x1="1095" y1="338" x2="1078" y2="346"/>
+              <line x1="1123" y1="350" x2="1106" y2="358"/>
+              <line x1="1151" y1="363" x2="1134" y2="371"/>
+            </g>
 
             <!-- Semicircular Stone Exedra Benches (Philosopher's Hemicycles) & Reflecting Basin -->
             <path d="M 1018 394 A 46 22 0 0 1 1112 394" fill="none" stroke="var(--cliff-shadow)" stroke-width="7"/>
@@ -1190,11 +1338,13 @@
             <path class="anim-cypress-alt" d="M 1058 368 Q 1065 320, 1072 368 Z" fill="var(--cypress-dark)"/>
             <path class="anim-cypress" d="M 1142 392 Q 1149 345, 1156 392 Z" fill="var(--cypress-dark)"/>
 
-            <!-- Floating Landmark Label Pill -->
-            <g class="building-pill" transform="translate(1065, 476)">
-              <rect class="building-pill-bg" x="-138" y="-15" width="276" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-route" x="-84" y="4" text-anchor="middle" fill="var(--olive-foliage)" font-family="monospace" font-size="10.5" font-weight="700">/philosopher</text>
-              <text class="building-pill-text" x="38" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Garden in the Citadel</text>
+            <!-- 1px Pointer Line & Outward East/SE Margin Floating Pill Badge -->
+            <polyline class="building-leader-line" points="1183,448 1145,448 1118,422"/>
+            <circle class="building-leader-dot" cx="1118" cy="422" r="2.5"/>
+            <g class="building-pill" transform="translate(1345, 448)">
+              <rect class="building-pill-bg" x="-162" y="-15" width="324" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Garden in the Citadel · Philosopher</text>
+              <text class="building-pill-route" x="136" y="4" text-anchor="middle" fill="var(--olive-foliage)" font-family="monospace" font-size="10.5" font-weight="700">/philosopher</text>
             </g>
           </g>
 
@@ -1252,13 +1402,23 @@
             </g>
             <!-- Isometric Ribbed Terracotta Roof of the Harbor Stoa -->
             <polygon points="668,528 775,484 882,528 775,572" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.8"/>
+            <g class="terracotta-ribbing" stroke="var(--terracotta-dark)" stroke-width="1.05" opacity="0.68">
+              <line x1="692" y1="518" x2="775" y2="554"/>
+              <line x1="718" y1="507" x2="775" y2="534"/>
+              <line x1="744" y1="497" x2="775" y2="512"/>
+              <line x1="858" y1="518" x2="775" y2="554"/>
+              <line x1="832" y1="507" x2="775" y2="534"/>
+              <line x1="806" y1="497" x2="775" y2="512"/>
+            </g>
             <polygon points="735,546 775,522 815,546" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
 
-            <!-- Floating Landmark Label Pill -->
-            <g class="building-pill" transform="translate(775, 704)">
-              <rect class="building-pill-bg" x="-112" y="-15" width="224" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-route" x="-66" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/about</text>
-              <text class="building-pill-text" x="26" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Harbor Stoa</text>
+            <!-- 1px Pointer Line & Matching Pill Badge for Harbor Stoa Beside the Southern Pier -->
+            <polyline class="building-leader-line" points="938,638 878,638 828,648"/>
+            <circle class="building-leader-dot" cx="828" cy="648" r="2.5"/>
+            <g class="building-pill" transform="translate(1060, 638)">
+              <rect class="building-pill-bg" x="-122" y="-15" width="244" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Harbor Stoa · About Me</text>
+              <text class="building-pill-route" x="96" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/about</text>
             </g>
           </g>
 
