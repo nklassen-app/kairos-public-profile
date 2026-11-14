@@ -205,6 +205,7 @@ def test_graphic_town_and_lab_structure_present() -> None:
     # Interactive Graphic Town Map SVG & Buildings
     assert 'id="citadel-town-map"' in html
     assert 'id="town-explorer"' in html
+    assert 'id="world-camera"' in html
     for building_id in ("EXP-01", "EXP-02", "EXP-03", "EXP-04"):
         assert f'data-building-id="{building_id}"' in html, f"Missing town building {building_id}"
 
@@ -236,7 +237,7 @@ if (ctrl.getState().mode !== 'lab') {
   throw new Error('Expected initial mode to be lab');
 }
 
-// 2. Visiting each building moves the explorer coordinates and opens that building's chamber
+// 2. Visiting each building moves the explorer coordinates, zooms camera, and opens that building's chamber
 for (const expId of ['EXP-01', 'EXP-02', 'EXP-03', 'EXP-04']) {
   const st = ctrl.visitBuilding(expId);
   if (st.activeChamber !== expId) {
@@ -245,6 +246,14 @@ for (const expId of ['EXP-01', 'EXP-02', 'EXP-03', 'EXP-04']) {
   if (!st.explorerPos || typeof st.explorerPos.x !== 'number' || typeof st.explorerPos.y !== 'number') {
     throw new Error(`Expected numeric explorerPos for ${expId}`);
   }
+  if (!st.camera || st.camera.zoom <= 1) {
+    throw new Error(`Expected camera to zoom in when visiting ${expId}`);
+  }
+}
+
+const overviewState = ctrl.resetCamera();
+if (overviewState.camera.zoom !== 1 || overviewState.drawerOpen !== false) {
+  throw new Error('Expected resetCamera() to return zoom=1 and close drawer');
 }
 
 // 3. Role router moves explorer to the corresponding building

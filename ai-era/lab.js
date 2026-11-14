@@ -1,59 +1,76 @@
 "use strict";
 
 /**
- * AI Era Digital Concept Lab — Graphic Town & Interactive Chamber Controller
- * Self-contained, zero-dependency client-side controller.
+ * AI Era Digital Concept Lab — Dynamic Ancient Greek Polis & Interactive Workbench
+ * Inspired by Late Checkout's interactive world canvas, set in an illustrated
+ * isometric Aegean Acropolis & Polis.
  * Runs under CSP: script-src 'self'; connect-src 'none'.
  */
 (function () {
   var BUILDINGS = {
     AGORA: {
       id: "AGORA",
-      title: "The Central Agora",
-      subtitle: "Wayfinder Plaza & Calibration Gate",
-      coords: "LOC // 000°C · CENTRAL AGORA",
-      x: 560,
-      y: 300,
+      title: "The Central Agora of Athens",
+      prototype: "AGORA // 00 · The Sacred Way",
+      pillar: "Central Forum & Wayfinder",
+      coords: "ACROPOLIS // 00°C · CENTRAL AGORA",
+      x: 800,
+      y: 470,
+      camX: 0,
+      camY: 0,
+      zoom: 1,
       accent: "amber"
     },
     "EXP-01": {
       id: "EXP-01",
-      title: "The Observatory of Gateways",
+      title: "The Tholos of Gateways",
       prototype: "EXP-01 // The Red Queen's Simulator",
       pillar: "The Next Gateway · Macro-History",
-      coords: "LOC // 315°NW · OBSERVATORY PEAK",
-      x: 250,
-      y: 165,
+      coords: "ACROPOLIS // 315°NW · ASTROLABE THOLOS",
+      x: 370,
+      y: 250,
+      camX: 290,
+      camY: 145,
+      zoom: 1.55,
       accent: "amber"
     },
     "EXP-02": {
       id: "EXP-02",
-      title: "The Alignment Crucible",
+      title: "The Forge of Hephaestus",
       prototype: "EXP-02 // The Alignment Crucible",
       pillar: "AI Ethics as a Design Language",
-      coords: "LOC // 045°NE · CRUCIBLE FOUNDRY",
-      x: 865,
-      y: 165,
+      coords: "ACROPOLIS // 045°NE · CRUCIBLE STOA",
+      x: 1230,
+      y: 245,
+      camX: -270,
+      camY: 145,
+      zoom: 1.55,
       accent: "copper"
     },
     "EXP-03": {
       id: "EXP-03",
-      title: "The Garden in the Citadel",
+      title: "The Stoic Peristyle Garden",
       prototype: "EXP-03 // The Citadel Diagnostic",
-      pillar: "Stoic Coping & Inner Resilience",
-      coords: "LOC // 225°SW · PERISTYLE GARDEN",
-      x: 255,
-      y: 445,
+      pillar: "Garden in the Citadel · Inner Resilience",
+      coords: "ACROPOLIS // 225°SW · SACRED GROVE",
+      x: 355,
+      y: 675,
+      camX: 290,
+      camY: -135,
+      zoom: 1.55,
       accent: "sage"
     },
     "EXP-04": {
       id: "EXP-04",
-      title: "The Architect's Forge",
+      title: "The Archimedes Watermill & Tower",
       prototype: "EXP-04 // The Architect's Forge",
       pillar: "Workflow & Energy Architecture",
-      coords: "LOC // 135°SE · CLOCKWORK BASTION",
-      x: 865,
-      y: 445,
+      coords: "ACROPOLIS // 135°SE · AUTOMATON BASTION",
+      x: 1225,
+      y: 670,
+      camX: -270,
+      camY: -135,
+      zoom: 1.55,
       accent: "cobalt"
     }
   };
@@ -62,30 +79,30 @@
     builder: {
       chamber: "EXP-02",
       label: "Builder",
-      chamberTitle: "EXP-02 // The Alignment Crucible",
+      chamberTitle: "EXP-02 // The Forge of Hephaestus",
       rationale:
-        "Explorer routed to the Northeast Foundry (EXP-02): equip Productive Friction cards to ship an AI product without eroding human agency."
+        "Camera & Explorer dispatched to the Northeast Forge: equip Productive Friction cards to protect human agency."
     },
     strategist: {
       chamber: "EXP-01",
       label: "Strategist",
-      chamberTitle: "EXP-01 // The Red Queen's Simulator",
+      chamberTitle: "EXP-01 // The Tholos of Gateways",
       rationale:
-        "Explorer routed to the Northwest Observatory (EXP-01): test how technological gateways shift Velocity, Social Cohesion, and Epistemic Trust."
+        "Camera & Explorer dispatched to the Northwest Astrolabe Tholos: stress-test civilization metrics across AI gateways."
     },
     philosopher: {
       chamber: "EXP-03",
       label: "Philosopher",
-      chamberTitle: "EXP-03 // The Citadel Diagnostic",
+      chamberTitle: "EXP-03 // The Stoic Peristyle Garden",
       rationale:
-        "Explorer routed to the Southwest Peristyle Garden (EXP-03): calibrate present mental friction against Marcus Aurelius's Meditations."
+        "Camera & Explorer dispatched to the Southwest Peristyle Garden: calibrate cognitive friction against Marcus Aurelius."
     },
     leader: {
       chamber: "EXP-04",
       label: "Overwhelmed Leader",
-      chamberTitle: "EXP-04 // The Architect's Forge",
+      chamberTitle: "EXP-04 // The Archimedes Tower",
       rationale:
-        "Explorer routed to the Southeast Clockwork Bastion (EXP-04): transmute draining maintenance into an 80/20 creative quest."
+        "Camera & Explorer dispatched to the Southeast Automaton Tower: transmute draining maintenance into creative craft."
     }
   };
 
@@ -112,7 +129,7 @@
       cohesion: 74,
       trust: 86,
       verdict:
-        "Open provenance and participatory governance slightly temper raw speed while preserving high epistemic trust across society."
+        "Open provenance and participatory governance slightly temper raw speed while preserving high epistemic trust across the Polis."
     }
   };
 
@@ -164,7 +181,7 @@
       id: "exhaustion",
       label: "Role Exhaustion (People Pleasing)",
       quote:
-        "“How much time he gains who does not look to see what his neighbor says or does or thinks, but only at what he does himself, to make it just and Reverent.” — Meditations 4.18",
+        "“How much time he gains who does not look to see what his neighbor says or does or thinks, but only at what he does himself, to make it just and reverent.” — Meditations 4.18",
       protocol:
         "60-Second Protocol: Identify one obligation you are carrying purely for appearances. Replace one reactive status reply today with 25 minutes of uninterrupted deep work."
     }
@@ -205,12 +222,16 @@
       status: "ONLINE // V1.0",
       mode: "lab",
       subview: "town",
+      sky: "helios", // 'helios' (Mediterranean Sunlit Day) or 'nyx' (Starlit Night)
       experimentCount: 4,
-      activeRole: "strategist",
+      activeRole: null,
       activeChamber: "EXP-01",
       highlightedChamber: "EXP-01",
-      explorerPos: { x: BUILDINGS["EXP-01"].x, y: BUILDINGS["EXP-01"].y },
-      routeMessage: ROLE_ROUTES.strategist.rationale,
+      drawerOpen: false,
+      explorerPos: { x: BUILDINGS.AGORA.x, y: BUILDINGS.AGORA.y },
+      camera: { x: 0, y: 0, zoom: 1 },
+      routeMessage:
+        "Click any temple in the Polis (or choose your role) to fly the camera there and open its interactive chamber.",
       redQueenChoice: "commons",
       equippedFriction: ["socratic", "cutoff"],
       citadelTrap: "noise",
@@ -238,11 +259,14 @@
         status: state.status,
         mode: state.mode,
         subview: state.subview,
+        sky: state.sky,
         experimentCount: state.experimentCount,
         activeRole: state.activeRole,
         activeChamber: state.activeChamber,
         highlightedChamber: state.highlightedChamber,
+        drawerOpen: state.drawerOpen,
         explorerPos: { x: state.explorerPos.x, y: state.explorerPos.y },
+        camera: { x: state.camera.x, y: state.camera.y, zoom: state.camera.zoom },
         buildingInfo: bld,
         routeMessage: state.routeMessage,
         redQueen: {
@@ -291,18 +315,36 @@
       return getState();
     }
 
+    function toggleSky() {
+      state.sky = state.sky === "helios" ? "nyx" : "helios";
+      return getState();
+    }
+
+    function resetCamera() {
+      state.activeRole = null;
+      state.drawerOpen = false;
+      state.explorerPos = { x: BUILDINGS.AGORA.x, y: BUILDINGS.AGORA.y };
+      state.camera = { x: 0, y: 0, zoom: 1 };
+      state.routeMessage =
+        "Overview of the Full Polis. Click any temple, harbor stall, or role pill to zoom in.";
+      return getState();
+    }
+
     function visitBuilding(buildingId) {
       if (!buildingId || !Object.prototype.hasOwnProperty.call(BUILDINGS, buildingId)) {
         return getState();
       }
-      var target = BUILDINGS[buildingId];
-      state.explorerPos = { x: target.x, y: target.y };
-      if (buildingId !== "AGORA") {
-        state.activeChamber = buildingId;
-        state.highlightedChamber = buildingId;
+      if (buildingId === "AGORA") {
+        return resetCamera();
       }
+      var target = BUILDINGS[buildingId];
+      state.activeChamber = buildingId;
+      state.highlightedChamber = buildingId;
+      state.drawerOpen = true;
+      state.explorerPos = { x: target.x, y: target.y };
+      state.camera = { x: target.camX, y: target.camY, zoom: target.zoom };
       state.routeMessage =
-        "Explorer arrived at " + target.title + " (" + target.coords + "). Interactive workbench active.";
+        "Entered " + target.title + " (" + target.coords + "). Workbench active.";
       return getState();
     }
 
@@ -312,12 +354,7 @@
       }
       var route = ROLE_ROUTES[roleKey];
       state.activeRole = roleKey;
-      state.activeChamber = route.chamber;
-      state.highlightedChamber = route.chamber;
-      var target = BUILDINGS[route.chamber];
-      if (target) {
-        state.explorerPos = { x: target.x, y: target.y };
-      }
+      visitBuilding(route.chamber);
       state.routeMessage = route.rationale;
       return getState();
     }
@@ -367,6 +404,8 @@
       getState: getState,
       setMode: setMode,
       setSubview: setSubview,
+      toggleSky: toggleSky,
+      resetCamera: resetCamera,
       visitBuilding: visitBuilding,
       selectRole: selectRole,
       chooseRedQueenOption: chooseRedQueenOption,
@@ -390,27 +429,48 @@
     var chamberCards = doc.querySelectorAll("[data-chamber-id]");
     var viewBlocks = doc.querySelectorAll("[data-view]");
     var subviewBlocks = doc.querySelectorAll("[data-subview]");
+    var resetCamButtons = doc.querySelectorAll("[data-reset-camera]");
+    var skyToggleBtn = doc.getElementById("sky-toggle-btn");
 
+    var worldCameraGroup = doc.getElementById("world-camera");
     var explorerGroup = doc.getElementById("town-explorer");
+    var inspectorDrawer = doc.getElementById("temple-inspector-drawer");
     var townCoordsEl = doc.getElementById("town-hud-coords");
     var townTitleEl = doc.getElementById("town-hud-building");
     var routeStatusEl = doc.getElementById("router-telemetry-readout");
-    var routeTargetBadgeEl = doc.getElementById("router-target-badge");
     var modeTelemetryEl = doc.getElementById("telemetry-mode-readout");
+    var mapStageEl = doc.getElementById("polis-viewport");
 
-    // Interactive simulator controls inside the buildings
     var rqButtons = doc.querySelectorAll("[data-rq-choice]");
     var frictionButtons = doc.querySelectorAll("[data-friction-card]");
     var citadelButtons = doc.querySelectorAll("[data-citadel-trap]");
     var forgeButtons = doc.querySelectorAll("[data-forge-lens]");
 
+    var parallaxOffset = { x: 0, y: 0 };
+
+    function updateCameraTransform() {
+      if (!worldCameraGroup) return;
+      var st = ctrl.getState();
+      var tx = st.camera.x + parallaxOffset.x;
+      var ty = st.camera.y + parallaxOffset.y;
+      var z = st.camera.zoom;
+      worldCameraGroup.style.transform =
+        "translate(" + tx + "px, " + ty + "px) scale(" + z + ")";
+    }
+
     function render() {
       var current = ctrl.getState();
       doc.body.setAttribute("data-lab-mode", current.mode);
+      doc.body.setAttribute("data-sky", current.sky);
 
       if (modeTelemetryEl) {
         modeTelemetryEl.textContent =
-          current.mode === "lab" ? "MODE // PLAYABLE LAB" : "MODE // MANIFESTO & LORE";
+          current.mode === "lab" ? "MODE // PLAYABLE POLIS" : "MODE // MANIFESTO & LORE";
+      }
+
+      if (skyToggleBtn) {
+        skyToggleBtn.textContent =
+          current.sky === "helios" ? "☀ HELIOS DAY" : "☾ NYX NIGHT";
       }
 
       for (var v = 0; v < viewBlocks.length; v++) {
@@ -444,11 +504,10 @@
         rBtn.classList.toggle("is-active", rActive);
       }
 
-      // Update SVG Town buildings, pathways, and Explorer Avatar position
       for (var b = 0; b < buildingNodes.length; b++) {
         var bNode = buildingNodes[b];
         var bId = bNode.getAttribute("data-building-id");
-        var bActive = bId === current.activeChamber;
+        var bActive = current.drawerOpen && bId === current.activeChamber;
         bNode.setAttribute("data-active", bActive ? "true" : "false");
       }
 
@@ -457,7 +516,7 @@
         var pTarget = pNode.getAttribute("data-path-to");
         pNode.setAttribute(
           "data-active",
-          pTarget === current.activeChamber ? "true" : "false"
+          current.drawerOpen && pTarget === current.activeChamber ? "true" : "false"
         );
       }
 
@@ -468,22 +527,31 @@
         );
       }
 
+      updateCameraTransform();
+
+      if (inspectorDrawer) {
+        inspectorDrawer.setAttribute(
+          "data-open",
+          current.drawerOpen ? "true" : "false"
+        );
+      }
+
       if (townCoordsEl && current.buildingInfo) {
-        townCoordsEl.textContent = current.buildingInfo.coords;
+        townCoordsEl.textContent = current.drawerOpen
+          ? current.buildingInfo.coords
+          : BUILDINGS.AGORA.coords;
       }
       if (townTitleEl && current.buildingInfo) {
         townTitleEl.textContent =
-          "INSIDE // " + current.buildingInfo.title.toUpperCase();
+          "TEMPLE INTERIOR // " + current.buildingInfo.title.toUpperCase();
       }
 
-      // Show active building's interior chamber workbench
       for (var cp = 0; cp < chamberPanels.length; cp++) {
         var panel = chamberPanels[cp];
         var panelId = panel.getAttribute("data-chamber-panel");
         panel.hidden = panelId !== current.activeChamber;
       }
 
-      // Update classic Bento Cards highlight
       for (var k = 0; k < chamberCards.length; k++) {
         var card = chamberCards[k];
         var id = card.getAttribute("data-chamber-id");
@@ -493,10 +561,6 @@
 
       if (routeStatusEl) {
         routeStatusEl.textContent = current.routeMessage;
-      }
-      if (routeTargetBadgeEl && current.buildingInfo) {
-        routeTargetBadgeEl.textContent =
-          "LOCATION -> " + current.buildingInfo.title;
       }
 
       // Render EXP-01 Red Queen Simulator state
@@ -585,6 +649,20 @@
       });
     }
 
+    if (skyToggleBtn) {
+      skyToggleBtn.addEventListener("click", function () {
+        ctrl.toggleSky();
+        render();
+      });
+    }
+
+    for (var rc = 0; rc < resetCamButtons.length; rc++) {
+      resetCamButtons[rc].addEventListener("click", function () {
+        ctrl.resetCamera();
+        render();
+      });
+    }
+
     for (var j = 0; j < roleButtons.length; j++) {
       roleButtons[j].addEventListener("click", function (ev) {
         ctrl.selectRole(ev.currentTarget.getAttribute("data-role-select"));
@@ -594,6 +672,7 @@
 
     for (var b = 0; b < buildingNodes.length; b++) {
       buildingNodes[b].addEventListener("click", function (ev) {
+        ev.stopPropagation();
         ctrl.visitBuilding(ev.currentTarget.getAttribute("data-building-id"));
         render();
       });
@@ -603,6 +682,24 @@
           ctrl.visitBuilding(ev.currentTarget.getAttribute("data-building-id"));
           render();
         }
+      });
+    }
+
+    // Subtle Late-Checkout-style mouse parallax over the Polis viewport
+    if (mapStageEl && typeof mapStageEl.addEventListener === "function") {
+      mapStageEl.addEventListener("mousemove", function (ev) {
+        var rect = mapStageEl.getBoundingClientRect();
+        if (!rect || !rect.width || !rect.height) return;
+        var nx = (ev.clientX - rect.left) / rect.width - 0.5;
+        var ny = (ev.clientY - rect.top) / rect.height - 0.5;
+        parallaxOffset.x = Math.round(-nx * 28);
+        parallaxOffset.y = Math.round(-ny * 18);
+        updateCameraTransform();
+      });
+      mapStageEl.addEventListener("mouseleave", function () {
+        parallaxOffset.x = 0;
+        parallaxOffset.y = 0;
+        updateCameraTransform();
       });
     }
 
