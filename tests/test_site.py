@@ -195,19 +195,24 @@ def test_graphic_town_and_lab_structure_present() -> None:
     html = INDEX_HTML.read_text(encoding="utf-8")
     assert LAB_JS.exists(), "Expected ai-era/lab.js to exist"
 
-    # Top Telemetry Bar & Mode Toggle
-    assert "ONLINE // V1.0" in html
-    assert "Playable Lab Mode" in html
-    assert "Manifesto / Lore Mode" in html
+    # Top-left title lockup ('AI Era') present; old tracking bar removed
+    assert 'class="brand-title">AI Era<' in html
+    assert "ONLINE // V1.0" not in html
+    assert "waterfall-grad" not in html
+
+    # Consolidated top-right menu & Mode Toggle
+    assert "Manifesto" in html
     assert 'data-view="lab"' in html
     assert 'data-view="lore"' in html
 
-    # Interactive Graphic Town Map SVG & Buildings
+    # Interactive Graphic Town Map SVG & Buildings (including HARBOR -> About Me)
     assert 'id="citadel-town-map"' in html
     assert 'id="town-explorer"' in html
     assert 'id="world-camera"' in html
-    for building_id in ("EXP-01", "EXP-02", "EXP-03", "EXP-04"):
+    for building_id in ("EXP-01", "EXP-02", "EXP-03", "EXP-04", "HARBOR"):
         assert f'data-building-id="{building_id}"' in html, f"Missing town building {building_id}"
+    assert 'data-chamber-panel="HARBOR"' in html
+    assert "About Me" in html
 
     # Role Router buttons
     for role in ("Builder", "Strategist", "Philosopher", "Overwhelmed Leader"):
@@ -237,8 +242,8 @@ if (ctrl.getState().mode !== 'lab') {
   throw new Error('Expected initial mode to be lab');
 }
 
-// 2. Visiting each building moves the explorer coordinates, zooms camera, and opens that building's chamber
-for (const expId of ['EXP-01', 'EXP-02', 'EXP-03', 'EXP-04']) {
+// 2. Visiting each building (including HARBOR -> About Me) moves the explorer, zooms camera, and opens that chamber
+for (const expId of ['EXP-01', 'EXP-02', 'EXP-03', 'EXP-04', 'HARBOR']) {
   const st = ctrl.visitBuilding(expId);
   if (st.activeChamber !== expId) {
     throw new Error(`Expected activeChamber=${expId}, got ${st.activeChamber}`);

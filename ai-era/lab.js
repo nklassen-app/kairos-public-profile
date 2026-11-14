@@ -1,21 +1,19 @@
 "use strict";
 
 /**
- * AI Era Digital Concept Lab — Dynamic Ancient Greek Polis & Interactive Workbench
- * Inspired by Late Checkout's interactive world canvas, set in an illustrated
- * isometric Aegean Acropolis & Polis.
+ * AI Era Digital Concept Lab — Asymmetric Ancient Greek Polis & Harbor Controller
+ * Self-contained, zero-dependency client-side controller.
  * Runs under CSP: script-src 'self'; connect-src 'none'.
  */
 (function () {
   var BUILDINGS = {
     AGORA: {
       id: "AGORA",
-      title: "The Central Agora of Athens",
+      title: "The Old Town Agora & Stoa",
       prototype: "AGORA // 00 · The Sacred Way",
       pillar: "Central Forum & Wayfinder",
-      coords: "ACROPOLIS // 00°C · CENTRAL AGORA",
-      x: 800,
-      y: 470,
+      x: 780,
+      y: 410,
       camX: 0,
       camY: 0,
       zoom: 1,
@@ -26,12 +24,11 @@
       title: "The Tholos of Gateways",
       prototype: "EXP-01 // The Red Queen's Simulator",
       pillar: "The Next Gateway · Macro-History",
-      coords: "ACROPOLIS // 315°NW · ASTROLABE THOLOS",
-      x: 370,
-      y: 250,
-      camX: 290,
-      camY: 145,
-      zoom: 1.55,
+      x: 545,
+      y: 235,
+      camX: 195,
+      camY: 135,
+      zoom: 1.52,
       accent: "amber"
     },
     "EXP-02": {
@@ -39,12 +36,11 @@
       title: "The Forge of Hephaestus",
       prototype: "EXP-02 // The Alignment Crucible",
       pillar: "AI Ethics as a Design Language",
-      coords: "ACROPOLIS // 045°NE · CRUCIBLE STOA",
-      x: 1230,
-      y: 245,
-      camX: -270,
-      camY: 145,
-      zoom: 1.55,
+      x: 985,
+      y: 265,
+      camX: -165,
+      camY: 115,
+      zoom: 1.52,
       accent: "copper"
     },
     "EXP-03": {
@@ -52,26 +48,36 @@
       title: "The Stoic Peristyle Garden",
       prototype: "EXP-03 // The Citadel Diagnostic",
       pillar: "Garden in the Citadel · Inner Resilience",
-      coords: "ACROPOLIS // 225°SW · SACRED GROVE",
-      x: 355,
-      y: 675,
-      camX: 290,
-      camY: -135,
-      zoom: 1.55,
+      x: 495,
+      y: 485,
+      camX: 225,
+      camY: -45,
+      zoom: 1.52,
       accent: "sage"
     },
     "EXP-04": {
       id: "EXP-04",
-      title: "The Archimedes Watermill & Tower",
+      title: "The Tower of the Winds",
       prototype: "EXP-04 // The Architect's Forge",
       pillar: "Workflow & Energy Architecture",
-      coords: "ACROPOLIS // 135°SE · AUTOMATON BASTION",
-      x: 1225,
-      y: 670,
-      camX: -270,
-      camY: -135,
-      zoom: 1.55,
+      x: 1055,
+      y: 470,
+      camX: -205,
+      camY: -35,
+      zoom: 1.52,
       accent: "cobalt"
+    },
+    HARBOR: {
+      id: "HARBOR",
+      title: "The Maritime Harbor Stoa",
+      prototype: "HARBOR // About Me & The Voyages",
+      pillar: "From Classics to the AI Era",
+      x: 775,
+      y: 665,
+      camX: 15,
+      camY: -165,
+      zoom: 1.48,
+      accent: "amber"
     }
   };
 
@@ -81,28 +87,28 @@
       label: "Builder",
       chamberTitle: "EXP-02 // The Forge of Hephaestus",
       rationale:
-        "Camera & Explorer dispatched to the Northeast Forge: equip Productive Friction cards to protect human agency."
+        "Routed to the Artisan Forge (EXP-02): equip Productive Friction cards to protect human agency."
     },
     strategist: {
       chamber: "EXP-01",
       label: "Strategist",
       chamberTitle: "EXP-01 // The Tholos of Gateways",
       rationale:
-        "Camera & Explorer dispatched to the Northwest Astrolabe Tholos: stress-test civilization metrics across AI gateways."
+        "Routed to the Acropolis Tholos (EXP-01): stress-test civilization metrics across AI gateways."
     },
     philosopher: {
       chamber: "EXP-03",
       label: "Philosopher",
       chamberTitle: "EXP-03 // The Stoic Peristyle Garden",
       rationale:
-        "Camera & Explorer dispatched to the Southwest Peristyle Garden: calibrate cognitive friction against Marcus Aurelius."
+        "Routed to the Peristyle Garden (EXP-03): calibrate cognitive friction against Marcus Aurelius."
     },
     leader: {
       chamber: "EXP-04",
       label: "Overwhelmed Leader",
-      chamberTitle: "EXP-04 // The Archimedes Tower",
+      chamberTitle: "EXP-04 // The Tower of the Winds",
       rationale:
-        "Camera & Explorer dispatched to the Southeast Automaton Tower: transmute draining maintenance into creative craft."
+        "Routed to the Tower of the Winds (EXP-04): transmute draining maintenance into creative craft."
     }
   };
 
@@ -219,11 +225,10 @@
 
   function createLabController() {
     var state = {
-      status: "ONLINE // V1.0",
       mode: "lab",
       subview: "town",
-      sky: "helios", // 'helios' (Mediterranean Sunlit Day) or 'nyx' (Starlit Night)
-      experimentCount: 4,
+      sky: "helios",
+      experimentCount: 5,
       activeRole: null,
       activeChamber: "EXP-01",
       highlightedChamber: "EXP-01",
@@ -231,7 +236,7 @@
       explorerPos: { x: BUILDINGS.AGORA.x, y: BUILDINGS.AGORA.y },
       camera: { x: 0, y: 0, zoom: 1 },
       routeMessage:
-        "Click any temple in the Polis (or choose your role) to fly the camera there and open its interactive chamber.",
+        "Click any building in the Polis, the Harbor Stoa, or a role below to explore.",
       redQueenChoice: "commons",
       equippedFriction: ["socratic", "cutoff"],
       citadelTrap: "noise",
@@ -256,7 +261,6 @@
       var bld = BUILDINGS[state.activeChamber] || BUILDINGS["EXP-01"];
 
       return {
-        status: state.status,
         mode: state.mode,
         subview: state.subview,
         sky: state.sky,
@@ -311,6 +315,7 @@
       if (nextSubview !== "town" && nextSubview !== "cards") {
         return getState();
       }
+      state.mode = "lab";
       state.subview = nextSubview;
       return getState();
     }
@@ -321,12 +326,14 @@
     }
 
     function resetCamera() {
+      state.mode = "lab";
+      state.subview = "town";
       state.activeRole = null;
       state.drawerOpen = false;
       state.explorerPos = { x: BUILDINGS.AGORA.x, y: BUILDINGS.AGORA.y };
       state.camera = { x: 0, y: 0, zoom: 1 };
       state.routeMessage =
-        "Overview of the Full Polis. Click any temple, harbor stall, or role pill to zoom in.";
+        "Overview of the Polis. Click any temple, the Harbor Stoa, or a role pill to zoom in.";
       return getState();
     }
 
@@ -338,13 +345,15 @@
         return resetCamera();
       }
       var target = BUILDINGS[buildingId];
+      state.mode = "lab";
+      state.subview = "town";
       state.activeChamber = buildingId;
       state.highlightedChamber = buildingId;
       state.drawerOpen = true;
       state.explorerPos = { x: target.x, y: target.y };
       state.camera = { x: target.camX, y: target.camY, zoom: target.zoom };
       state.routeMessage =
-        "Entered " + target.title + " (" + target.coords + "). Workbench active.";
+        "Visiting " + target.title + " — " + target.pillar + ".";
       return getState();
     }
 
@@ -424,6 +433,7 @@
     var subviewButtons = doc.querySelectorAll("[data-subview-select]");
     var roleButtons = doc.querySelectorAll("[data-role-select]");
     var buildingNodes = doc.querySelectorAll("[data-building-id]");
+    var visitButtons = doc.querySelectorAll("[data-visit-building]");
     var pathNodes = doc.querySelectorAll("[data-path-to]");
     var chamberPanels = doc.querySelectorAll("[data-chamber-panel]");
     var chamberCards = doc.querySelectorAll("[data-chamber-id]");
@@ -435,10 +445,8 @@
     var worldCameraGroup = doc.getElementById("world-camera");
     var explorerGroup = doc.getElementById("town-explorer");
     var inspectorDrawer = doc.getElementById("temple-inspector-drawer");
-    var townCoordsEl = doc.getElementById("town-hud-coords");
     var townTitleEl = doc.getElementById("town-hud-building");
     var routeStatusEl = doc.getElementById("router-telemetry-readout");
-    var modeTelemetryEl = doc.getElementById("telemetry-mode-readout");
     var mapStageEl = doc.getElementById("polis-viewport");
 
     var rqButtons = doc.querySelectorAll("[data-rq-choice]");
@@ -463,14 +471,9 @@
       doc.body.setAttribute("data-lab-mode", current.mode);
       doc.body.setAttribute("data-sky", current.sky);
 
-      if (modeTelemetryEl) {
-        modeTelemetryEl.textContent =
-          current.mode === "lab" ? "MODE // PLAYABLE POLIS" : "MODE // MANIFESTO & LORE";
-      }
-
       if (skyToggleBtn) {
         skyToggleBtn.textContent =
-          current.sky === "helios" ? "☀ HELIOS DAY" : "☾ NYX NIGHT";
+          current.sky === "helios" ? "☀ Day" : "☾ Night";
       }
 
       for (var v = 0; v < viewBlocks.length; v++) {
@@ -492,9 +495,23 @@
 
       for (var sb = 0; sb < subviewButtons.length; sb++) {
         var sBtn = subviewButtons[sb];
-        var isSub = sBtn.getAttribute("data-subview-select") === current.subview;
+        var isSub =
+          current.mode === "lab" &&
+          sBtn.getAttribute("data-subview-select") === current.subview &&
+          !(current.drawerOpen && current.activeChamber === "HARBOR");
         sBtn.setAttribute("aria-pressed", isSub ? "true" : "false");
         sBtn.classList.toggle("is-active", isSub);
+      }
+
+      for (var vb = 0; vb < visitButtons.length; vb++) {
+        var vBtn = visitButtons[vb];
+        var vTarget = vBtn.getAttribute("data-visit-building");
+        var isVis =
+          current.mode === "lab" &&
+          current.drawerOpen &&
+          current.activeChamber === vTarget;
+        vBtn.setAttribute("aria-pressed", isVis ? "true" : "false");
+        vBtn.classList.toggle("is-active", isVis);
       }
 
       for (var j = 0; j < roleButtons.length; j++) {
@@ -536,14 +553,8 @@
         );
       }
 
-      if (townCoordsEl && current.buildingInfo) {
-        townCoordsEl.textContent = current.drawerOpen
-          ? current.buildingInfo.coords
-          : BUILDINGS.AGORA.coords;
-      }
       if (townTitleEl && current.buildingInfo) {
-        townTitleEl.textContent =
-          "TEMPLE INTERIOR // " + current.buildingInfo.title.toUpperCase();
+        townTitleEl.textContent = current.buildingInfo.title.toUpperCase();
       }
 
       for (var cp = 0; cp < chamberPanels.length; cp++) {
@@ -644,7 +655,19 @@
 
     for (var sb = 0; sb < subviewButtons.length; sb++) {
       subviewButtons[sb].addEventListener("click", function (ev) {
-        ctrl.setSubview(ev.currentTarget.getAttribute("data-subview-select"));
+        var targetSub = ev.currentTarget.getAttribute("data-subview-select");
+        if (targetSub === "town") {
+          ctrl.resetCamera();
+        } else {
+          ctrl.setSubview(targetSub);
+        }
+        render();
+      });
+    }
+
+    for (var vb = 0; vb < visitButtons.length; vb++) {
+      visitButtons[vb].addEventListener("click", function (ev) {
+        ctrl.visitBuilding(ev.currentTarget.getAttribute("data-visit-building"));
         render();
       });
     }
@@ -685,15 +708,14 @@
       });
     }
 
-    // Subtle Late-Checkout-style mouse parallax over the Polis viewport
     if (mapStageEl && typeof mapStageEl.addEventListener === "function") {
       mapStageEl.addEventListener("mousemove", function (ev) {
         var rect = mapStageEl.getBoundingClientRect();
         if (!rect || !rect.width || !rect.height) return;
         var nx = (ev.clientX - rect.left) / rect.width - 0.5;
         var ny = (ev.clientY - rect.top) / rect.height - 0.5;
-        parallaxOffset.x = Math.round(-nx * 28);
-        parallaxOffset.y = Math.round(-ny * 18);
+        parallaxOffset.x = Math.round(-nx * 24);
+        parallaxOffset.y = Math.round(-ny * 15);
         updateCameraTransform();
       });
       mapStageEl.addEventListener("mouseleave", function () {
@@ -707,7 +729,6 @@
       chamberCards[k].addEventListener("click", function (ev) {
         var cid = ev.currentTarget.getAttribute("data-chamber-id");
         ctrl.visitBuilding(cid);
-        ctrl.setSubview("town");
         render();
       });
     }
