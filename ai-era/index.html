@@ -52,6 +52,7 @@
 
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
+  [hidden] { display: none !important; }
 
   body {
     margin: 0;
@@ -143,11 +144,15 @@
     font-weight: 600;
   }
 
-  /* ── Main Workbench Container ── */
+  /* ── Main Container (adapts to Lab vs Lore mode) ── */
   main {
     max-width: 72rem;
     margin: 0 auto;
     padding: 3.5rem 1.25rem 5rem;
+  }
+
+  body[data-lab-mode="lore"] main {
+    max-width: 42rem;
   }
 
   /* ── 2. Hero Section ("The Central Workbench") ── */
@@ -181,6 +186,10 @@
     color: var(--muted);
     max-width: 44rem;
     margin: 0 0 2rem;
+  }
+
+  body[data-lab-mode="lore"] .hero-thesis {
+    margin-bottom: 0;
   }
 
   .router-panel {
@@ -267,7 +276,7 @@
     color: var(--muted);
   }
 
-  /* ── 3. The 4 Core Lab Chambers (2x2 Bento Grid) ── */
+  /* ── 3A. Playable Lab Mode: 2x2 Bento Grid ── */
   .section-head {
     display: flex;
     flex-wrap: wrap;
@@ -329,7 +338,7 @@
   }
 
   .chamber-card[data-dimmed="true"] {
-    opacity: 0.52;
+    opacity: 0.45;
   }
 
   .chamber-meta {
@@ -354,37 +363,77 @@
 
   .chamber-card h2 {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     line-height: 1.25;
     font-weight: 600;
-    margin: 0 0 0.65rem;
+    margin: 0 0 0.5rem;
   }
 
-  .chamber-lore {
-    margin: 0 0 1.25rem;
-    color: var(--ink);
+  .chamber-brief {
+    margin: 0 0 1.15rem;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    color: var(--muted);
   }
 
   .chamber-workbench-preview {
     background: var(--surface-elevated);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
-    padding: 0.9rem 1rem;
+    padding: 1rem;
     font-family: var(--font-mono);
-    font-size: 0.76rem;
-    color: var(--muted);
+    font-size: 0.78rem;
+    color: var(--ink);
   }
 
   .preview-label {
     display: block;
     color: var(--chamber-accent);
     font-weight: 600;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.4rem;
   }
 
-  /* Mode visibility behavior */
-  body[data-lab-mode="lore"] .chamber-workbench-preview {
-    display: none;
+  .preview-Spec {
+    display: block;
+    color: var(--muted);
+    font-size: 0.74rem;
+    margin-top: 0.45rem;
+  }
+
+  /* ── 3B. Manifesto / Lore Mode: Single-Column Essay View ── */
+  .manifesto-article {
+    font-size: 1.14rem;
+    line-height: 1.72;
+  }
+
+  .manifesto-chapter {
+    border-top: 1px solid var(--rule);
+    padding: 2.25rem 0 0.75rem;
+  }
+
+  .manifesto-chapter:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .chapter-numeral {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0 0 0.4rem;
+  }
+
+  .manifesto-chapter h2 {
+    font-size: 1.55rem;
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0 0 0.85rem;
+  }
+
+  .manifesto-chapter p {
+    margin: 0 0 1.35rem;
   }
 </style>
 </head>
@@ -404,10 +453,10 @@
     </div>
 
     <div class="mode-switch" role="group" aria-label="Surface display mode">
-      <button type="button" class="mode-btn is-active" data-mode-Select="lab" aria-pressed="true">
+      <button type="button" class="mode-btn is-active" data-mode-select="lab" aria-pressed="true">
         Playable Lab Mode
       </button>
-      <button type="button" class="mode-btn" data-mode-Select="lore" aria-pressed="false">
+      <button type="button" class="mode-btn" data-mode-select="lore" aria-pressed="false">
         Manifesto / Lore Mode
       </button>
     </div>
@@ -415,124 +464,180 @@
 </header>
 
 <main>
-  <section class="hero-workbench" aria-labelledby="hero-heading">
-    <p class="eyebrow">AI Era // Digital Concept Lab</p>
-    <h1 id="hero-heading">Don’t just read the AI Era. Stress-test it.</h1>
-    <p class="hero-thesis">
-      Thinking clearly about the AI era: how to build AI that serves human goods, and what this technological gateway means for civilization.
-    </p>
-
-    <div class="router-panel" aria-label="Role and state experiment router">
-      <div class="router-header">
-        <p class="router-prompt">Calibrate Workbench — Select your current role or state:</p>
-        <span id="router-target-badge" class="router-badge">TARGET -&gt; ALL CHAMBERS (04)</span>
-      </div>
-
-      <div class="role-grid">
-        <button type="button" class="role-btn" data-role-select="builder" aria-pressed="false">
-          <span class="role-btn-code">ROLE // 01</span>
-          <span class="role-btn-title">Builder</span>
-        </button>
-        <button type="button" class="role-btn" data-role-select="strategist" aria-pressed="false">
-          <span class="role-btn-code">ROLE // 02</span>
-          <span class="role-btn-title">Strategist</span>
-        </button>
-        <button type="button" class="role-btn" data-role-select="philosopher" aria-pressed="false">
-          <span class="role-btn-code">ROLE // 03</span>
-          <span class="role-btn-title">Philosopher</span>
-        </button>
-        <button type="button" class="role-btn" data-role-select="leader" aria-pressed="false">
-          <span class="role-btn-code">ROLE // 04</span>
-          <span class="role-btn-title">Overwhelmed Leader</span>
-        </button>
-      </div>
-
-      <p id="router-telemetry-readout" class="router-readout" aria-live="polite">
-        Select your current role or state above to calibrate the workbench and highlight your starting chamber.
+  <!-- ═══════════════════════════════════════════════════════════════════
+       VIEW A: PLAYABLE LAB MODE (Interactive Workbench & 2x2 Bento Grid)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div data-view="lab">
+    <section class="hero-workbench" aria-labelledby="hero-lab-heading">
+      <p class="eyebrow">AI Era // Digital Concept Lab</p>
+      <h1 id="hero-lab-heading">Don’t just read the AI Era. Stress-test it.</h1>
+      <p class="hero-thesis">
+        An experimental workbench for builders, strategists, and thinkers: interact with ethical design dilemmas, macro-historical gateways, and resilient human workflows.
       </p>
-    </div>
-  </section>
 
-  <section aria-labelledby="chambers-heading">
-    <div class="section-head">
-      <h2 id="chambers-heading" class="section-title">The 4 Core Lab Chambers</h2>
-      <span class="section-meta">2×2 INTERACTIVE BENTO GRID // STAGE 1 SHELL</span>
-    </div>
+      <div class="router-panel" aria-label="Role and state experiment router">
+        <div class="router-header">
+          <p class="router-prompt">Calibrate Workbench — Select your current role or state:</p>
+          <span id="router-target-badge" class="router-badge">TARGET -&gt; ALL CHAMBERS (04)</span>
+        </div>
 
-    <div class="bento-grid">
-      <!-- Chamber 01 -->
-      <article class="chamber-card" data-chamber-id="EXP-01" data-accent="amber">
-        <div>
-          <div class="chamber-meta">
-            <span class="chamber-id">EXP-01 // The Red Queen’s Simulator</span>
-            <span class="chamber-pillar">The Next Gateway · Macro-History</span>
+        <div class="role-grid">
+          <button type="button" class="role-btn" data-role-select="builder" aria-pressed="false">
+            <span class="role-btn-code">ROLE // 01</span>
+            <span class="role-btn-title">Builder</span>
+          </button>
+          <button type="button" class="role-btn" data-role-select="strategist" aria-pressed="false">
+            <span class="role-btn-code">ROLE // 02</span>
+            <span class="role-btn-title">Strategist</span>
+          </button>
+          <button type="button" class="role-btn" data-role-select="philosopher" aria-pressed="false">
+            <span class="role-btn-code">ROLE // 03</span>
+            <span class="role-btn-title">Philosopher</span>
+          </button>
+          <button type="button" class="role-btn" data-role-select="leader" aria-pressed="false">
+            <span class="role-btn-code">ROLE // 04</span>
+            <span class="role-btn-title">Overwhelmed Leader</span>
+          </button>
+        </div>
+
+        <p id="router-telemetry-readout" class="router-readout" aria-live="polite">
+          Select your current role or state above to calibrate the workbench and highlight your starting chamber.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="chambers-heading">
+      <div class="section-head">
+        <h2 id="chambers-heading" class="section-title">The 4 Core Lab Chambers</h2>
+        <span class="section-meta">2×2 INTERACTIVE BENTO GRID // STAGE 1 SHELL</span>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Chamber 01 -->
+        <article class="chamber-card" data-chamber-id="EXP-01" data-accent="amber">
+          <div>
+            <div class="chamber-meta">
+              <span class="chamber-id">EXP-01 // The Red Queen’s Simulator</span>
+              <span class="chamber-pillar">The Next Gateway · Macro-History</span>
+            </div>
+            <h2>The Next Gateway</h2>
+            <p class="chamber-brief">
+              Navigate historical and 2027 AI inflection points, balancing acceleration against systemic collapse.
+            </p>
           </div>
-          <h2>AI’s potential to transform the world</h2>
-          <p class="chamber-lore">
-            AI as a one-way gateway, on the scale of the agricultural and mechanical revolutions. In deterministic natural systems such as proteins, materials, and energy, it can break the Red Queen’s Race of stagnating innovation. In self-reflexive social systems such as education and society, the same power behaves very differently, and that difference matters.
-          </p>
-        </div>
-        <div class="chamber-workbench-preview">
-          <span class="preview-label">CHAMBER 01 TELEMETRY // READY FOR STAGE 2</span>
-          Macro-historical decision deck: balance Velocity, Social Cohesion, and Epistemic Trust across technological inflection points.
-        </div>
-      </article>
-
-      <!-- Chamber 02 -->
-      <article class="chamber-card" data-chamber-id="EXP-02" data-accent="copper">
-        <div>
-          <div class="chamber-meta">
-            <span class="chamber-id">EXP-02 // The Alignment Crucible</span>
-            <span class="chamber-pillar">AI Ethics as a Design Language</span>
+          <div class="chamber-workbench-preview">
+            <span class="preview-label">SIMULATOR DECK // STAGE 2 MODULE</span>
+            Dilemma: Year 2027 — Autonomous R&amp;D loops cut model training time by 80%, while grid instability spikes.
+            <span class="preview-Spec">METRICS: Velocity · Social Cohesion · Epistemic Trust</span>
           </div>
-          <h2>AI ethics</h2>
-          <p class="chamber-lore">
-            Ethics as a design language, not a rulebook. No universal principle settles every conflict, so the real work happens in product design: building internal goods like agency, participation, mastery, and growth into the AI applications people actually use. Practical frameworks for teams shaping committed products, drawn from the classroom and the workshop.
-          </p>
-        </div>
-        <div class="chamber-workbench-preview">
-          <span class="preview-label">CHAMBER 02 TELEMETRY // READY FOR STAGE 2</span>
-          Productive Friction dilemma engine: apply Socratic Resistance, Provenance, and Cognitive Speedbumps to prevent skill atrophy.
-        </div>
-      </article>
+        </article>
 
-      <!-- Chamber 03 -->
-      <article class="chamber-card" data-chamber-id="EXP-03" data-accent="sage">
-        <div>
-          <div class="chamber-meta">
-            <span class="chamber-id">EXP-03 // The Citadel Diagnostic</span>
-            <span class="chamber-pillar">Garden in the Citadel · Inner Resilience</span>
+        <!-- Chamber 02 -->
+        <article class="chamber-card" data-chamber-id="EXP-02" data-accent="copper">
+          <div>
+            <div class="chamber-meta">
+              <span class="chamber-id">EXP-02 // The Alignment Crucible</span>
+              <span class="chamber-pillar">AI Ethics as a Design Language</span>
+            </div>
+            <h2>AI Ethics as a Design Language</h2>
+            <p class="chamber-brief">
+              Inspect product specs with hidden ethical fault lines and apply Productive Friction cards to protect human agency.
+            </p>
           </div>
-          <h2>Garden in the Citadel</h2>
-          <p class="chamber-lore">
-            A two-minute state check for builders and thinkers operating inside high-velocity technical shifts. Map present cognitive friction — external noise, outcome anxiety, or role exhaustion — against classical Stoic principles from Marcus Aurelius’s <em>Meditations</em>.
-          </p>
-        </div>
-        <div class="chamber-workbench-preview">
-          <span class="preview-label">CHAMBER 03 TELEMETRY // READY FOR STAGE 3</span>
-          3-state cognitive trap selector + card-flip Cognitive Reframe Protocol.
-        </div>
-      </article>
+          <div class="chamber-workbench-preview">
+            <span class="preview-label">DILEMMA ENGINE // STAGE 2 MODULE</span>
+            Spec: Empathetic AI companion for student tutoring. Select 2 of 4 Productive Friction patterns.
+            <span class="preview-Spec">GUARDS: Socratic Resistance · Speedbump · Provenance · Cutoff</span>
+          </div>
+        </article>
 
-      <!-- Chamber 04 -->
-      <article class="chamber-card" data-chamber-id="EXP-04" data-accent="cobalt">
-        <div>
-          <div class="chamber-meta">
-            <span class="chamber-id">EXP-04 // The Architect’s Forge</span>
-            <span class="chamber-pillar">AI-Native Workflow &amp; Energy Architecture</span>
+        <!-- Chamber 03 -->
+        <article class="chamber-card" data-chamber-id="EXP-03" data-accent="sage">
+          <div>
+            <div class="chamber-meta">
+              <span class="chamber-id">EXP-03 // The Citadel Diagnostic</span>
+              <span class="chamber-pillar">Garden in the Citadel · Stoic Coping</span>
+            </div>
+            <h2>Garden in the Citadel</h2>
+            <p class="chamber-brief">
+              Map present cognitive friction against Marcus Aurelius’s <em>Meditations</em> for a 60-second reframe protocol.
+            </p>
           </div>
-          <h2>The Architect’s Forge</h2>
-          <p class="chamber-lore">
-            Turning draining administrative maintenance into pioneering creative quests. Pair deliberate human judgment with structured agent workflows so 80% of routine drudgery is automated and the crucial 20% remains high-leverage craft.
-          </p>
-        </div>
-        <div class="chamber-workbench-preview">
-          <span class="preview-label">CHAMBER 04 TELEMETRY // READY FOR STAGE 3</span>
-          Energy Alchemist converter: reframe draining tasks through Pioneer, Dialectician, and Game Designer lenses.
-        </div>
-      </article>
-    </div>
-  </section>
+          <div class="chamber-workbench-preview">
+            <span class="preview-label">STATE DIAGNOSTIC // STAGE 3 MODULE</span>
+            Select trap: External Noise · Outcome Anxiety · Role Exhaustion.
+            <span class="preview-Spec">OUTPUT: Calibrated Meditations passage + 60s Reframe Protocol</span>
+          </div>
+        </article>
+
+        <!-- Chamber 04 -->
+        <article class="chamber-card" data-chamber-id="EXP-04" data-accent="cobalt">
+          <div>
+            <div class="chamber-meta">
+              <span class="chamber-id">EXP-04 // The Architect’s Forge</span>
+              <span class="chamber-pillar">Workflow &amp; Energy Architecture</span>
+            </div>
+            <h2>The Architect’s Forge</h2>
+            <p class="chamber-brief">
+              Convert draining maintenance chores into pioneering creative quests with an 80/20 agent workflow split.
+            </p>
+          </div>
+          <div class="chamber-workbench-preview">
+            <span class="preview-label">ENERGY ALCHEMIST // STAGE 3 MODULE</span>
+            Select draining task + Archetype Lens (Pioneer · Dialectician · Game Designer).
+            <span class="preview-Spec">OUTPUT: Quest Reframe + 80% Automation / 20% Craft Split</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       VIEW B: MANIFESTO / LORE MODE (Single-Column Editorial Reading View)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div data-view="lore" hidden>
+    <section class="hero-workbench" aria-labelledby="hero-lore-heading">
+      <p class="eyebrow">Manifesto &amp; Field Notes</p>
+      <h1 id="hero-lore-heading">AI Era</h1>
+      <p class="hero-thesis">
+        Thinking clearly about the AI era: how to build AI that serves human goods, and what this technological gateway means for civilization.
+      </p>
+    </section>
+
+    <article class="manifesto-article" aria-label="AI Era Manifesto">
+      <section class="manifesto-chapter">
+        <p class="chapter-numeral">I · Pillar 01 · The Next Gateway</p>
+        <h2>AI’s potential to transform the world</h2>
+        <p>
+          AI as a one-way gateway, on the scale of the agricultural and mechanical revolutions. In deterministic natural systems such as proteins, materials, and energy, it can break the Red Queen’s Race of stagnating innovation. In self-reflexive social systems such as education and society, the same power behaves very differently, and that difference matters.
+        </p>
+      </section>
+
+      <section class="manifesto-chapter">
+        <p class="chapter-numeral">II · Pillar 02 · Tactical Product Ethics</p>
+        <h2>AI ethics</h2>
+        <p>
+          Ethics as a design language, not a rulebook. No universal principle settles every conflict, so the real work happens in product design: building internal goods like agency, participation, mastery, and growth into the AI applications people actually use. Practical frameworks for teams shaping committed products, drawn from the classroom and the workshop.
+        </p>
+      </section>
+
+      <section class="manifesto-chapter">
+        <p class="chapter-numeral">III · Pillar 03 · Inner Resilience</p>
+        <h2>Garden in the Citadel</h2>
+        <p>
+          Operating inside a technological gateway tests attention and judgment before it tests tooling. Classical Stoic practice — separating what is up to us from external noise, outcome anxiety, and role exhaustion — offers a durable inner citadel for builders navigating rapid transformation.
+        </p>
+      </section>
+
+      <section class="manifesto-chapter">
+        <p class="chapter-numeral">IV · Pillar 04 · Energy Architecture</p>
+        <h2>The Architect’s Forge</h2>
+        <p>
+          The measure of AI-native work is not sheer volume of output, but whether automation reclaims human energy for pioneering thought. A well-architected workflow delegates repetitive maintenance while guarding the 20% where human taste, dialectic, and authorship live.
+        </p>
+      </section>
+    </article>
+  </div>
 </main>
 </body>
 </html>

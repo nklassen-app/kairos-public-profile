@@ -102,9 +102,10 @@
       return;
     }
     var ctrl = createLabController();
-    var modeButtons = doc.querySelectorAll("[data-mode-Select]");
+    var modeButtons = doc.querySelectorAll("[data-mode-select]");
     var roleButtons = doc.querySelectorAll("[data-role-select]");
     var chamberCards = doc.querySelectorAll("[data-chamber-id]");
+    var viewBlocks = doc.querySelectorAll("[data-view]");
     var routeStatusEl = doc.getElementById("router-telemetry-readout");
     var routeTargetBadgeEl = doc.getElementById("router-target-badge");
     var modeTelemetryEl = doc.getElementById("telemetry-mode-readout");
@@ -118,9 +119,15 @@
           current.mode === "lab" ? "MODE // PLAYABLE LAB" : "MODE // MANIFESTO & LORE";
       }
 
+      for (var v = 0; v < viewBlocks.length; v++) {
+        var block = viewBlocks[v];
+        var viewMode = block.getAttribute("data-view");
+        block.hidden = viewMode !== current.mode;
+      }
+
       for (var i = 0; i < modeButtons.length; i++) {
         var btn = modeButtons[i];
-        var targetMode = btn.getAttribute("data-mode-Select");
+        var targetMode = btn.getAttribute("data-mode-select");
         var isCurrent = targetMode === current.mode;
         btn.setAttribute("aria-pressed", isCurrent ? "true" : "false");
         btn.classList.toggle("is-active", isCurrent);
@@ -161,7 +168,7 @@
 
     for (var i = 0; i < modeButtons.length; i++) {
       modeButtons[i].addEventListener("click", function (ev) {
-        var targetMode = ev.currentTarget.getAttribute("data-mode-Select");
+        var targetMode = ev.currentTarget.getAttribute("data-mode-select");
         ctrl.setMode(targetMode);
         render();
       });

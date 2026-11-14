@@ -195,10 +195,12 @@ def test_stage1_shell_structure_and_chambers_present() -> None:
     html = INDEX_HTML.read_text(encoding="utf-8")
     assert LAB_JS.exists(), "Expected ai-era/lab.js to exist"
 
-    # Top Telemetry Bar
+    #Top Telemetry Bar
     assert "ONLINE // V1.0" in html
     assert "Playable Lab Mode" in html
     assert "Manifesto / Lore Mode" in html
+    assert 'data-view="lab"' in html
+    assert 'data-view="lore"' in html
 
     # Central Workbench Hero
     assert "Don’t just read the AI Era. Stress-test it." in html or "Don't just read the AI Era. Stress-test it." in html
@@ -270,6 +272,49 @@ for (const [role, expectedChamber] of Object.entries(expectedRoutes)) {
   if (routed.activeRole !== role || routed.highlightedChamber !== expectedChamber) {
     throw new Error(`Role ${role} routed to ${JSON.stringify(routed)}, expected ${expectedChamber}`);
   }
+}
+
+// 4. Verify bindDom toggles [data-view="lab"] and [data-view="lore"] visibility
+const labView = { getAttribute: () => 'lab', hidden: false };
+const loreView = { getAttribute: () => 'lore', hidden: true };
+let loreClickHandler = null;
+let labClickHandler = null;
+
+const labBtn = {
+  getAttribute: () => 'lab',
+  setAttribute: () => {},
+  classList: { toggle: () => {} },
+  addEventListener: (_ev, fn) => { labClickHandler = fn; }
+};
+const loreBtn = {
+  getAttribute: () => 'lore',
+  setAttribute: () => {},
+  classList: { toggle: () => {} },
+  addEventListener: (_ev, fn) => { loreClickHandler = fn; }
+};
+
+const fakeDoc = {
+  body: { setAttribute: () => {} },
+  getElementById: () => null,
+  querySelector: () => null,
+  querySelectorAll: (sel) => {
+    if (sel === '[data-mode-select]') return [labBtn, loreBtn];
+    if (sel === '[data-view]') return [labView, loreView];
+    return [];
+  }
+};
+
+api.bindDom(fakeDoc);
+if (labView.hidden !== false || loreView.hidden !== true) {
+  throw new Error('Expected labView visible and loreView hidden initially');
+}
+loreClickHandler({ currentTarget: loreBtn });
+if (labView.hidden !== true || loreView.hidden !== false) {
+  throw new Error('Expected loreView visible and labView hidden after clicking Manifesto / Lore Mode');
+}
+labClickHandler({ currentTarget: labBtn });
+if (labView.hidden !== false || loreView.hidden !== true) {
+  throw new Error('Expected labView visible again after clicking Playable Lab Mode');
 }
 
 console.log('STAGE1_OK');
