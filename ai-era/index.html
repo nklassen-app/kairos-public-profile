@@ -1,87 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'; connect-src 'none'">
 <meta name="referrer" content="no-referrer">
-<title>AI Era — The Polis &amp; Digital Concept Lab</title>
-<meta name="description" content="Thinking clearly about the AI era: an interactive Ancient Greek Polis and concept lab to stress-test ethical design dilemmas, historical macro-narratives, and human agency.">
-<!-- No web fonts, CDN, analytics or embeds: this page makes no call to a third party. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23d47a1c' stroke-width='3'/%3E%3C/svg%3E">
+<title>AI Era — The Polis &amp; Concept Lab</title>
+<meta name="description" content="An interactive 2.5D isometric Ancient Greek Polis and digital concept lab exploring AI's civilizational gateway, tactical product ethics, inner resilience, and energy architecture.">
 <script src="lab.js" defer></script>
 <style>
+  /* ── 1. Palette & 2.5D Isometric Visual System ── */
   :root {
-    /* Helios Day Palette (Default — warm sunlit Aegean & Pentelic Marble) */
-    --bg: #f6f1e6;
-    --surface: rgba(252, 248, 240, 0.93);
-    --surface-solid: #fcf8f0;
-    --surface-elevated: #ffffff;
-    --ink: #1e1b16;
-    --muted: #655d50;
-    --rule: rgba(30, 27, 22, 0.14);
-    --rule-strong: rgba(30, 27, 22, 0.28);
+    --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 
-    /* World Sea & Sky Tokens (Helios Day) */
-    --sea-deep: #1b6285;
-    --sea-mid: #2b83a6;
-    --sea-shallow: #4cb3c9;
-    --sky-top: #cbe7f5;
-    --sky-horizon: #f9e8c8;
-    --cliff-light: #dfd3be;
-    --cliff-Mid: #c4b49a;
-    --cliff-shadow: #9d8d74;
-    --grass-top: #93b371;
-    --grass-mid: #749654;
-    --town-plaza: #e6dac4;
-    --marble-light: #fffdf8;
-    --marble-mid: #efe6d5;
-    --marble-shadow: #d4c6ae;
-    --terracotta: #c85a38;
-    --terracotta-dark: #963c20;
+    /* Warm Mediterranean Limestone & Aegean Palette */
+    --marble-light: #F5EFE6;
+    --marble-mid: #E6DDD0;
+    --marble-shadow: #D1C4B2;
+    --terracotta: #C85A32;
+    --terracotta-dark: #8E3A1C;
+    --sea-deep: #15515E;
+    --sea-mid: #1E6B7B;
+    --sea-shallow: #3B97A8;
+    --foam-ring: rgba(245, 239, 230, 0.55);
+    --olive-foliage: #4A6B4D;
+    --olive-highlight: #658B68;
+    --cypress-dark: #2F4B34;
+    --cast-shadow: rgba(28, 37, 44, 0.18);
 
-    /* Signal Accents */
-    --amber: #d47a1c;
-    --copper: #c45133;
-    --sage: #2f7d55;
-    --cobalt: #2962ab;
+    /* Sculpted Island Terrain & Agora Basin */
+    --sky-top: #CFE7EE;
+    --sky-horizon: #F6EBD8;
+    --cliff-light: #DFD3C0;
+    --cliff-mid: #C4B49D;
+    --cliff-shadow: #9C8B74;
+    --grass-top: #8DA475;
+    --grass-mid: #6F885B;
+    --agora-basin: #EBE1D1;
+    --agora-stone: #D8CBB8;
 
-    --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --font-mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+    /* Warm Limestone Glassmorphism Chrome */
+    --bg: #F5EFE6;
+    --surface: rgba(245, 239, 230, 0.88);
+    --surface-solid: #F5EFE6;
+    --surface-elevated: #FAF6F0;
+    --ink: #1C252C;
+    --muted: #546068;
+    --rule: rgba(28, 37, 44, 0.12);
+    --rule-strong: rgba(28, 37, 44, 0.22);
+
+    --amber: #D47A1C;
+    --gold-glow: #F2B249;
+    --copper: #C85A32;
+    --sage: #4A6B4D;
+    --cobalt: #2962AB;
   }
 
+  /* ── Night Mode ("Nyx") Overrides ── */
   body[data-sky="nyx"] {
-    --bg: #11131a;
-    --surface: rgba(22, 24, 32, 0.93);
-    --surface-solid: #181a22;
-    --surface-elevated: #222530;
-    --ink: #f4f1ea;
-    --muted: #a39e93;
-    --rule: rgba(244, 241, 234, 0.14);
-    --rule-strong: rgba(244, 241, 234, 0.28);
+    --sky-top: #0B1622;
+    --sky-horizon: #162A3A;
+    --sea-deep: #091D26;
+    --sea-mid: #113644;
+    --sea-shallow: #1C5566;
+    --foam-ring: rgba(186, 230, 242, 0.32);
 
-    --sea-deep: #0b1929;
-    --sea-mid: #132a42;
-    --sea-shallow: #1e4563;
-    --sky-top: #090d16;
-    --sky-horizon: #1e273d;
-    --cliff-light: #4a463f;
-    --cliff-Mid: #38352f;
-    --cliff-shadow: #262420;
-    --grass-top: #314737;
-    --grass-mid: #243629;
-    --town-plaza: #524c42;
-    --marble-light: #e6decb;
-    --marble-mid: #b8ae99;
-    --marble-shadow: #857c6a;
-    --terracotta: #b34e30;
-    --terracotta-dark: #7a2f18;
+    --marble-light: #DFD7CA;
+    --marble-mid: #C2B8A8;
+    --marble-shadow: #8E8475;
+    --cliff-light: #8B8070;
+    --cliff-mid: #685F52;
+    --cliff-shadow: #463F36;
+    --grass-top: #3E5440;
+    --grass-mid: #2E4130;
+    --agora-basin: #C8BFA8;
+    --agora-stone: #9E9482;
 
-    --amber: #f09d42;
-    --copper: #e57656;
-    --sage: #62b889;
-    --cobalt: #6aa2eb;
+    --bg: #0F171E;
+    --surface: rgba(21, 31, 40, 0.88);
+    --surface-solid: #151F28;
+    --surface-elevated: #1C2935;
+    --ink: #F5EFE6;
+    --muted: #A3B1BC;
+    --rule: rgba(245, 239, 230, 0.12);
+    --rule-strong: rgba(245, 239, 230, 0.24);
+
+    --amber: #F09D42;
+    --gold-glow: #F7C665;
+    --copper: #E07048;
+    --sage: #67946B;
+    --cobalt: #6AA2EB;
   }
 
   * { box-sizing: border-box; }
@@ -98,63 +108,100 @@
     overflow-x: hidden;
   }
 
-  /* ── Keyframe Animations for Living Greek Polis ── */
+  /* ── Ambient Motion Keyframes ── */
+  @keyframes shorelineRipple {
+    0%, 100% {
+      transform: scale(0.992);
+      opacity: 0.45;
+    }
+    50% {
+      transform: scale(1.012);
+      opacity: 0.82;
+    }
+  }
+
+  @keyframes shorelineRippleOuter {
+    0%, 100% {
+      transform: scale(1.008);
+      opacity: 0.25;
+    }
+    50% {
+      transform: scale(0.988);
+      opacity: 0.55;
+    }
+  }
+
+  @keyframes swayCypress {
+    0%, 100% { transform: rotate(-1.6deg); }
+    50% { transform: rotate(2.1deg); }
+  }
+
   @keyframes spinSlow {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
   @keyframes floatCloud {
-    0% { transform: translateX(0px); }
-    50% { transform: translateX(26px); }
-    100% { transform: translateX(0px); }
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(24px); }
   }
 
-  @keyframes bobShip {
-    0%, 100% { transform: translateY(0px) rotate(-1deg); }
-    50% { transform: translateY(-5px) rotate(1.5deg); }
+  @keyframes bobBoat {
+    0%, 100% { transform: translateY(0px) rotate(-0.8deg); }
+    50% { transform: translateY(-4px) rotate(1.2deg); }
   }
 
-  @keyframes pulseFlame {
-    0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.9; }
-    50% { transform: scaleY(1.2) translateY(-2px); opacity: 1; }
+  @keyframes pulseForge {
+    0%, 100% { opacity: 0.78; transform: scale(0.97); }
+    50% { opacity: 1; transform: scale(1.05); }
   }
 
-  @keyframes ripplePool {
-    0%, 100% { transform: scale(0.95); opacity: 0.55; }
-    50% { transform: scale(1.06); opacity: 0.9; }
+  .anim-foam-inner {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: shorelineRipple 5.4s ease-in-out infinite;
   }
 
-  @keyframes badgeBounce {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-3px); }
+  .anim-foam-outer {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: shorelineRippleOuter 7.2s ease-in-out infinite;
+  }
+
+  .anim-cypress {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: swayCypress 4.6s ease-in-out infinite;
+  }
+
+  .anim-cypress-alt {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: swayCypress 5.8s ease-in-out infinite reverse;
   }
 
   .anim-spin {
     transform-box: fill-box;
     transform-origin: center;
-    animation: spinSlow 18s linear infinite;
+    animation: spinSlow 20s linear infinite;
   }
 
-  .anim-cloud-1 { animation: floatCloud 16s ease-in-out infinite; }
-  .anim-cloud-2 { animation: floatCloud 22s ease-in-out infinite reverse; }
-  .anim-ship {
+  .anim-cloud-1 { animation: floatCloud 18s ease-in-out infinite; }
+  .anim-cloud-2 { animation: floatCloud 24s ease-in-out infinite reverse; }
+
+  .anim-boat {
     transform-box: fill-box;
     transform-origin: center;
-    animation: bobShip 5.2s ease-in-out infinite;
-  }
-  .anim-flame {
-    transform-box: fill-box;
-    transform-origin: bottom center;
-    animation: pulseFlame 1.8s ease-in-out infinite;
-  }
-  .anim-ripple {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: ripplePool 3.6s ease-in-out infinite;
+    animation: bobBoat 4.8s ease-in-out infinite;
   }
 
-  /* ── 1. Top Bar: Brand Title (Left) + Consolidated Menu (Right) ── */
+  .anim-forge {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pulseForge 2.2s ease-in-out infinite;
+  }
+
+  /* ── 1. Top Header Chrome (Warm Limestone Glassmorphism) ── */
   .top-header-bar {
     position: fixed;
     top: 0.9rem;
@@ -165,7 +212,7 @@
   }
 
   .top-header-inner {
-    max-width: 88rem;
+    max-width: 90rem;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -179,30 +226,42 @@
     appearance: none;
     border: 1px solid var(--rule-strong);
     background: var(--surface);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-radius: 999px;
-    padding: 0.42rem 1.1rem;
+    padding: 0.45rem 1.15rem;
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.65rem;
     cursor: pointer;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 10px 28px rgba(28, 37, 44, 0.16);
     color: var(--ink);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .brand-lockup:hover {
+    border-color: var(--amber);
+    transform: translateY(-1px);
   }
 
   .brand-title {
     font-family: var(--font-serif);
-    font-size: 1.35rem;
+    font-size: 1.32rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1;
   }
 
+  .brand-sep {
+    color: var(--rule-strong);
+    font-weight: 300;
+  }
+
   .brand-subtitle {
     font-family: var(--font-mono);
     font-size: 0.68rem;
-    letter-spacing: 0.08em;
+    font-weight: 600;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
     color: var(--amber);
   }
@@ -213,13 +272,13 @@
     flex-wrap: wrap;
     align-items: center;
     background: var(--surface);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--rule-strong);
     border-radius: 999px;
-    padding: 0.25rem;
+    padding: 0.26rem;
     gap: 0.2rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 10px 28px rgba(28, 37, 44, 0.16);
   }
 
   .menu-divider {
@@ -237,7 +296,7 @@
     font-family: var(--font-sans);
     font-size: 0.78rem;
     font-weight: 600;
-    padding: 0.4rem 0.82rem;
+    padding: 0.4rem 0.84rem;
     border-radius: 999px;
     cursor: pointer;
     transition: background 0.18s ease, color 0.18s ease;
@@ -251,14 +310,20 @@
     color: var(--surface-solid);
   }
 
-  /* ── 2. Full-Screen Interactive Polis World Stage ── */
+  /* ── 2. Full-Viewport 2.5D Isometric Polis Stage ── */
   .polis-viewport {
     position: relative;
     width: 100vw;
     height: 100vh;
-    min-height: 45rem;
+    min-height: 46rem;
     overflow: hidden;
-    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-horizon) 33%, var(--sea-mid) 33%, var(--sea-deep) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--sky-top) 0%,
+      var(--sky-horizon) 27%,
+      var(--sea-mid) 27%,
+      var(--sea-deep) 100%
+    );
     user-select: none;
   }
 
@@ -269,48 +334,59 @@
   }
 
   #world-camera {
-    transform-origin: 760px 410px;
+    transform-origin: 785px 412px;
     transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* Cobblestone Town Streets & Interactive Landmarks */
+  /* ── Isometric Marble Roads & Interactive Landmarks ── */
   .town-path {
     fill: none;
-    stroke: #cbb896;
+    stroke: #DFD4C2;
     stroke-width: 9;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: stroke 0.3s ease, stroke-width 0.3s ease;
+    transition: stroke 0.28s ease, stroke-width 0.28s ease;
   }
 
   .town-path[data-active="true"] {
-    stroke: var(--amber);
+    stroke: var(--gold-glow);
     stroke-width: 11;
   }
 
   .town-building {
     cursor: pointer;
-    transition: filter 0.22s ease;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), filter 0.28s ease;
   }
 
-  .town-building:hover {
-    filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.28)) brightness(1.05);
+  /* Subtle vertical lift + golden outline glow on hover/active */
+  .town-building:hover,
+  .town-building:focus-visible,
+  .town-building[data-active="true"] {
+    transform: translateY(-7px);
+    filter: drop-shadow(0 0 12px rgba(242, 178, 73, 0.75))
+            drop-shadow(10px 14px 10px rgba(28, 37, 44, 0.24));
+    outline: none;
   }
 
-  .town-building .building-pill {
-    animation: badgeBounce 3.2s ease-in-out infinite;
+  .town-building .building-pill-bg {
+    transition: fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease;
   }
 
   .town-building:hover .building-pill-bg,
   .town-building[data-active="true"] .building-pill-bg {
-    fill: #1e1b16;
-    stroke: #f09d42;
+    fill: #1C252C;
+    stroke: var(--gold-glow);
     stroke-width: 2.5;
   }
 
   .town-building:hover .building-pill-text,
   .town-building[data-active="true"] .building-pill-text {
-    fill: #fffdf8;
+    fill: #F5EFE6;
+  }
+
+  .town-building:hover .building-pill-route,
+  .town-building[data-active="true"] .building-pill-route {
+    fill: var(--gold-glow);
   }
 
   #town-explorer {
@@ -318,123 +394,26 @@
     pointer-events: none;
   }
 
-  /* ── Floating Bottom Dock (Hero Prompt + Role Router Pills) ── */
-  .floating-bottom-dock {
-    position: absolute;
-    left: 1.25rem;
-    right: 1.25rem;
-    bottom: 1rem;
-    z-index: 35;
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-  }
-
-  .dock-card {
-    pointer-events: auto;
-    max-width: 68rem;
-    width: 100%;
-    background: var(--surface);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--rule-strong);
-    border-radius: 16px;
-    padding: 0.8rem 1.15rem;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
-  }
-
-  .dock-top-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.65rem;
-    margin-bottom: 0.55rem;
-  }
-
-  .dock-headline {
-    font-family: var(--font-serif);
-    font-size: 1.18rem;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .dock-sub {
-    font-family: var(--font-mono);
-    font-size: 0.71rem;
-    color: var(--muted);
-    margin: 0;
-  }
-
-  .role-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.5rem;
-  }
-
-  @media (max-width: 56rem) {
-    .role-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .role-btn {
-    appearance: none;
-    text-align: left;
-    background: var(--surface-elevated);
-    border: 1px solid var(--rule-strong);
-    border-radius: 10px;
-    padding: 0.45rem 0.7rem;
-    color: var(--ink);
-    cursor: pointer;
-    transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
-  }
-
-  .role-btn:hover {
-    transform: translateY(-2px);
-    border-color: var(--amber);
-  }
-
-  .role-btn.is-active,
-  .role-btn[aria-pressed="true"] {
-    border-color: var(--amber);
-    box-shadow: 0 0 0 2px var(--amber);
-  }
-
-  .role-btn-code {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    color: var(--muted);
-  }
-
-  .role-btn-title {
-    display: block;
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-
-  /* ── Floating Slide-Over Temple & Harbor Drawer ── */
+  /* ── 3. Floating Right Detail Card & Chamber Inspector (Late Checkout Style) ── */
   .temple-drawer {
     position: absolute;
-    top: 4.25rem;
+    top: 4.5rem;
     right: 1.25rem;
-    bottom: 7.25rem;
+    bottom: 6.8rem;
     width: min(26.5rem, calc(100vw - 2.5rem));
-    z-index: 40;
     background: var(--surface);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border: 1px solid var(--rule-strong);
-    border-radius: 16px;
-    padding: 1.25rem;
+    border-radius: 18px;
+    padding: 1.2rem 1.35rem;
+    box-shadow: 0 22px 50px rgba(28, 37, 44, 0.25);
     overflow-y: auto;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
-    transform: translateX(110%);
+    z-index: 35;
+    transform: translateX(112%);
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
   }
 
   .temple-drawer[data-open="true"] {
@@ -449,12 +428,20 @@
     justify-content: space-between;
     gap: 0.5rem;
     padding-bottom: 0.65rem;
-    margin-bottom: 0.85rem;
-    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .inspector-route-pill {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: var(--amber);
     font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--amber);
+    background: var(--surface-elevated);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    padding: 0.18rem 0.6rem;
   }
 
   .drawer-close-btn {
@@ -462,27 +449,86 @@
     border: 1px solid var(--rule-strong);
     background: var(--surface-elevated);
     color: var(--ink);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    padding: 0.28rem 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.26rem 0.68rem;
     border-radius: 999px;
     cursor: pointer;
   }
 
-  .drawer-close-btn:hover { border-color: var(--amber); }
+  .drawer-close-btn:hover {
+    border-color: var(--amber);
+  }
+
+  .floating-card-summary {
+    padding-bottom: 0.95rem;
+    margin-bottom: 0.95rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .floating-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin: 0 0 0.18rem;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .floating-card-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--amber);
+    margin: 0 0 0.55rem;
+  }
+
+  .floating-card-thesis {
+    font-family: var(--font-serif);
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin: 0 0 0.8rem;
+    line-height: 1.48;
+  }
+
+  .explore-primary-btn {
+    appearance: none;
+    width: 100%;
+    border: 1px solid var(--amber);
+    background: var(--ink);
+    color: var(--surface-solid);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0.58rem 0.95rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.15s ease;
+  }
+
+  .explore-primary-btn:hover {
+    background: var(--amber);
+    color: #1C252C;
+    transform: translateY(-1px);
+  }
 
   .chamber-panel h3 {
     font-family: var(--font-serif);
-    font-size: 1.4rem;
-    line-height: 1.2;
-    margin: 0 0 0.25rem;
+    font-size: 1.12rem;
+    margin: 0 0 0.2rem;
   }
 
   .chamber-panel-sub {
-    font-family: var(--font-sans);
-    font-size: 0.84rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     color: var(--muted);
-    margin: 0 0 0.9rem;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .dilemma-box {
@@ -490,24 +536,25 @@
     border: 1px solid var(--rule-strong);
     border-left: 3px solid var(--amber);
     border-radius: 8px;
-    padding: 0.75rem 0.9rem;
-    margin-bottom: 0.85rem;
-    font-size: 0.9rem;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.86rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.48;
   }
 
   .dilemma-tag {
     display: block;
     font-family: var(--font-mono);
     font-size: 0.66rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 0.2rem;
+    color: var(--amber);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.22rem;
   }
 
   .sim-btn-stack {
     display: grid;
-    gap: 0.45rem;
-    margin-bottom: 0.9rem;
+    gap: 0.42rem;
+    margin-bottom: 0.85rem;
   }
 
   .sim-btn {
@@ -517,10 +564,10 @@
     background: var(--surface-elevated);
     border: 1px solid var(--rule-strong);
     border-radius: 8px;
-    padding: 0.55rem 0.75rem;
+    padding: 0.52rem 0.72rem;
     color: var(--ink);
     font-family: var(--font-sans);
-    font-size: 0.84rem;
+    font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
     transition: border-color 0.15s ease;
@@ -536,20 +583,20 @@
 
   .meter-group {
     display: grid;
-    gap: 0.5rem;
-    margin-bottom: 0.85rem;
+    gap: 0.48rem;
+    margin-bottom: 0.8rem;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.68rem;
   }
 
   .meter-row-top {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.18rem;
+    margin-bottom: 0.16rem;
   }
 
   .meter-track {
-    height: 0.45rem;
+    height: 0.44rem;
     background: var(--bg);
     border: 1px solid var(--rule-strong);
     border-radius: 999px;
@@ -569,20 +616,114 @@
     background: var(--surface-elevated);
     border: 1px solid var(--rule-strong);
     border-radius: 8px;
-    padding: 0.7rem 0.85rem;
+    padding: 0.68rem 0.82rem;
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.73rem;
     color: var(--muted);
-    line-height: 1.5;
+    line-height: 1.48;
   }
 
   .score-pill {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--copper);
     margin-bottom: 0.35rem;
+  }
+
+  /* ── 4. Bottom Quick-Select Role Dock (Warm Limestone Glassmorphism) ── */
+  .floating-bottom-dock {
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 0.9rem;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  .dock-card {
+    max-width: 72rem;
+    margin: 0 auto;
+    pointer-events: auto;
+    background: var(--surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--rule-strong);
+    border-radius: 16px;
+    padding: 0.68rem 1rem;
+    box-shadow: 0 14px 36px rgba(28, 37, 44, 0.22);
+  }
+
+  .dock-top-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.48rem;
+  }
+
+  .dock-headline {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .dock-sub {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  @media (max-width: 56rem) {
+    .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .role-btn {
+    appearance: none;
+    text-align: left;
+    background: var(--surface-elevated);
+    border: 1px solid var(--rule-strong);
+    border-radius: 10px;
+    padding: 0.42rem 0.68rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.16s ease, transform 0.16s ease;
+  }
+
+  .role-btn:hover {
+    border-color: var(--amber);
+    transform: translateY(-1px);
+  }
+
+  .role-btn.is-active,
+  .role-btn[aria-pressed="true"] {
+    border-color: var(--amber);
+    box-shadow: inset 0 0 0 1px var(--amber);
+  }
+
+  .role-btn-code {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--amber);
+    letter-spacing: 0.04em;
+  }
+
+  .role-btn-title {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 700;
   }
 
   /* ── Subview 2 (Card Grid) & View B (Manifesto Essay) Containers ── */
@@ -621,7 +762,7 @@
 
   .chamber-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 28px rgba(28, 37, 44, 0.12);
   }
 
   .chamber-card[data-accent="amber"] { --chamber-accent: var(--amber); }
@@ -657,12 +798,13 @@
 </head>
 <body data-lab-mode="lab" data-sky="helios">
 
-<!-- ── Top Header: "AI Era" Brand Title (Left) + Consolidated Menu (Right) ── -->
+<!-- ── Top Header Chrome: "AI Era | THE POLIS & CONCEPT LAB" (Left) + View Switcher (Right) ── -->
 <header class="top-header-bar" role="banner">
   <div class="top-header-inner">
     <button type="button" class="brand-lockup" data-reset-camera="true" aria-label="AI Era — Return to Full Polis Overview">
       <span class="brand-title">AI Era</span>
-      <span class="brand-subtitle">The Polis &amp; Concept Lab</span>
+      <span class="brand-sep" aria-hidden="true">|</span>
+      <span class="brand-subtitle">THE POLIS &amp; CONCEPT LAB</span>
     </button>
 
     <nav class="consolidated-menu" aria-label="Site navigation and view controls">
@@ -673,7 +815,7 @@
         Card Grid
       </button>
       <button type="button" class="mode-btn" data-mode-select="lore" aria-pressed="false">
-        Manifesto / Lore Mode
+        Manifesto
       </button>
       <button type="button" class="mode-btn" data-visit-building="HARBOR" aria-pressed="false">
         About Me
@@ -691,415 +833,474 @@
 
 <main>
   <!-- ═══════════════════════════════════════════════════════════════════
-       VIEW A: PLAYABLE LAB MODE (Natural Asymmetric Aegean Headland & Town)
+       VIEW A: PLAYABLE LAB MODE (2.5D Isometric Sculpted Aegean Island & Agora)
        ═══════════════════════════════════════════════════════════════════ -->
   <div data-view="lab">
-    <section data-subview="town" id="polis-viewport" class="polis-viewport" aria-label="Interactive Ancient Greek Polis World">
+    <section data-subview="town" id="polis-viewport" class="polis-viewport" aria-label="Interactive 2.5D Isometric Ancient Greek Polis">
 
-      <!-- Full-Viewport Isometric Illustrated Circular Island with Dense Athenian Agora & Acropolis Cluster -->
-      <svg id="citadel-town-map" class="polis-svg" viewBox="0 0 1600 940" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Circular Aegean Island featuring a densely clustered Athenian Agora and Acropolis precinct with five landmarks">
+      <!-- Full-Viewport 2.5D Isometric/Dimetric (30° parallel axes) Illustrated Island SVG -->
+      <svg id="citadel-town-map" class="polis-svg" viewBox="0 0 1600 940" preserveAspectRatio="xMidYMid slice" role="img" aria-label="2.5D Isometric Greek island featuring the NW Acropolis, North Ridge Kairos Horologion, West Artisan Forge, East Cape Garden in the Citadel, and South Cove Harbor Stoa">
         <defs>
-          <linearGradient id="island-cliff" x1="0%" y1="0%" x2="0%" y2="100%">
+          <linearGradient id="aegean-sea-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--sea-mid)"/>
+            <stop offset="100%" stop-color="var(--sea-deep)"/>
+          </linearGradient>
+          <linearGradient id="limestone-cliff" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="var(--cliff-light)"/>
-            <stop offset="55%" stop-color="var(--cliff-Mid)"/>
+            <stop offset="55%" stop-color="var(--cliff-mid)"/>
             <stop offset="100%" stop-color="var(--cliff-shadow)"/>
           </linearGradient>
-          <linearGradient id="meadow-grad" x1="0%" y1="0%" x2="100%" y2="85%">
+          <linearGradient id="island-surface" x1="0%" y1="0%" x2="100%" y2="85%">
             <stop offset="0%" stop-color="var(--grass-top)"/>
             <stop offset="100%" stop-color="var(--grass-mid)"/>
           </linearGradient>
           <filter id="soft-shadow" x="-15%" y="-15%" width="130%" height="140%">
-            <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#0f1722" flood-opacity="0.26"/>
+            <feDropShadow dx="8" dy="10" stdDeviation="6" flood-color="#1C252C" flood-opacity="0.22"/>
           </filter>
         </defs>
 
-        <!-- Camera Group (Zooms & Pans smoothly when visiting buildings) -->
+        <!-- Camera Group (Zooms & Pans smoothly when visiting landmarks) -->
         <g id="world-camera">
 
-          <!-- ── 1. Aegean Horizon, Sun/Moon Halo & Drifting Clouds ── -->
-          <circle cx="800" cy="145" r="95" fill="#f7d586" opacity="0.35"/>
-          <circle cx="800" cy="145" r="48" fill="#fce8b2" opacity="0.65"/>
+          <!-- ── 1. Aegean Sky Horizon, Sun Halo & Distant Isometric Headlands ── -->
+          <circle cx="800" cy="128" r="88" fill="#F7D586" opacity="0.34"/>
+          <circle cx="800" cy="128" r="44" fill="#FCE8B2" opacity="0.68"/>
 
-          <!-- Distant Mediterranean Mountain Silhouettes -->
-          <polygon points="80,315 220,225 380,315" fill="#7c98ad" opacity="0.45"/>
-          <polygon points="1180,315 1350,235 1510,315" fill="#7c98ad" opacity="0.4"/>
+          <!-- Distant 30° Isometric Limestone Islands on Horizon -->
+          <polygon points="70,254 195,192 310,254" fill="#8BA6B5" opacity="0.45"/>
+          <polygon points="195,192 310,254 245,254" fill="#6F8A99" opacity="0.45"/>
+          <polygon points="1240,254 1385,184 1520,254" fill="#8BA6B5" opacity="0.4"/>
+          <polygon points="1385,184 1520,254 1435,254" fill="#6F8A99" opacity="0.4"/>
 
-          <!-- Drifting Clouds -->
-          <g class="anim-cloud-1" fill="#ffffff" opacity="0.72">
-            <ellipse cx="260" cy="108" rx="64" ry="20"/>
-            <ellipse cx="298" cy="100" rx="44" ry="16"/>
-            <ellipse cx="1260" cy="120" rx="70" ry="20"/>
-            <ellipse cx="1305" cy="112" rx="46" ry="16"/>
+          <!-- Drifting Mediterranean Clouds -->
+          <g class="anim-cloud-1" fill="#F5EFE6" opacity="0.76">
+            <ellipse cx="265" cy="96" rx="64" ry="18"/>
+            <ellipse cx="304" cy="88" rx="44" ry="14"/>
+            <ellipse cx="1275" cy="108" rx="68" ry="18"/>
+            <ellipse cx="1318" cy="100" rx="44" ry="14"/>
           </g>
-          <g class="anim-cloud-2" fill="#ffffff" opacity="0.55">
-            <ellipse cx="560" cy="84" rx="52" ry="15"/>
-            <ellipse cx="1010" cy="96" rx="48" ry="14"/>
-          </g>
-
-          <!-- Shimmering Aegean Sea Ripples -->
-          <g stroke="#8be3f5" stroke-width="2" opacity="0.38" fill="none">
-            <path d="M 95 480 Q 135 472, 175 480 T 255 480"/>
-            <path d="M 1345 535 Q 1385 527, 1425 535 T 1505 535"/>
-            <path d="M 210 755 Q 250 747, 290 755 T 370 755"/>
-            <path d="M 1210 745 Q 1250 737, 1290 745 T 1370 745"/>
+          <g class="anim-cloud-2" fill="#F5EFE6" opacity="0.58">
+            <ellipse cx="555" cy="76" rx="50" ry="14"/>
+            <ellipse cx="1045" cy="86" rx="46" ry="13"/>
           </g>
 
-          <!-- ── 2. Circular Aegean Island Landmass (withRolling Hills & Athenian Agora Precinct) ── -->
-          <g filter="url(#soft-shadow)">
-            <!-- Turquoise Reef Shallows Ring around the Circular Island -->
-            <ellipse cx="800" cy="465" rx="635" ry="298" fill="var(--sea-shallow)" opacity="0.45"/>
+          <!-- ── 2. Deep Aegean Teal Water & Animated Shoreline Foam Rings ── -->
+          <!-- Outer Animated Shoreline Foam Ring -->
+          <path class="anim-foam-outer" d="M 385 205 L 615 155 L 975 180 L 1355 345 L 1380 445 L 1165 605 L 955 685 L 885 595 L 665 595 L 595 685 L 255 545 L 210 415 Z" fill="none" stroke="var(--foam-ring)" stroke-width="5" stroke-dasharray="18 10" stroke-linejoin="round"/>
 
-            <!-- 3D Limestone Cliff Base of the Circular Island -->
-            <path d="M 205 425 C 205 635, 1395 635, 1395 425 L 1395 505 C 1395 725, 205 725, 205 505 Z" fill="url(#island-cliff)"/>
+          <!-- Shallow Turquoise Reef Shelf -->
+          <path d="M 400 215 L 615 168 L 965 192 L 1335 352 L 1355 438 L 1145 592 L 945 668 L 875 582 L 675 582 L 605 668 L 275 535 L 232 415 Z" fill="var(--sea-shallow)" opacity="0.46"/>
 
-            <!-- Circular Island Meadow Surface -->
-            <ellipse cx="800" cy="420" rx="595" ry="248" fill="url(#meadow-grad)" stroke="#dfd3be" stroke-width="6"/>
+          <!-- Inner Animated Shoreline Foam Ring -->
+          <path class="anim-foam-inner" d="M 412 222 L 615 176 L 955 200 L 1318 358 L 1338 432 L 1130 582 L 938 655 L 870 572 L 680 572 L 612 655 L 290 525 L 248 412 Z" fill="none" stroke="#F5EFE6" stroke-width="3.5" opacity="0.72" stroke-linejoin="round"/>
 
-            <!-- Rolling Peripheral Hills (Inspired by the Athenian Agora map: Acropolis crag, Areopagus & Pnyx hills) -->
-            <!-- Acropolis & Areopagus Upper Hill Ridge (North / Upper-Left to Center) -->
-            <path d="M 435 268 Q 575 182, 745 212 Q 915 188, 1055 258 Q 925 288, 745 278 Q 565 285, 435 268 Z" fill="var(--grass-top)" stroke="#9ab072" stroke-width="2"/>
-            <!-- Steep Limestone Acropolis Bastion Wall under the Upper Precinct -->
-            <polygon points="495,252 615,212 725,244 705,274 515,276" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
-            <!-- Pnyx & Kolonos Agoraios Rolling grassy slopes on the East/Right -->
-            <ellipse cx="1145" cy="365" rx="145" ry="62" fill="var(--grass-top)" opacity="0.7"/>
-            <!-- Cultivated Terraced Strip on the Far-West Perimeter (like the left edge of the Athenian Agora map) -->
-            <g stroke="#8aa163" stroke-width="2" opacity="0.65">
-              <polygon points="275,415 385,375 425,435 315,475" fill="#a8be7e"/>
-              <line x1="295" y1="428" x2="395" y2="390"/>
-              <line x1="305" y1="445" x2="408" y2="406"/>
-              <line x1="315" y1="460" x2="418" y2="422"/>
-            </g>
-
-            <!-- Compact, Irregular Earth & Limestone Agora Floor in the Center of the Island (Where the buildings cluster tightly) -->
-            <path d="M 465 345 L 625 268 L 935 282 L 1065 395 L 995 525 L 780 555 L 525 495 Z" fill="var(--town-plaza)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+          <!-- Ambient Aegean Wavelets -->
+          <g stroke="#8EE0F0" stroke-width="2" opacity="0.42" fill="none">
+            <path d="M 85 455 Q 125 447, 165 455 T 245 455"/>
+            <path d="M 1385 525 Q 1425 517, 1465 525 T 1545 525"/>
+            <path d="M 195 745 Q 235 737, 275 745 T 355 745"/>
+            <path d="M 1195 735 Q 1235 727, 1275 735 T 1355 735"/>
           </g>
 
-          <!-- ── 3. Diagonal Panathenaic Way & Agora Footpaths (Inspired by Athenian Agora Map) ── -->
-          <!-- The Panathenaic Way cutting diagonally from the Harbor gate through the Agora heart up to the Acropolis -->
-          <path d="M 780 615 L 765 495 L 725 385 L 615 245" fill="none" stroke="#d8c8aa" stroke-width="18" stroke-linecap="round"/>
-          <path d="M 780 615 L 765 495 L 725 385 L 615 245" fill="none" stroke="#b39d78" stroke-width="14" stroke-dasharray="3 7" stroke-linecap="round"/>
+          <!-- ── 3. Sculpted 2.5D Isometric Rocky Greek Island Terrain ── -->
+          <!-- 45° Cast Shadow of the Entire Island onto the Aegean Sea -->
+          <path d="M 445 255 L 635 205 L 975 228 L 1335 385 L 1355 475 L 1145 625 L 955 695 L 885 605 L 695 605 L 625 695 L 315 565 L 275 455 Z" fill="var(--cast-shadow)"/>
 
-          <!-- Interactive Highlight Paths from the Agora Heart (785, 392) to each tight-clustered landmark -->
-          <path class="town-path" data-path-to="EXP-01" data-active="false" d="M 785 392 L 725 385 L 655 298 L 615 235"/>
-          <path class="town-path" data-path-to="EXP-04" data-active="false" d="M 785 392 L 818 348 L 845 312"/>
-          <path class="town-path" data-path-to="EXP-03" data-active="false" d="M 785 392 L 675 388 L 565 382"/>
-          <path class="town-path" data-path-to="EXP-02" data-active="false" d="M 785 392 L 895 415 L 985 432"/>
-          <path class="town-path" data-path-to="HARBOR" data-active="false" d="M 785 392 L 765 495 L 780 635"/>
+          <!-- Faceted Isometric Limestone Cliff Escarpments (30° Left-Lit & Right-Shaded Faces) -->
+          <!-- SW & West Cliff Wall (Sunlit Face) -->
+          <polygon points="265,405 305,515 615,638 615,572 305,455 265,355" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+          <!-- Carved Southern Harbor Cove Recessed Cliff Wall -->
+          <polygon points="615,638 682,558 872,558 938,638 938,572 872,498 682,498 615,572" fill="var(--cliff-mid)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+          <!-- SE & East Cape Cliff Wall (45° Shaded Face) -->
+          <polygon points="938,638 1125,568 1322,422 1322,355 1125,505 938,572" fill="var(--cliff-shadow)" stroke="#756653" stroke-width="2"/>
 
-          <!-- ── 4. Scattered Athenian Agora Fabric (Connecting Stoas, Odeion, Tholos, Bouleuterion & Monuments) ── -->
-          <!-- Stoa of Attalos — Long Diagonal Colonnaded Hall framing the Left-Center of the Agora (665, 338) -->
-          <g transform="translate(668, 336) rotate(-26)">
-            <rect x="-78" y="-14" width="156" height="28" fill="var(--marble-shadow)"/>
-            <rect x="-78" y="-18" width="156" height="26" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
-            <polygon points="-82,-18 0,-34 82,-18" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
-            <g fill="#2b3d4f" opacity="0.75">
-              <rect x="-68" y="-12" width="6" height="18"/>
-              <rect x="-52" y="-12" width="6" height="18"/>
-              <rect x="-36" y="-12" width="6" height="18"/>
-              <rect x="-20" y="-12" width="6" height="18"/>
-              <rect x="-4" y="-12" width="6" height="18"/>
-              <rect x="12" y="-12" width="6" height="18"/>
-              <rect x="28" y="-12" width="6" height="18"/>
-              <rect x="44" y="-12" width="6" height="18"/>
-              <rect x="60" y="-12" width="6" height="18"/>
-            </g>
+          <!-- Sculpted Main Island Top Surface (Stepped NW Plateau, Central Basin, Carved South Harbor Cove, East Cape) -->
+          <polygon points="418,225 615,180 948,204 1305,355 1322,422 1125,505 938,572 872,498 682,498 615,572 305,455 265,355" fill="url(#island-surface)" stroke="#DFD3C0" stroke-width="4" stroke-linejoin="round"/>
+
+          <!-- ── Stepped NW Rocky Plateau (2-Tier Isometric Bastion under NW Acropolis) ── -->
+          <!-- Tier 1 NW Plateau Shadow & Cliff Faces -->
+          <polygon points="405,255 575,172 745,248 575,332" fill="var(--cast-shadow)" transform="translate(14, 12)"/>
+          <polygon points="395,252 575,332 575,358 395,278" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
+          <polygon points="575,332 745,252 745,278 575,358" fill="var(--cliff-shadow)" stroke="#756653" stroke-width="1.8"/>
+          <polygon points="395,252 575,172 745,252 575,332" fill="var(--grass-top)" stroke="#DFD3C0" stroke-width="2"/>
+
+          <!-- Tier 2 Upper Acropolis Limestone Platform -->
+          <polygon points="435,238 565,298 565,318 435,258" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
+          <polygon points="565,298 695,238 695,258 565,318" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
+          <polygon points="435,238 565,178 695,238 565,298" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+
+          <!-- ── North Ridge Elevated Terrace (Under Kairos Horologion & Bouleuterion) ── -->
+          <polygon points="735,262 875,196 1015,262 875,328" fill="var(--cast-shadow)" transform="translate(12, 10)"/>
+          <polygon points="735,262 875,328 875,348 735,282" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
+          <polygon points="875,328 1015,262 1015,282 875,348" fill="var(--cliff-shadow)" stroke="#756653" stroke-width="1.8"/>
+          <polygon points="735,262 875,196 1015,262 875,328" fill="var(--agora-basin)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+
+          <!-- ── Central Paved Agora Basin (Recessed Isometric Limestone Forum) ── -->
+          <!-- Sunken Basin Rim Steps (30° Isometric Diamond Grid) -->
+          <polygon points="485,392 785,258 1085,392 785,526" fill="var(--agora-stone)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+          <polygon points="502,398 785,272 1068,398 785,524" fill="var(--agora-basin)" stroke="#C4B49D" stroke-width="1.5"/>
+
+          <!-- 30° Isometric Paving Grid Lines across the Central Agora Basin -->
+          <g stroke="#D5C7B2" stroke-width="1.2" opacity="0.75">
+            <line x1="644" y1="335" x2="926" y2="461"/>
+            <line x1="595" y1="357" x2="877" y2="483"/>
+            <line x1="693" y1="313" x2="975" y2="439"/>
+            <line x1="644" y1="461" x2="926" y2="335"/>
+            <line x1="595" y1="439" x2="877" y2="313"/>
+            <line x1="693" y1="483" x2="975" y2="357"/>
           </g>
 
-          <!-- Temple of Ares & Bema Monument tucked right inside the central Agora (755, 438) -->
-          <g transform="translate(752, 438) rotate(5)">
-            <rect x="-34" y="-14" width="68" height="28" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="-38,-14 0,-28 38,-14" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
-            <g fill="var(--marble-mid)">
-              <rect x="-28" y="-12" width="4" height="24"/>
-              <rect x="-16" y="-12" width="4" height="24"/>
-              <rect x="-4" y="-12" width="4" height="24"/>
-              <rect x="8" y="-12" width="4" height="24"/>
-              <rect x="20" y="-12" width="4" height="24"/>
-            </g>
-          </g>
+          <!-- ── 4. Isometric Panathenaic Way & Connecting Marble Roads ── -->
+          <!-- Primary Central Marble Road from South Harbor Stoa (775,625) through Agora Basin (785,412) to NW Acropolis (565,235) -->
+          <path d="M 775 615 L 775 510 L 785 412 L 665 356 L 565 255" fill="none" stroke="#CFC1AC" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 775 615 L 775 510 L 785 412 L 665 356 L 565 255" fill="none" stroke="var(--marble-light)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
 
-          <!-- Metroon, Bouleuterion & Small Round Tholos clustered along the West-Right Agora edge (between EXP-04 and EXP-02) -->
+          <!-- Interactive Highlight Paths along 30° Isometric Axes -->
+          <path class="town-path" data-path-to="HARBOR" data-active="false" d="M 785 412 L 775 515 L 775 625"/>
+          <path class="town-path" data-path-to="EXP-02" data-active="false" d="M 785 412 L 655 468 L 515 425"/>
+          <path class="town-path" data-path-to="EXP-01" data-active="false" d="M 785 412 L 665 356 L 565 235"/>
+          <path class="town-path" data-path-to="EXP-04" data-active="false" d="M 785 412 L 875 368 L 865 255"/>
+          <path class="town-path" data-path-to="EXP-03" data-active="false" d="M 785 412 L 915 468 L 1055 385"/>
+
+          <!-- ── 5. Classical Athenian Agora Context Structures (Isometric 30° Projection) ── -->
+          <!-- Stoa of Attalos — Isometric Colonnade along the NE Agora Rim -->
           <g>
-            <!-- Small Round Tholos Rotunda at (908, 348) -->
-            <ellipse cx="908" cy="356" rx="22" ry="12" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="886,352 908,334 930,352" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
-
-            <!-- Metroon & Bouleuterion Courtyard Complex at (888, 386) -->
-            <rect x="858" y="366" width="54" height="32" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="854,366 885,350 916,366" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.3"/>
-            <rect x="902" y="378" width="44" height="28" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="898,378 924,364 950,378" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.3"/>
-
-            <!-- Stoa of Zeus & Royal Stoa stepping down toward the Southern Stoa (865, 445) -->
-            <rect x="838" y="424" width="58" height="34" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="834,424 867,406 900,424" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.3"/>
+            <!-- 45° Directional Cast Shadow -->
+            <polygon points="642,334 758,282 782,294 666,346" fill="var(--cast-shadow)"/>
+            <!-- Left Lit Wall -->
+            <polygon points="630,324 654,335 654,312 630,301" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.4"/>
+            <!-- Long Colonnade Front Face -->
+            <polygon points="654,335 768,284 768,307 654,358" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.4"/>
+            <!-- Isometric Terracotta Ribbed Roof -->
+            <polygon points="626,301 740,250 772,265 658,316" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
           </g>
 
-          <!-- Stoa Poikile (Painted Stoa) & Street to the Kerameikos framing the lower edge of the Agora (715, 505 & 915, 508) -->
-          <g transform="translate(682, 502) rotate(3)">
-            <rect x="-66" y="-12" width="132" height="24" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="-70,-12 0,-25 70,-12" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
-          </g>
-          <g transform="translate(918, 504) rotate(12)">
-            <rect x="-74" y="-11" width="148" height="22" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="-78,-11 0,-23 78,-11" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
+          <!-- Central Agora Odeion & Altar of the Twelve Gods (Interactive Reset Node at 785, 412) -->
+          <g class="town-building" data-building-id="AGORA" tabindex="0" role="button" aria-label="The Central Agora Basin — Click to view full Polis overview">
+            <!-- 45° Cast Shadow -->
+            <polygon points="738,418 785,396 832,418 785,440" fill="var(--cast-shadow)" transform="translate(8, 6)"/>
+            <!-- Stepped Isometric Marble Altar Plinth -->
+            <polygon points="732,412 785,388 838,412 785,436" fill="var(--marble-light)" stroke="#D47A1C" stroke-width="2"/>
+            <polygon points="732,412 785,436 785,446 732,422" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="785,436 838,412 838,422 785,446" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <!-- Isometric Tholos Monopteros Pavilion in the Agora Center -->
+            <polygon points="756,410 785,396 814,410 785,424" fill="#D47A1C" opacity="0.28"/>
+            <circle cx="785" cy="410" r="7" fill="#3B97A8" stroke="var(--marble-light)" stroke-width="2"/>
           </g>
 
-          <!-- Scattered Olive Groves & Cypress Trees across the surrounding hills -->
+          <!-- Ambient Olive Groves (`#4A6B4D`) & Gentle Swaying Cypress Trees -->
           <g>
-            <circle cx="425" cy="315" r="16" fill="#6b8f56"/><circle cx="440" cy="308" r="13" fill="#82a86b"/>
-            <circle cx="1115" cy="385" r="18" fill="#6b8f56"/><circle cx="1132" cy="378" r="14" fill="#82a86b"/>
-            <circle cx="1085" cy="455" r="16" fill="#6b8f56"/><circle cx="1102" cy="448" r="13" fill="#82a86b"/>
-            <path d="M 525 252 Q 532 212, 539 252 Z" fill="#2d5234"/>
-            <path d="M 735 238 Q 742 198, 749 238 Z" fill="#2d5234"/>
-            <path d="M 965 268 Q 972 228, 979 268 Z" fill="#2d5234"/>
-            <path d="M 455 468 Q 462 428, 469 468 Z" fill="#2d5234"/>
-            <path d="M 1065 342 Q 1072 302, 1079 342 Z" fill="#2d5234"/>
+            <!-- West & NW Olive Clusters -->
+            <circle cx="355" cy="348" r="16" fill="var(--olive-foliage)"/><circle cx="368" cy="342" r="12" fill="var(--olive-highlight)"/>
+            <circle cx="408" cy="312" r="14" fill="var(--olive-foliage)"/><circle cx="418" cy="306" r="10" fill="var(--olive-highlight)"/>
+            <circle cx="628" cy="482" r="15" fill="var(--olive-foliage)"/><circle cx="640" cy="476" r="11" fill="var(--olive-highlight)"/>
+            <circle cx="912" cy="492" r="16" fill="var(--olive-foliage)"/><circle cx="924" cy="486" r="12" fill="var(--olive-highlight)"/>
+            <!-- Swaying Cypress Trees across the Island -->
+            <path class="anim-cypress" d="M 424 275 Q 431 232, 438 275 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress-alt" d="M 712 238 Q 719 196, 726 238 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress" d="M 1022 282 Q 1029 240, 1036 282 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress-alt" d="M 605 538 Q 612 496, 619 538 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress" d="M 948 538 Q 955 496, 962 538 Z" fill="var(--cypress-dark)"/>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               CENTRAL AGORA FOCAL POINT: ODEION OF AGRIPPA & ALTAR (AGORA // 785, 392)
+               LANDMARK 3 (NORTHWEST HILL, 565, 235): NW ACROPOLIS -> /strategist
+               ("Strategist — The Next Gateway": Elevated rocky citadel, grand columned sanctuary & sea-view terrace)
                ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="AGORA" tabindex="0" role="button" aria-label="The Panathenaic Agora &amp; Odeion — Click to view full Polis">
-            <!-- Odeion of Agrippa Monumental Hall right in the center of the Agora (matching reference map) -->
-            <polygon points="732,395 785,420 838,395 785,370" fill="var(--marble-shadow)"/>
-            <rect x="746" y="346" width="78" height="46" fill="var(--marble-light)" stroke="#d47a1c" stroke-width="2"/>
-            <!-- Elevated Classical Central Stage Roof of the Odeion -->
-            <polygon points="738,352 785,326 832,352" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.8"/>
-            <rect x="758" y="324" width="54" height="24" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
-            <polygon points="752,324 785,306 818,324" fill="#d47a1c" stroke="#8c4a27" stroke-width="1.6"/>
-            <!-- Altar of the Twelve Gods & Compass Marker in the foreground plaza -->
-            <ellipse cx="735" cy="414" rx="22" ry="11" fill="var(--marble-light)" stroke="#d47a1c" stroke-width="1.8"/>
-            <circle cx="735" cy="414" r="5" fill="#38bdf8"/>
-          </g>
+          <g class="town-building" data-building-id="EXP-01" data-route="/strategist" data-active="false" tabindex="0" role="button" aria-label="NW Acropolis — Strategist: The Next Gateway (/strategist)">
+            <!-- 45° Directional Cast Shadow -->
+            <polygon points="478,242 565,202 658,242 565,286" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
-          <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 01 (UPPER ACROPOLIS HILL, 615, 235): THE THOLOS OF GATEWAYS
-               ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-01" data-active="false" tabindex="0" role="button" aria-label="EXP-01 The Acropolis &amp; Tholos of Gateways — The Red Queen's Simulator">
-            <!-- Acropolis Citadel Bastion & Propylaea Steps overlooking the Agora -->
-            <polygon points="518,248 615,282 712,248 615,214" fill="var(--marble-shadow)"/>
-            <polygon points="526,242 615,274 704,242 615,210" fill="var(--marble-light)" stroke="#d47a1c" stroke-width="2"/>
+            <!-- Sea-Overlook Isometric Marble Terrace & Parapet -->
+            <polygon points="468,236 565,192 662,236 565,280" fill="var(--marble-light)" stroke="#D47A1C" stroke-width="2"/>
+            <polygon points="468,236 565,280 565,294 468,250" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="565,280 662,236 662,250 565,294" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
 
-            <!-- Western Parthenon Wing on the Acropolis Crest -->
-            <rect x="536" y="192" width="58" height="40" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="530,192 565,172 600,192" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+            <!-- Isometric Parthenon-Style Grand Columned Sanctuary Cella -->
+            <polygon points="502,226 565,255 565,202 502,173" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="565,255 628,226 628,173 565,202" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
 
-            <!-- Tholos of Gateways Rotunda & Peristyle Columns -->
-            <g fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5">
-              <rect x="598" y="184" width="8" height="44" rx="2"/>
-              <rect x="614" y="188" width="8" height="44" rx="2"/>
-              <rect x="630" y="188" width="8" height="44" rx="2"/>
-              <rect x="646" y="184" width="8" height="44" rx="2"/>
-              <rect x="662" y="180" width="8" height="44" rx="2"/>
-            </g>
-            <ellipse cx="634" cy="182" rx="46" ry="15" fill="var(--marble-mid)" stroke="#d47a1c" stroke-width="1.8"/>
-            <path d="M 590 180 Q 634 132, 678 180 Z" fill="#d47a1c" stroke="#8c4a27" stroke-width="1.8"/>
-
-            <!-- Rotating Golden Celestial Armillary Sphere -->
-            <g class="anim-spin" transform="translate(634, 124)">
-              <circle cx="0" cy="0" r="19" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
-              <ellipse cx="0" cy="0" rx="19" ry="7" fill="none" stroke="#fffdf8" stroke-width="1.6"/>
-              <ellipse cx="0" cy="0" rx="7" ry="19" fill="none" stroke="#f59e0b" stroke-width="1.6"/>
-              <circle cx="0" cy="0" r="4" fill="#fffdf8"/>
+            <!-- Isometric Peristyle Doric Columns (SW & SE Faces) -->
+            <g fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.2">
+              <rect x="498" y="176" width="7" height="48"/>
+              <rect x="516" y="184" width="7" height="48"/>
+              <rect x="534" y="192" width="7" height="48"/>
+              <rect x="552" y="200" width="7" height="48"/>
+              <rect x="572" y="200" width="7" height="48"/>
+              <rect x="590" y="192" width="7" height="48"/>
+              <rect x="608" y="184" width="7" height="48"/>
+              <rect x="624" y="176" width="7" height="48"/>
             </g>
 
-            <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(615, 282)">
-              <rect class="building-pill-bg" x="-118" y="-15" width="236" height="30" rx="15" fill="var(--surface-solid)" stroke="#d47a1c" stroke-width="2" filter="url(#soft-shadow)"/>
-              <circle cx="-96" cy="0" r="5.5" fill="#d47a1c"/>
-              <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">01 · The Tholos of Gateways</text>
-            </g>
-          </g>
-
-          <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 04 (UPPER-CENTRAL AGORA TERRACE, 845, 312): MIDDLE STOA & TOWER OF THE WINDS
-               ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-04" data-active="false" tabindex="0" role="button" aria-label="EXP-04 The Middle Stoa &amp; Tower of the Winds — Energy Alchemist">
-            <!-- Long Middle Stoa Colonnade Wing (Directly echoing the horizontal Middle Stoa in the reference map) -->
-            <rect x="752" y="274" width="168" height="34" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
-            <polygon points="746,274 836,254 926,274" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
-            <g fill="var(--marble-mid)">
-              <rect x="764" y="278" width="5" height="26"/>
-              <rect x="782" y="278" width="5" height="26"/>
-              <rect x="800" y="278" width="5" height="26"/>
-              <rect x="818" y="278" width="5" height="26"/>
-              <rect x="836" y="278" width="5" height="26"/>
+            <!-- Isometric Pitched Terracotta Ribbed Roof (`#C85A32`) & Classical Pediment -->
+            <polygon points="492,176 565,142 638,176 565,210" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.8"/>
+            <polygon points="492,176 565,154 565,210" fill="#D96B43" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
+            <!-- Ribbed Roof Tile Lines -->
+            <g stroke="var(--terracotta-dark)" stroke-width="1.1" opacity="0.65">
+              <line x1="515" y1="165" x2="565" y2="190"/>
+              <line x1="538" y1="155" x2="565" y2="170"/>
+              <line x1="615" y1="165" x2="565" y2="190"/>
             </g>
 
-            <!-- Octagonal Hellenistic Tower of the Winds rising from the Eastern End of the Middle Stoa -->
-            <rect x="852" y="206" width="64" height="96" rx="3" fill="var(--marble-light)" stroke="#2962ab" stroke-width="2"/>
-            <polygon points="844,206 884,172 924,206" fill="#2962ab" stroke="#1e3a8a" stroke-width="2"/>
-
-            <!-- Spinning Bronze Astrolabe Gear Mechanism on the Tower Face -->
-            <g class="anim-spin" transform="translate(884, 252)">
-              <circle cx="0" cy="0" r="21" fill="#1e293b" stroke="#d47a1c" stroke-width="3.4"/>
-              <line x1="-21" y1="0" x2="21" y2="0" stroke="#d47a1c" stroke-width="2.2"/>
-              <line x1="0" y1="-21" x2="0" y2="21" stroke="#d47a1c" stroke-width="2.2"/>
-              <line x1="-15" y1="-15" x2="15" y2="15" stroke="#d47a1c" stroke-width="2.2"/>
-              <line x1="-15" y1="15" x2="15" y2="-15" stroke="#d47a1c" stroke-width="2.2"/>
-              <circle cx="0" cy="0" r="5.5" fill="#f59e0b"/>
+            <!-- Golden Celestial Astrolabe Finial -->
+            <g class="anim-spin" transform="translate(565, 118)">
+              <circle cx="0" cy="0" r="16" fill="none" stroke="#D47A1C" stroke-width="2.4"/>
+              <ellipse cx="0" cy="0" rx="16" ry="6" fill="none" stroke="var(--marble-light)" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="3.5" fill="#F2B249"/>
             </g>
 
-            <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(865, 326)">
-              <rect class="building-pill-bg" x="-112" y="-15" width="224" height="30" rx="15" fill="var(--surface-solid)" stroke="#2962ab" stroke-width="2" filter="url(#soft-shadow)"/>
-              <circle cx="-92" cy="0" r="5.5" fill="#2962ab"/>
-              <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">04 · Tower of the Winds</text>
+            <!-- Floating Landmark Label Pill -->
+            <g class="building-pill" transform="translate(565, 312)">
+              <rect class="building-pill-bg" x="-118" y="-15" width="236" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-route" x="-72" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/strategist</text>
+              <text class="building-pill-text" x="34" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">NW Acropolis</text>
             </g>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 03 (WEST-LEFT AGORA COURTYARD, 565, 382): STOIC PERISTYLE & LIBRARY OF HADRIAN
+               LANDMARK 5 (NORTH RIDGE, 865, 255): KAIROS HOROLOGION -> /practitioner
+               ("Practitioner — Kairos OS": Octagonal classical clock/wind tower beside a Bouleuterion council hall)
                ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-03" data-active="false" tabindex="0" role="button" aria-label="EXP-03 The Stoic Peristyle &amp; Library — Citadel Diagnostic">
-            <!-- Walled Peristyle Courtyard (Directly inspired by the Library of Hadrian / Roman Agora courtyards on the left of the reference map) -->
-            <polygon points="452,395 565,446 678,395 565,344" fill="var(--marble-light)" stroke="#2f7d55" stroke-width="2.2"/>
-            <!-- Terracotta Roofed Quad Cloister Wings enclosing the Courtyard -->
-            <polygon points="462,392 565,348 582,356 479,400" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.3"/>
-            <polygon points="565,348 668,392 651,400 548,356" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.3"/>
+          <g class="town-building" data-building-id="EXP-04" data-route="/practitioner" data-active="false" tabindex="0" role="button" aria-label="Kairos Horologion — Practitioner: Kairos OS (/practitioner)">
+            <!-- 45° Directional Cast Shadow -->
+            <polygon points="775,268 875,222 975,268 875,314" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
-            <!-- Shimmering Inner Turquoise Reflecting Basin -->
-            <polygon points="505,395 565,422 625,395 565,368" fill="#38bdf8" stroke="#0284c7" stroke-width="1.8"/>
-            <ellipse class="anim-ripple" cx="565" cy="395" rx="28" ry="12" fill="none" stroke="#ffffff" stroke-width="1.8"/>
-            <ellipse class="anim-ripple" cx="565" cy="395" rx="12" ry="5" fill="#e0f2fe"/>
+            <!-- Isometric Marble Plinth -->
+            <polygon points="768,264 875,215 982,264 875,313" fill="var(--marble-light)" stroke="#2962AB" stroke-width="2"/>
+            <polygon points="768,264 875,313 875,325 768,276" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="875,313 982,264 982,276 875,325" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
 
-            <!-- Rear Sanctuary Stoa & Pediment -->
-            <rect x="512" y="324" width="106" height="36" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
-            <polygon points="504,324 565,296 626,324" fill="#2f7d55" stroke="#1e4d35" stroke-width="1.8"/>
+            <!-- Adjacent Bouleuterion Council Hall (West Wing on the North Ridge) -->
+            <polygon points="784,258 844,285 844,242 784,215" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="844,285 884,266 884,223 844,242" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <!-- Bouleuterion Isometric Terracotta Hip Roof -->
+            <polygon points="778,215 838,188 890,212 830,239" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.6"/>
+            <!-- Stepped Council Seating Reveal -->
+            <ellipse cx="834" cy="256" rx="18" ry="8" fill="#D8CBB8" stroke="var(--cliff-shadow)" stroke-width="1.2"/>
 
-            <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(565, 458)">
-              <rect class="building-pill-bg" x="-118" y="-15" width="236" height="30" rx="15" fill="var(--surface-solid)" stroke="#2f7d55" stroke-width="2" filter="url(#soft-shadow)"/>
-              <circle cx="-96" cy="0" r="5.5" fill="#2f7d55"/>
-              <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">03 · Stoic Peristyle Garden</text>
+            <!-- Octagonal Classical Clock / Wind Tower (Horologion of Andronikos) -->
+            <!-- 3 Visible Isometric Octagon Wall Faces (Left Lit, Center Warm, Right Shaded) -->
+            <polygon points="874,268 896,280 896,178 874,166" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="896,280 924,280 924,178 896,178" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="924,280 946,268 946,166 924,178" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <!-- Carved Wind-God Frieze Band under the Eaves -->
+            <rect x="896" y="182" width="28" height="12" fill="#D8CBB8" stroke="var(--cliff-shadow)" stroke-width="1"/>
+            <!-- Octagonal Pyramidal Terracotta & Bronze Roof -->
+            <polygon points="870,166 910,132 896,178" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+            <polygon points="896,178 910,132 924,178" fill="#D96B43" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+            <polygon points="924,178 910,132 950,166" fill="var(--terracotta-dark)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+
+            <!-- Rotating Bronze Horologion Water-Clock Dial -->
+            <g class="anim-spin" transform="translate(910, 226)">
+              <circle cx="0" cy="0" r="18" fill="#1C252C" stroke="#F2B249" stroke-width="3"/>
+              <line x1="-18" y1="0" x2="18" y2="0" stroke="#F2B249" stroke-width="2"/>
+              <line x1="0" y1="-18" x2="0" y2="18" stroke="#F2B249" stroke-width="2"/>
+              <circle cx="0" cy="0" r="4.5" fill="#F2B249"/>
+            </g>
+
+            <!-- Floating Landmark Label Pill -->
+            <g class="building-pill" transform="translate(875, 336)">
+              <rect class="building-pill-bg" x="-132" y="-15" width="264" height="30" rx="15" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-route" x="-78" y="4" text-anchor="middle" fill="#2962AB" font-family="monospace" font-size="10.5" font-weight="700">/practitioner</text>
+              <text class="building-pill-text" x="42" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Kairos Horologion</text>
             </g>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 02 (KOLONOS KNOLL RIGHT-OF-CENTER, 985, 432): TEMPLE OF HEPHAISTOS & ARSENAL
+               LANDMARK 2 (WEST AGORA SLOPE, 515, 425): ARTISAN FORGE -> /builder
+               ("Builder — AI Ethics": Classical temple workshop, courtyard, geometric floor mosaic & warm forge glow)
                ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-02" data-active="false" tabindex="0" role="button" aria-label="EXP-02 The Forge of Hephaestus — AI Ethics as a Design Language">
-            <!-- Elevated Kolonos Agoraios Terrace & Adjacent Arsenal Hall (Matching the Temple of Hephaistos + Arsenal on the right of the reference map) -->
-            <polygon points="885,442 985,484 1085,442 985,400" fill="var(--marble-shadow)"/>
-            <polygon points="895,435 985,475 1075,435 985,395" fill="var(--marble-light)" stroke="#c45133" stroke-width="2"/>
+          <g class="town-building" data-building-id="EXP-02" data-route="/builder" data-active="false" tabindex="0" role="button" aria-label="Artisan Forge — Builder: AI Ethics (/builder)">
+            <!-- 45° Directional Cast Shadow -->
+            <polygon points="395,428 515,372 635,428 515,484" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
-            <!-- Angled Arsenal Hall in front-left of the Temple -->
-            <g transform="translate(942, 448) rotate(16)">
-              <rect x="-42" y="-12" width="84" height="24" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-              <polygon points="-46,-12 0,-24 46,-12" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.3"/>
+            <!-- Isometric Walled Workshop Courtyard Plinth -->
+            <polygon points="392,425 515,368 638,425 515,482" fill="var(--marble-light)" stroke="var(--terracotta)" stroke-width="2.2"/>
+            <polygon points="392,425 515,482 515,496 392,439" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="515,482 638,425 638,439 515,496" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+
+            <!-- Isometric Geometric Floor Mosaic in the Forecourt (Meander & Diamond Key Pattern) -->
+            <polygon points="468,435 528,408 588,435 528,462" fill="#E6D7C3" stroke="var(--terracotta)" stroke-width="1.5"/>
+            <polygon points="488,435 528,417 568,435 528,453" fill="none" stroke="#1C252C" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <polygon points="508,435 528,426 548,435 528,444" fill="var(--terracotta)" opacity="0.8"/>
+
+            <!-- Classical Temple Workshop Structure (NW Side of Courtyard) -->
+            <polygon points="424,412 496,445 496,388 424,355" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="496,445 556,418 556,361 496,388" fill="#3B2720" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+
+            <!-- Warm Forge Glow Radiating from the Workshop Crucible Arches -->
+            <g class="anim-forge">
+              <ellipse cx="526" cy="418" rx="28" ry="12" fill="#F2B249" opacity="0.38"/>
+              <rect x="506" y="388" width="14" height="32" rx="7" fill="#F59E0B"/>
+              <rect x="528" y="378" width="14" height="32" rx="7" fill="#EF4444"/>
             </g>
 
-            <!-- Doric Temple of Hephaistos Cella & Glowing Crucible Arches -->
-            <rect x="932" y="372" width="122" height="58" fill="#3a2620" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
-            <rect class="anim-flame" x="950" y="388" width="18" height="34" rx="9" fill="#f59e0b"/>
-            <rect class="anim-flame" x="984" y="384" width="18" height="38" rx="9" fill="#ef4444"/>
-            <rect class="anim-flame" x="1018" y="388" width="18" height="34" rx="9" fill="#f59e0b"/>
-
-            <!-- Fluted Doric Peristyle Columns -->
-            <g fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.4">
-              <rect x="936" y="372" width="9" height="58"/>
-              <rect x="960" y="372" width="9" height="58"/>
-              <rect x="984" y="372" width="9" height="58"/>
-              <rect x="1008" y="372" width="9" height="58"/>
-              <rect x="1032" y="372" width="9" height="58"/>
-              <rect x="1046" y="372" width="9" height="58"/>
+            <!-- Isometric Workshop Peristyle Columns & Ribbed Terracotta Roof -->
+            <g fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.2">
+              <rect x="498" y="382" width="6" height="54"/>
+              <rect x="518" y="373" width="6" height="54"/>
+              <rect x="538" y="364" width="6" height="54"/>
+            </g>
+            <polygon points="416,355 482,324 564,361 498,392" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.8"/>
+            <g stroke="var(--terracotta-dark)" stroke-width="1.1" opacity="0.65">
+              <line x1="442" y1="344" x2="515" y2="378"/>
+              <line x1="465" y1="334" x2="538" y2="368"/>
             </g>
 
-            <!-- Classical Triangular Pediment & Terracotta Roof -->
-            <polygon points="922,372 993,328 1064,372" fill="#c45133" stroke="#7c2d12" stroke-width="2"/>
-            <polygon points="938,366 993,336 1048,366" fill="var(--marble-mid)"/>
-
-            <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(993, 492)">
-              <rect class="building-pill-bg" x="-120" y="-15" width="240" height="30" rx="15" fill="var(--surface-solid)" stroke="#c45133" stroke-width="2" filter="url(#soft-shadow)"/>
-              <circle cx="-98" cy="0" r="5.5" fill="#c45133"/>
-              <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">02 · The Forge of Hephaestus</text>
+            <!-- Floating Landmark Label Pill -->
+            <g class="building-pill" transform="translate(515, 512)">
+              <rect class="building-pill-bg" x="-112" y="-15" width="224" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-route" x="-66" y="4" text-anchor="middle" fill="var(--terracotta)" font-family="monospace" font-size="10.5" font-weight="700">/builder</text>
+              <text class="building-pill-text" x="30" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Artisan Forge</text>
             </g>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 05 (SOUTHERN COTHON HARBOR AT THE FOOT OF THE PANATHENAIC WAY, 780, 635)
-               Leads to the "About Me" Card (HARBOR)
+               LANDMARK 4 (EAST CAPE, 1055, 385): GARDEN IN THE CITADEL -> /philosopher
+               ("Philosopher — Reading Marcus": Walled colonnade Stoa framing a lush cypress/olive grove & semicircular stone benches)
                ══════════════════════════════════════════════════════════════ -->
-          <!-- Embracing Stone Breakwater Moles & Pharos Lighthouse -->
-          <g filter="url(#soft-shadow)">
-            <path d="M 555 615 Q 535 725, 685 752 L 695 726 Q 582 702, 595 608 Z" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
-            <path d="M 1015 615 Q 1035 725, 885 752 L 875 726 Q 988 702, 975 608 Z" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
-            <!-- Pharos Harbor Lighthouse -->
-            <rect x="670" y="688" width="22" height="42" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
-            <rect x="674" y="672" width="14" height="16" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
-            <circle class="anim-flame" cx="681" cy="666" r="6.5" fill="#f59e0b"/>
-          </g>
+          <g class="town-building" data-building-id="EXP-03" data-route="/philosopher" data-active="false" tabindex="0" role="button" aria-label="Garden in the Citadel — Philosopher: Reading Marcus (/philosopher)">
+            <!-- 45° Directional Cast Shadow -->
+            <polygon points="935,388 1065,328 1195,388 1065,448" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
-          <!-- Moored Greek Trireme & Merchant Ship in the Harbor Basin -->
-          <g transform="translate(635, 675)" class="anim-ship">
-            <path d="M -34 10 L 34 10 L 24 25 L -24 25 Z" fill="#8c4a27" stroke="#4a2511" stroke-width="1.8"/>
-            <line x1="0" y1="-20" x2="0" y2="10" stroke="#4a2511" stroke-width="2.5"/>
-            <path d="M -22 -12 Q 0 -19, 22 -12 Q 26 2, 18 8 Q 0 3, -18 8 Z" fill="#fffdf8" stroke="#d47a1c" stroke-width="1.8"/>
-          </g>
-          <g transform="translate(925, 675)" class="anim-ship">
-            <path d="M -34 10 L 34 10 L 24 25 L -24 25 Z" fill="#7c3f1d" stroke="#4a2511" stroke-width="1.8"/>
-            <line x1="0" y1="-20" x2="0" y2="10" stroke="#4a2511" stroke-width="2.5"/>
-            <path d="M -22 -12 Q 0 -19, 22 -12 Q 26 2, 18 8 Q 0 3, -18 8 Z" fill="#fce8b2" stroke="#2962ab" stroke-width="1.8"/>
-          </g>
+            <!-- Isometric Walled Sanctuary Peristyle Deck on the East Cape -->
+            <polygon points="932,385 1065,324 1198,385 1065,446" fill="var(--marble-light)" stroke="var(--olive-foliage)" stroke-width="2.2"/>
+            <polygon points="932,385 1065,446 1065,460 932,399" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="1065,446 1198,385 1198,399 1065,460" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
 
-          <!-- Interactive Harbor Building: The Maritime Stoa & Navarch's Hall (HARBOR -> About Me) -->
-          <g class="town-building" data-building-id="HARBOR" data-active="false" tabindex="0" role="button" aria-label="The Harbor Stoa — Open About Me Card">
-            <!-- Stone Harbor Quay & Timber Pier -->
-            <polygon points="615,618 945,618 975,652 585,652" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
-            <rect x="752" y="648" width="56" height="32" fill="#8c5832" stroke="#4a2511" stroke-width="1.8"/>
+            <!-- L-Shaped Walled Colonnade (Stoa) Framing the Northern & Eastern Edges -->
+            <!-- NW Stoa Wing -->
+            <polygon points="946,378 1065,324 1082,332 963,386" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+            <polygon points="963,386 1082,332 1082,356 963,410" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.4"/>
+            <!-- NE Stoa Wing -->
+            <polygon points="1065,324 1184,378 1167,386 1048,332" fill="#D96B43" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+            <polygon points="1065,348 1167,395 1167,374 1065,328" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.4"/>
 
-            <!-- Grand Colonnaded Maritime Stoa Building -->
-            <rect x="688" y="556" width="184" height="62" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
-            <!-- Terracotta Tiled Hip Roof & Central Pediment -->
-            <polygon points="676,556 780,516 884,556" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="2"/>
-            <polygon points="738,556 780,528 822,556" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <!-- Semicircular Stone Exedra Benches (Philosopher's Hemicycles) & Reflecting Basin -->
+            <path d="M 1018 394 A 46 22 0 0 1 1112 394" fill="none" stroke="var(--cliff-shadow)" stroke-width="7"/>
+            <path d="M 1018 394 A 46 22 0 0 1 1112 394" fill="none" stroke="var(--marble-light)" stroke-width="4.5"/>
+            <path d="M 1032 406 A 32 15 0 0 0 1098 406" fill="none" stroke="var(--cliff-shadow)" stroke-width="6"/>
+            <path d="M 1032 406 A 32 15 0 0 0 1098 406" fill="none" stroke="var(--marble-light)" stroke-width="3.8"/>
+            <ellipse cx="1065" cy="398" rx="18" ry="8" fill="#3B97A8" stroke="var(--marble-light)" stroke-width="1.5"/>
 
-            <!-- Maritime Stoa Arches -->
-            <g fill="#2b3d4f">
-              <rect x="705" y="572" width="18" height="44" rx="9"/>
-              <rect x="737" y="572" width="18" height="44" rx="9"/>
-              <rect x="770" y="568" width="20" height="48" rx="10" fill="#d47a1c"/>
-              <rect x="805" y="572" width="18" height="44" rx="9"/>
-              <rect x="837" y="572" width="18" height="44" rx="9"/>
-            </g>
+            <!-- Lush Swaying Cypress & Olive Grove inside the Walled Sanctuary -->
+            <circle cx="998" cy="388" r="14" fill="var(--olive-foliage)"/><circle cx="1008" cy="383" r="10" fill="var(--olive-highlight)"/>
+            <circle cx="1132" cy="388" r="14" fill="var(--olive-foliage)"/><circle cx="1142" cy="383" r="10" fill="var(--olive-highlight)"/>
+            <path class="anim-cypress" d="M 976 392 Q 983 345, 990 392 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress-alt" d="M 1058 368 Q 1065 320, 1072 368 Z" fill="var(--cypress-dark)"/>
+            <path class="anim-cypress" d="M 1142 392 Q 1149 345, 1156 392 Z" fill="var(--cypress-dark)"/>
 
-            <!-- Floating Harbor Location Pill -->
-            <g class="building-pill" transform="translate(780, 704)">
-              <rect class="building-pill-bg" x="-122" y="-15" width="244" height="30" rx="15" fill="var(--surface-solid)" stroke="#d47a1c" stroke-width="2" filter="url(#soft-shadow)"/>
-              <circle cx="-100" cy="0" r="5.5" fill="#d47a1c"/>
-              <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">05 · The Harbor — About Me</text>
+            <!-- Floating Landmark Label Pill -->
+            <g class="building-pill" transform="translate(1065, 476)">
+              <rect class="building-pill-bg" x="-138" y="-15" width="276" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-route" x="-84" y="4" text-anchor="middle" fill="var(--olive-foliage)" font-family="monospace" font-size="10.5" font-weight="700">/philosopher</text>
+              <text class="building-pill-text" x="38" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Garden in the Citadel</text>
             </g>
           </g>
 
-          <!-- ── ANIMATED OWL OF ATHENA / PHILOSOPHER EXPLORER TOKEN ── -->
-          <g id="town-explorer" transform="translate(785, 392)">
-            <circle cx="0" cy="0" r="22" fill="#f59e0b" opacity="0.28"/>
-            <circle cx="0" cy="0" r="12" fill="#1e1b16" stroke="#f59e0b" stroke-width="2.8"/>
-            <circle cx="-4" cy="-2" r="2.3" fill="#fffdf8"/>
-            <circle cx="4" cy="-2" r="2.3" fill="#fffdf8"/>
-            <polygon points="0,0 -3,5 3,5" fill="#f59e0b"/>
-            <rect x="-38" y="-35" width="76" height="16" rx="8" fill="#1e1b16" stroke="#f59e0b" stroke-width="1.4"/>
-            <text x="0" y="-24" text-anchor="middle" fill="#fffdf8" font-family="monospace" font-size="9" font-weight="bold">EXPLORER</text>
+          <!-- ══════════════════════════════════════════════════════════════
+               LANDMARK 1 (SOUTH COVE, 775, 625): HARBOR STOA -> /about
+               ("About Me": Stone breakwater, wooden dock, moored wooden boat & welcoming colonnaded portico)
+               ══════════════════════════════════════════════════════════════ -->
+          <!-- Isometric Stone Breakwater Mole & Pharos Beacon Embracing the Carved South Cove -->
+          <g>
+            <!-- Breakwater 45° Cast Shadow -->
+            <polygon points="565,612 605,695 712,728 722,704 632,676 602,604" fill="var(--cast-shadow)" transform="translate(10, 8)"/>
+            <!-- Isometric Breakwater Top & Side Walls -->
+            <polygon points="565,612 605,695 712,728 722,704 632,676 602,604" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <polygon points="565,612 605,695 605,710 565,627" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="605,695 712,728 712,743 605,710" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <!-- Harbor Beacon Tower at Breakwater Tip -->
+            <rect x="692" y="672" width="20" height="38" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="688,672 702,656 716,672" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
+            <circle class="anim-forge" cx="702" cy="650" r="6" fill="#F2B249"/>
+          </g>
+
+          <!-- Interactive Harbor Stoa, Wooden Dock & Moored Wooden Boat -->
+          <g class="town-building" data-building-id="HARBOR" data-route="/about" data-active="false" tabindex="0" role="button" aria-label="Harbor Stoa — About Me (/about)">
+            <!-- 45° Cast Shadow of the Harbor Stoa -->
+            <polygon points="652,585 775,532 898,585 775,638" fill="var(--cast-shadow)" transform="translate(12, 10)"/>
+
+            <!-- Isometric Stone Harbor Quay Platform -->
+            <polygon points="642,592 775,538 908,592 775,646" fill="var(--marble-light)" stroke="#D47A1C" stroke-width="2"/>
+            <polygon points="642,592 775,646 775,662 642,608" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="775,646 908,592 908,608 775,662" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+
+            <!-- Isometric Wooden Dock Extending into the South Cove with Timber Planks & Mooring Bollards -->
+            <polygon points="755,642 795,626 845,652 805,668" fill="#9A663E" stroke="#5A381E" stroke-width="1.8"/>
+            <polygon points="755,642 805,668 805,676 755,650" fill="#784D2C" stroke="#5A381E" stroke-width="1.4"/>
+            <line x1="772" y1="648" x2="808" y2="634" stroke="#5A381E" stroke-width="1.3"/>
+            <line x1="786" y1="655" x2="822" y2="641" stroke="#5A381E" stroke-width="1.3"/>
+
+            <!-- Moored Isometric Wooden Boat beside the Wooden Dock -->
+            <g transform="translate(862, 666)" class="anim-boat">
+              <polygon points="-34,6 0,-8 34,6 22,20 -22,20" fill="#8C4A27" stroke="#4A2511" stroke-width="1.6"/>
+              <line x1="0" y1="-26" x2="0" y2="8" stroke="#4A2511" stroke-width="2.4"/>
+              <path d="M -22 -18 Q 0 -26, 22 -16 Q 24 0, 16 6 Q 0 1, -18 6 Z" fill="var(--marble-light)" stroke="var(--terracotta)" stroke-width="1.6"/>
+            </g>
+
+            <!-- Welcoming Colonnaded Harbor Stoa Portico Leading onto the Central Marble Road -->
+            <polygon points="678,582 775,622 775,568 678,528" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="775,622 872,582 872,528 775,568" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <!-- Colonnade Arches & Central Gateway onto the Panathenaic Road -->
+            <g fill="#1E3642">
+              <polygon points="696,584 712,591 712,554 696,547"/>
+              <polygon points="724,596 740,603 740,566 724,559"/>
+              <polygon points="764,612 786,612 786,568 764,568" fill="#D47A1C"/>
+              <polygon points="810,603 826,596 826,559 810,566"/>
+              <polygon points="838,591 854,584 854,547 838,554"/>
+            </g>
+            <!-- Isometric Ribbed Terracotta Roof of the Harbor Stoa -->
+            <polygon points="668,528 775,484 882,528 775,572" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.8"/>
+            <polygon points="735,546 775,522 815,546" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+
+            <!-- Floating Landmark Label Pill -->
+            <g class="building-pill" transform="translate(775, 704)">
+              <rect class="building-pill-bg" x="-112" y="-15" width="224" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
+              <text class="building-pill-route" x="-66" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/about</text>
+              <text class="building-pill-text" x="26" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Harbor Stoa</text>
+            </g>
+          </g>
+
+          <!-- ── ANIMATED OWL OF ATHENA / EXPLORER TOKEN ── -->
+          <g id="town-explorer" transform="translate(785, 412)">
+            <circle cx="0" cy="0" r="21" fill="#F2B249" opacity="0.3"/>
+            <circle cx="0" cy="0" r="11.5" fill="#1C252C" stroke="#F2B249" stroke-width="2.6"/>
+            <circle cx="-3.8" cy="-2" r="2.2" fill="#F5EFE6"/>
+            <circle cx="3.8" cy="-2" r="2.2" fill="#F5EFE6"/>
+            <polygon points="0,0 -3,5 3,5" fill="#F2B249"/>
+            <rect x="-36" y="-34" width="72" height="15" rx="7.5" fill="#1C252C" stroke="#F2B249" stroke-width="1.3"/>
+            <text x="0" y="-23.5" text-anchor="middle" fill="#F5EFE6" font-family="monospace" font-size="8.5" font-weight="bold">EXPLORER</text>
           </g>
 
         </g>
       </svg>
 
-      <!-- ── Right Slide-Over Temple & Harbor Interior Drawer ── -->
-      <aside id="temple-inspector-drawer" class="temple-drawer" data-open="false" aria-live="polite">
+      <!-- ── Floating Right Detail Card & Interactive Chamber Inspector (Late Checkout Style) ── -->
+      <aside id="temple-inspector-drawer" class="temple-drawer" data-open="false" data-expanded="false" aria-live="polite">
         <div class="inspector-banner">
-          <span id="town-hud-building">THE THOLOS OF GATEWAYS</span>
+          <span id="inspector-route-badge" class="inspector-route-pill">/strategist</span>
           <button type="button" class="drawer-close-btn" data-reset-camera="true">
             ← Full Polis
           </button>
         </div>
 
-        <!-- Chamber 01 Interior: The Red Queen's Simulator -->
+        <!-- Floating Detail Card Summary (Revealed on Hover or Click) -->
+        <div class="floating-card-summary">
+          <h2 id="town-hud-building" class="floating-card-title">NW Acropolis</h2>
+          <p id="inspector-role-subtitle" class="floating-card-subtitle">Strategist — The Next Gateway</p>
+          <p id="inspector-core-thesis" class="floating-card-thesis">
+            AI as a one-way civilizational gateway: breaking the Red Queen's Race in deterministic science while testing epistemic trust in human institutions.
+          </p>
+          <button type="button" id="inspector-explore-btn" class="explore-primary-btn" data-explore-target="EXP-01">
+            Explore →
+          </button>
+        </div>
+
+        <!-- Chamber 01 Interior: NW Acropolis (/strategist) -->
         <div class="chamber-panel" data-chamber-panel="EXP-01">
           <h3>EXP-01 // The Red Queen’s Simulator</h3>
-          <p class="chamber-panel-sub">The Tholos of Gateways · Macro-History</p>
+          <p class="chamber-panel-sub">NW Acropolis · /strategist</p>
 
           <div class="dilemma-box">
             <span class="dilemma-tag">DILEMMA CARD // YEAR 2027</span>
@@ -1147,10 +1348,10 @@
           </div>
         </div>
 
-        <!-- Chamber 02 Interior: The Alignment Crucible -->
+        <!-- Chamber 02 Interior: Artisan Forge (/builder) -->
         <div class="chamber-panel" data-chamber-panel="EXP-02" hidden>
           <h3>EXP-02 // The Alignment Crucible</h3>
-          <p class="chamber-panel-sub">The Forge of Hephaestus · AI Ethics as a Design Language</p>
+          <p class="chamber-panel-sub">Artisan Forge · /builder</p>
 
           <div class="dilemma-box">
             <span class="dilemma-tag">PRODUCT SPEC // STUDENT TUTORING COMPANION</span>
@@ -1178,10 +1379,10 @@
           </div>
         </div>
 
-        <!-- Chamber 03 Interior: The Citadel Diagnostic -->
+        <!-- Chamber 03 Interior: Garden in the Citadel (/philosopher) -->
         <div class="chamber-panel" data-chamber-panel="EXP-03" hidden>
           <h3>EXP-03 // The Citadel Diagnostic</h3>
-          <p class="chamber-panel-sub">Stoic Peristyle Garden · Inner Resilience</p>
+          <p class="chamber-panel-sub">Garden in the Citadel · /philosopher</p>
 
           <div class="dilemma-box">
             <span class="dilemma-tag">2-MINUTE STATE CHECK</span>
@@ -1210,10 +1411,10 @@
           </div>
         </div>
 
-        <!-- Chamber 04 Interior: The Architect's Forge -->
+        <!-- Chamber 04 Interior: Kairos Horologion (/practitioner) -->
         <div class="chamber-panel" data-chamber-panel="EXP-04" hidden>
           <h3>EXP-04 // The Architect’s Forge</h3>
-          <p class="chamber-panel-sub">Tower of the Winds · 80% Automation / 20% Craft</p>
+          <p class="chamber-panel-sub">Kairos Horologion · /practitioner</p>
 
           <div class="dilemma-box">
             <span class="dilemma-tag">DRAINING MAINTENANCE INPUT</span>
@@ -1243,10 +1444,10 @@
           </div>
         </div>
 
-        <!-- Chamber 05 Interior: HARBOR — About Me Card -->
+        <!-- Chamber 05 Interior: Harbor Stoa (/about — About Me) -->
         <div class="chamber-panel" data-chamber-panel="HARBOR" hidden>
           <h3>About Me</h3>
-          <p class="chamber-panel-sub">The Maritime Harbor Stoa · From Classics to the AI Era</p>
+          <p class="chamber-panel-sub">Harbor Stoa · /about</p>
 
           <div class="dilemma-box">
             <span class="dilemma-tag">THE THROUGH-LINE</span>
@@ -1264,36 +1465,36 @@
         </div>
       </aside>
 
-      <!-- ── Floating Bottom Role Router Dock ── -->
+      <!-- ── Floating Bottom Quick-Select Role Dock ── -->
       <div class="floating-bottom-dock">
-        <div class="dock-card" aria-label="Role and state experiment router">
+        <div class="dock-card" aria-label="Role and landmark quick-select dock">
           <div class="dock-top-row">
             <h1 class="dock-headline">Don’t just read the AI Era. Stress-test it.</h1>
             <p id="router-telemetry-readout" class="dock-sub">
-              Click any landmark across the island, the Harbor Stoa, or a role below to explore.
+              Hover or click any landmark across the island, the Harbor Stoa (/about), or a role pill below to explore.
             </p>
           </div>
 
           <div class="role-grid">
             <button type="button" class="role-btn" data-role-select="builder" aria-pressed="false">
-              <span class="role-btn-code">01 · ARTISAN FORGE</span>
-              <span class="role-btn-title">Builder</span>
+              <span class="role-btn-code">/builder · WEST</span>
+              <span class="role-btn-title">Builder — AI Ethics</span>
             </button>
             <button type="button" class="role-btn" data-role-select="strategist" aria-pressed="false">
-              <span class="role-btn-code">02 · NW ACROPOLIS</span>
-              <span class="role-btn-title">Strategist</span>
+              <span class="role-btn-code">/strategist · NW HILL</span>
+              <span class="role-btn-title">Strategist — Gateway</span>
             </button>
             <button type="button" class="role-btn" data-role-select="philosopher" aria-pressed="false">
-              <span class="role-btn-code">03 · EAST CAPE</span>
-              <span class="role-btn-title">Philosopher</span>
+              <span class="role-btn-code">/philosopher · EAST CAPE</span>
+              <span class="role-btn-title">Philosopher — Marcus</span>
             </button>
             <button type="button" class="role-btn" data-role-select="leader" aria-pressed="false">
-              <span class="role-btn-code">04 · RIDGE TOWER</span>
-              <span class="role-btn-title">Overwhelmed Leader</span>
+              <span class="role-btn-code">/practitioner · N RIDGE</span>
+              <span class="role-btn-title">Practitioner / Overwhelmed Leader</span>
             </button>
             <button type="button" class="role-btn" data-visit-building="HARBOR" aria-pressed="false">
-              <span class="role-btn-code">05 · SW COVE</span>
-              <span class="role-btn-title">About Me</span>
+              <span class="role-btn-code">/about · SOUTH COVE</span>
+              <span class="role-btn-title">About Me — Harbor Stoa</span>
             </button>
           </div>
         </div>
@@ -1305,46 +1506,46 @@
       <div class="bento-grid">
         <article class="chamber-card" data-chamber-id="EXP-01" data-accent="amber">
           <div class="chamber-meta">
-            <span class="chamber-id">EXP-01 // The Red Queen’s Simulator</span>
-            <span class="chamber-pillar">The Next Gateway · NW Acropolis</span>
+            <span class="chamber-id">/strategist · EXP-01</span>
+            <span class="chamber-pillar">NW Acropolis · The Next Gateway</span>
           </div>
-          <h2>The Tholos of Gateways</h2>
+          <h2>NW Acropolis — Strategist</h2>
           <p>Navigate historical and 2027 AI inflection points, balancing Velocity, Social Cohesion, and Epistemic Trust.</p>
         </article>
 
         <article class="chamber-card" data-chamber-id="EXP-02" data-accent="copper">
           <div class="chamber-meta">
-            <span class="chamber-id">EXP-02 // The Alignment Crucible</span>
-            <span class="chamber-pillar">AI Ethics · Artisan Quarter</span>
+            <span class="chamber-id">/builder · EXP-02</span>
+            <span class="chamber-pillar">Artisan Forge · AI Ethics</span>
           </div>
-          <h2>The Forge of Hephaestus</h2>
+          <h2>Artisan Forge — Builder</h2>
           <p>Equip Productive Friction cards on AI product specs to safeguard human agency, mastery, and participation.</p>
         </article>
 
         <article class="chamber-card" data-chamber-id="EXP-03" data-accent="sage">
           <div class="chamber-meta">
-            <span class="chamber-id">EXP-03 // The Citadel Diagnostic</span>
-            <span class="chamber-pillar">Garden in the Citadel · Eastern Cape</span>
+            <span class="chamber-id">/philosopher · EXP-03</span>
+            <span class="chamber-pillar">East Cape · Reading Marcus</span>
           </div>
-          <h2>The Stoic Peristyle Garden</h2>
+          <h2>Garden in the Citadel — Philosopher</h2>
           <p>Map present cognitive friction against Marcus Aurelius’s <em>Meditations</em> for a 60-second reframe protocol.</p>
         </article>
 
         <article class="chamber-card" data-chamber-id="EXP-04" data-accent="cobalt">
           <div class="chamber-meta">
-            <span class="chamber-id">EXP-04 // The Architect’s Forge</span>
-            <span class="chamber-pillar">Energy Architecture · Central Ridge</span>
+            <span class="chamber-id">/practitioner · EXP-04</span>
+            <span class="chamber-pillar">North Ridge · Kairos OS</span>
           </div>
-          <h2>The Tower of the Winds</h2>
+          <h2>Kairos Horologion — Practitioner</h2>
           <p>Convert draining administrative chores into pioneering creative quests with an 80/20 agent workflow split.</p>
         </article>
 
         <article class="chamber-card" data-chamber-id="HARBOR" data-accent="amber">
           <div class="chamber-meta">
-            <span class="chamber-id">HARBOR // The Maritime Stoa</span>
-            <span class="chamber-pillar">About Me · SW Harbor Cove</span>
+            <span class="chamber-id">/about · HARBOR</span>
+            <span class="chamber-pillar">South Cove · Harbor Stoa</span>
           </div>
-          <h2>About Me — From Classics to the AI Era</h2>
+          <h2>Harbor Stoa — About Me</h2>
           <p>How people turn data into knowledge they accept as true: from Late Antique poetry to modern agentic AI and design ethics.</p>
         </article>
       </div>
@@ -1365,7 +1566,7 @@
 
     <article aria-label="AI Era Manifesto">
       <section class="manifesto-chapter">
-        <p class="chapter-numeral">I · Pillar 01 · The Next Gateway</p>
+        <p class="chapter-numeral">I · /strategist · The Next Gateway</p>
         <h2>AI’s potential to transform the world</h2>
         <p>
           AI as a one-way gateway, on the scale of the agricultural and mechanical revolutions. In deterministic natural systems such as proteins, materials, and energy, it can break the Red Queen’s Race of stagnating innovation. In self-reflexive social systems such as education and society, the same power behaves very differently, and that difference matters.
@@ -1373,7 +1574,7 @@
       </section>
 
       <section class="manifesto-chapter">
-        <p class="chapter-numeral">II · Pillar 02 · Tactical Product Ethics</p>
+        <p class="chapter-numeral">II · /builder · Tactical Product Ethics</p>
         <h2>AI ethics</h2>
         <p>
           Ethics as a design language, not a rulebook. No universal principle settles every conflict, so the real work happens in product design: building internal goods like agency, participation, mastery, and growth into the AI applications people actually use. Practical frameworks for teams shaping committed products, drawn from the classroom and the workshop.
@@ -1381,7 +1582,7 @@
       </section>
 
       <section class="manifesto-chapter">
-        <p class="chapter-numeral">III · Pillar 03 · Inner Resilience</p>
+        <p class="chapter-numeral">III · /philosopher · Inner Resilience</p>
         <h2>Garden in the Citadel</h2>
         <p>
           Operating inside a technological gateway tests attention and judgment before it tests tooling. Classical Stoic practice — separating what is up to us from external noise, outcome anxiety, and role exhaustion — offers a durable inner citadel for builders navigating rapid transformation.
@@ -1389,8 +1590,8 @@
       </section>
 
       <section class="manifesto-chapter">
-        <p class="chapter-numeral">IV · Pillar 04 · Energy Architecture</p>
-        <h2>The Architect’s Forge</h2>
+        <p class="chapter-numeral">IV · /practitioner · Kairos OS &amp; Energy Architecture</p>
+        <h2>Kairos Horologion &amp; The Architect’s Forge</h2>
         <p>
           The measure of AI-native work is not sheer volume of output, but whether automation reclaims human energy for pioneering thought. A well-architected workflow delegates repetitive maintenance while guarding the 20% where human taste, dialectic, and authorship live.
         </p>

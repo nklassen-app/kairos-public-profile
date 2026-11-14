@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * AI Era Digital Concept Lab — Natural Asymmetric Aegean Polis & Harbor Controller
+ * AI Era Digital Concept Lab — 2.5D Isometric Athenian Agora & Polis Controller
  * Self-contained, zero-dependency client-side controller.
  * Runs under CSP: script-src 'self'; connect-src 'none'.
  */
@@ -9,11 +9,15 @@
   var BUILDINGS = {
     AGORA: {
       id: "AGORA",
-      title: "The Panathenaic Agora & Odeion",
+      route: "/agora",
+      title: "The Central Agora Basin",
+      roleSubtitle: "Central Forum · The Panathenaic Way",
+      thesis:
+        "The civic heart of the Polis where the Panathenaic Way connects the southern harbor to the elevated sanctuaries.",
       prototype: "AGORA // 00 · The Panathenaic Way",
       pillar: "Central Forum & Wayfinder",
       x: 785,
-      y: 392,
+      y: 412,
       camX: 0,
       camY: 0,
       zoom: 1,
@@ -21,116 +25,159 @@
     },
     "EXP-01": {
       id: "EXP-01",
-      title: "The Acropolis & Tholos of Gateways",
+      route: "/strategist",
+      title: "NW Acropolis",
+      roleSubtitle: "Strategist — The Next Gateway",
+      thesis:
+        "AI as a one-way civilizational gateway: breaking the Red Queen's Race in deterministic science while testing epistemic trust in human institutions.",
       prototype: "EXP-01 // The Red Queen's Simulator",
-      pillar: "The Next Gateway · Macro-History",
-      x: 615,
+      pillar: "Strategist — The Next Gateway",
+      x: 565,
       y: 235,
-      camX: 165,
+      camX: 185,
       camY: 145,
-      zoom: 1.52,
+      zoom: 1.5,
       accent: "amber"
     },
     "EXP-02": {
       id: "EXP-02",
-      title: "The Hephaisteion & West Agora",
+      route: "/builder",
+      title: "Artisan Forge",
+      roleSubtitle: "Builder — AI Ethics",
+      thesis:
+        "Ethics as a design language, not a rulebook: embedding productive friction, agency, mastery, and participation directly into AI products.",
       prototype: "EXP-02 // The Alignment Crucible",
-      pillar: "AI Ethics as a Design Language",
-      x: 985,
-      y: 432,
-      camX: -145,
-      camY: -15,
-      zoom: 1.52,
+      pillar: "Builder — AI Ethics",
+      x: 515,
+      y: 425,
+      camX: 215,
+      camY: -10,
+      zoom: 1.5,
       accent: "copper"
     },
     "EXP-03": {
       id: "EXP-03",
-      title: "The Stoic Peristyle & Library",
+      route: "/philosopher",
+      title: "Garden in the Citadel",
+      roleSubtitle: "Philosopher — Reading Marcus",
+      thesis:
+        "Guarding the inner citadel amidst algorithmic noise: classical Stoic practice from Marcus Aurelius's Meditations for builders in rapid transition.",
       prototype: "EXP-03 // The Citadel Diagnostic",
-      pillar: "Garden in the Citadel · Inner Resilience",
-      x: 565,
-      y: 382,
-      camX: 195,
+      pillar: "Philosopher — Reading Marcus",
+      x: 1055,
+      y: 385,
+      camX: -195,
       camY: 25,
-      zoom: 1.52,
+      zoom: 1.5,
       accent: "sage"
     },
     "EXP-04": {
       id: "EXP-04",
-      title: "The Middle Stoa & Tower of the Winds",
+      route: "/practitioner",
+      title: "Kairos Horologion",
+      roleSubtitle: "Practitioner — Kairos OS",
+      thesis:
+        "Workflow and energy architecture: delegating 80% of draining maintenance to agentic pipelines to reclaim the 20% where human taste and pioneering craft live.",
       prototype: "EXP-04 // The Architect's Forge",
-      pillar: "Workflow & Energy Architecture",
-      x: 845,
-      y: 312,
-      camX: -45,
-      camY: 85,
-      zoom: 1.52,
+      pillar: "Practitioner — Kairos OS",
+      x: 865,
+      y: 255,
+      camX: -55,
+      camY: 135,
+      zoom: 1.5,
       accent: "cobalt"
     },
     HARBOR: {
       id: "HARBOR",
-      title: "The Cothon Harbor Stoa",
+      route: "/about",
+      title: "Harbor Stoa",
+      roleSubtitle: "About Me — From Classics to the AI Era",
+      thesis:
+        "How the human mind selects data, processes it through competing frameworks, and creates the knowledge we accept as true and act upon.",
       prototype: "HARBOR // About Me & The Voyages",
-      pillar: "From Classics to the AI Era",
-      x: 780,
-      y: 635,
+      pillar: "About Me — Harbor Stoa",
+      x: 775,
+      y: 625,
       camX: 15,
-      camY: -165,
-      zoom: 1.48,
+      camY: -155,
+      zoom: 1.46,
       accent: "amber"
     }
+  };
+
+  var ROUTE_TO_BUILDING = {
+    "/about": "HARBOR",
+    "/builder": "EXP-02",
+    "/strategist": "EXP-01",
+    "/philosopher": "EXP-03",
+    "/practitioner": "EXP-04"
   };
 
   var ROLE_ROUTES = {
     builder: {
       chamber: "EXP-02",
+      route: "/builder",
       label: "Builder",
-      chamberTitle: "EXP-02 // The Forge of Hephaestus",
+      chamberTitle: "Artisan Forge · /builder",
       rationale:
-        "Routed to the Artisan Forge (EXP-02): equip Productive Friction cards to protect human agency."
+        "Routed to Artisan Forge (/builder — AI Ethics): equip Productive Friction cards to safeguard human agency."
     },
     strategist: {
       chamber: "EXP-01",
+      route: "/strategist",
       label: "Strategist",
-      chamberTitle: "EXP-01 // The Tholos of Gateways",
+      chamberTitle: "NW Acropolis · /strategist",
       rationale:
-        "Routed to the High Acropolis Tholos (EXP-01): stress-test civilization metrics across AI gateways."
+        "Routed to NW Acropolis (/strategist — The Next Gateway): stress-test civilization metrics across AI gateways."
     },
     philosopher: {
       chamber: "EXP-03",
+      route: "/philosopher",
       label: "Philosopher",
-      chamberTitle: "EXP-03 // The Stoic Peristyle Garden",
+      chamberTitle: "Garden in the Citadel · /philosopher",
       rationale:
-        "Routed to the Eastern Cape Sanctuary (EXP-03): calibrate cognitive friction against Marcus Aurelius."
+        "Routed to Garden in the Citadel (/philosopher — Reading Marcus): calibrate inner resilience in the East Cape Stoa."
     },
     leader: {
       chamber: "EXP-04",
+      route: "/practitioner",
       label: "Overwhelmed Leader",
-      chamberTitle: "EXP-04 // The Tower of the Winds",
+      chamberTitle: "Kairos Horologion · /practitioner",
       rationale:
-        "Routed to the Upper Ridge Clocktower (EXP-04): transmute draining maintenance into creative craft."
+        "Routed to Kairos Horologion (/practitioner — Kairos OS): convert draining maintenance into an 80/20 agentic quest."
+    },
+    practitioner: {
+      chamber: "EXP-04",
+      route: "/practitioner",
+      label: "Practitioner",
+      chamberTitle: "Kairos Horologion · /practitioner",
+      rationale:
+        "Routed to Kairos Horologion (/practitioner — Kairos OS): convert draining maintenance into an 80/20 agentic quest."
     }
   };
 
   var RED_QUEEN_CHOICES = {
     accelerate: {
-      label: "Accelerate & Decentralize",
-      velocity: 92,
-      cohesion: 38,
-      trust: 41,
+      id: "accelerate",
+      label: "Accelerate & Decentralize Compute",
+      velocity: 94,
+      cohesion: 42,
+      trust: 48,
       verdict:
-        "Breakthroughs compound in deterministic domains (proteins, materials), but self-reflexive institutions fracture faster than norms adapt."
+        "Breakthroughs in deterministic science surge, but social institutions fracture under unverified synthetic media."
     },
     ration: {
-      label: "Impose Compute Rationing",
-      velocity: 44,
-      cohesion: 71,
-      trust: 64,
+      id: "ration",
+      label: "Impose Global Compute Rationing",
+      velocity: 38,
+      cohesion: 68,
+      trust: 61,
       verdict:
-        "Social stability holds in the short term, but the Red Queen's Race stalls frontier discovery in energy and medicine."
+        "Social shock slows down, yet the Red Queen's Race stalls critical energy and biomedical breakthroughs."
     },
     commons: {
-      label: "Build Verification Commons",
+      id: "commons",
+      label: "Build Open Verification Commons",
       velocity: 78,
       cohesion: 74,
       trust: 86,
@@ -142,26 +189,26 @@
   var FRICTION_CARDS = {
     socratic: {
       id: "socratic",
-      title: "Socratic Resistance Mode",
-      scoreDelta: 34,
+      label: "Socratic Resistance Mode",
+      scoreDelta: 32,
       guards: "Prevents skill atrophy by requiring the student's own hypothesis before hinting."
     },
     speedbump: {
       id: "speedbump",
-      title: "Cognitive Load Speedbump",
+      label: "Cognitive Load Speedbump",
       scoreDelta: 26,
-      guards: "Pauses instant generation on complex reasoning steps so human judgment leads."
+      guards: "Slows premature delegation on high-stakes reasoning steps."
     },
     provenance: {
       id: "provenance",
-      title: "Provenance Watermark",
-      scoreDelta: 22,
-      guards: "Surfaces confidence bounds and primary sources to prevent blind deference."
+      label: "Provenance & Uncertainty Watermark",
+      scoreDelta: 24,
+      guards: "Surfaces confidence boundaries to counter sycophantic authority."
     },
     cutoff: {
       id: "cutoff",
-      title: "Hard Session Cutoff",
-      scoreDelta: 28,
+      label: "Hard Session Cutoff",
+      scoreDelta: 30,
       guards: "Caps parasocial attachment and returns the learner to real-world practice."
     }
   };
@@ -169,7 +216,7 @@
   var CITADEL_TRAPS = {
     noise: {
       id: "noise",
-      label: "External Noise (Outrage / Feed)",
+      label: "External Noise (Outrage / Feed Velocity)",
       quote:
         "“You always own the option of having no opinion. There is never any need to get worked up or to trouble your soul about things you can't control.” — Meditations 6.52",
       protocol:
@@ -181,15 +228,15 @@
       quote:
         "“Never let the future disturb you. You will meet it, if you have to, with the same weapons of reason which today arm you against the present.” — Meditations 7.8",
       protocol:
-        "60-Second Protocol: Separate the external reception of your work from the internal quality of the next 30 minutes. Write down the smallest testable step you wholly control right now."
+        "60-Second Protocol: Separate the external reception of your work from the integrity of the next 25-minute block. Write down the single smallest testable step."
     },
     exhaustion: {
       id: "exhaustion",
       label: "Role Exhaustion (People Pleasing)",
       quote:
-        "“How much time he gains who does not look to see what his neighbor says or does or thinks, but only at what he does himself, to make it just and reverent.” — Meditations 4.18",
+        "“If you seek tranquillity, do less. Or (more accurately) do what's essential—what the logos of a social being requires, and in the requisite way.” — Meditations 4.24",
       protocol:
-        "60-Second Protocol: Identify one obligation you are carrying purely for appearances. Replace one reactive status reply today with 25 minutes of uninterrupted deep work."
+        "60-Second Protocol: Identify one performative obligation on your list today. Convert it into an asynchronous 3-bullet update or decline it outright."
     }
   };
 
@@ -223,6 +270,19 @@
     }
   };
 
+  function resolveBuildingId(idOrRoute) {
+    if (!idOrRoute) {
+      return null;
+    }
+    if (Object.prototype.hasOwnProperty.call(BUILDINGS, idOrRoute)) {
+      return idOrRoute;
+    }
+    if (Object.prototype.hasOwnProperty.call(ROUTE_TO_BUILDING, idOrRoute)) {
+      return ROUTE_TO_BUILDING[idOrRoute];
+    }
+    return null;
+  }
+
   function createLabController() {
     var state = {
       mode: "lab",
@@ -232,11 +292,12 @@
       activeRole: null,
       activeChamber: "EXP-01",
       highlightedChamber: "EXP-01",
+      hoveredBuilding: null,
       drawerOpen: false,
       explorerPos: { x: BUILDINGS.AGORA.x, y: BUILDINGS.AGORA.y },
       camera: { x: 0, y: 0, zoom: 1 },
       routeMessage:
-        "Click any landmark across the island, the Harbor Stoa, or a role below to explore.",
+        "Hover or click any landmark across the island, the Harbor Stoa (/about), or a role pill below to explore.",
       redQueenChoice: "commons",
       equippedFriction: ["socratic", "cutoff"],
       citadelTrap: "noise",
@@ -258,7 +319,11 @@
       var rq = RED_QUEEN_CHOICES[state.redQueenChoice] || RED_QUEEN_CHOICES.commons;
       var trap = CITADEL_TRAPS[state.citadelTrap] || CITADEL_TRAPS.noise;
       var lens = FORGE_LENSES[state.forgeLens] || FORGE_LENSES.pioneer;
-      var bld = BUILDINGS[state.activeChamber] || BUILDINGS["EXP-01"];
+      var activeBld = BUILDINGS[state.activeChamber] || BUILDINGS["EXP-01"];
+      var previewId = state.drawerOpen
+        ? state.activeChamber
+        : state.hoveredBuilding || state.activeChamber;
+      var previewBld = BUILDINGS[previewId] || activeBld;
 
       return {
         mode: state.mode,
@@ -268,10 +333,13 @@
         activeRole: state.activeRole,
         activeChamber: state.activeChamber,
         highlightedChamber: state.highlightedChamber,
+        hoveredBuilding: state.hoveredBuilding,
+        cardVisible: Boolean(state.drawerOpen || state.hoveredBuilding),
         drawerOpen: state.drawerOpen,
         explorerPos: { x: state.explorerPos.x, y: state.explorerPos.y },
         camera: { x: state.camera.x, y: state.camera.y, zoom: state.camera.zoom },
-        buildingInfo: bld,
+        buildingInfo: activeBld,
+        previewInfo: previewBld,
         routeMessage: state.routeMessage,
         redQueen: {
           choice: state.redQueenChoice,
@@ -325,20 +393,38 @@
       return getState();
     }
 
+    function hoverBuilding(idOrRoute) {
+      var resolved = resolveBuildingId(idOrRoute);
+      if (!resolved || resolved === "AGORA") {
+        state.hoveredBuilding = null;
+        return getState();
+      }
+      state.hoveredBuilding = resolved;
+      state.highlightedChamber = resolved;
+      if (!state.drawerOpen) {
+        var bld = BUILDINGS[resolved];
+        state.routeMessage =
+          "Inspecting " + bld.title + " (" + bld.route + " · " + bld.roleSubtitle + "). Click Explore → to enter.";
+      }
+      return getState();
+    }
+
     function resetCamera() {
       state.mode = "lab";
       state.subview = "town";
       state.activeRole = null;
+      state.hoveredBuilding = null;
       state.drawerOpen = false;
       state.explorerPos = { x: BUILDINGS.AGORA.x, y: BUILDINGS.AGORA.y };
       state.camera = { x: 0, y: 0, zoom: 1 };
       state.routeMessage =
-        "Overview of the Polis. Click any temple, the Harbor Stoa, or a role pill to zoom in.";
+        "Overview of the Polis. Hover or click any landmark, the Harbor Stoa (/about), or a role pill to explore.";
       return getState();
     }
 
-    function visitBuilding(buildingId) {
-      if (!buildingId || !Object.prototype.hasOwnProperty.call(BUILDINGS, buildingId)) {
+    function visitBuilding(idOrRoute) {
+      var buildingId = resolveBuildingId(idOrRoute);
+      if (!buildingId) {
         return getState();
       }
       if (buildingId === "AGORA") {
@@ -349,11 +435,12 @@
       state.subview = "town";
       state.activeChamber = buildingId;
       state.highlightedChamber = buildingId;
+      state.hoveredBuilding = buildingId;
       state.drawerOpen = true;
       state.explorerPos = { x: target.x, y: target.y };
       state.camera = { x: target.camX, y: target.camY, zoom: target.zoom };
       state.routeMessage =
-        "Visiting " + target.title + " — " + target.pillar + ".";
+        "Visiting " + target.title + " (" + target.route + " — " + target.roleSubtitle + ").";
       return getState();
     }
 
@@ -409,11 +496,13 @@
 
     return {
       BUILDINGS: BUILDINGS,
+      ROUTE_TO_BUILDING: ROUTE_TO_BUILDING,
       ROLE_ROUTES: ROLE_ROUTES,
       getState: getState,
       setMode: setMode,
       setSubview: setSubview,
       toggleSky: toggleSky,
+      hoverBuilding: hoverBuilding,
       resetCamera: resetCamera,
       visitBuilding: visitBuilding,
       selectRole: selectRole,
@@ -441,11 +530,15 @@
     var subviewBlocks = doc.querySelectorAll("[data-subview]");
     var resetCamButtons = doc.querySelectorAll("[data-reset-camera]");
     var skyToggleBtn = doc.getElementById("sky-toggle-btn");
+    var exploreBtn = doc.getElementById("inspector-explore-btn");
 
     var worldCameraGroup = doc.getElementById("world-camera");
     var explorerGroup = doc.getElementById("town-explorer");
     var inspectorDrawer = doc.getElementById("temple-inspector-drawer");
     var townTitleEl = doc.getElementById("town-hud-building");
+    var cardRouteBadgeEl = doc.getElementById("inspector-route-badge");
+    var cardRoleSubtitleEl = doc.getElementById("inspector-role-subtitle");
+    var cardThesisEl = doc.getElementById("inspector-core-thesis");
     var routeStatusEl = doc.getElementById("router-telemetry-readout");
     var mapStageEl = doc.getElementById("polis-viewport");
 
@@ -457,40 +550,48 @@
     var parallaxOffset = { x: 0, y: 0 };
 
     function updateCameraTransform() {
-      if (!worldCameraGroup) return;
+      if (!worldCameraGroup) {
+        return;
+      }
       var st = ctrl.getState();
       var tx = st.camera.x + parallaxOffset.x;
       var ty = st.camera.y + parallaxOffset.y;
-      var z = st.camera.zoom;
+      var sc = st.camera.zoom;
       worldCameraGroup.style.transform =
-        "translate(" + tx + "px, " + ty + "px) scale(" + z + ")";
+        "translate(" + tx + "px, " + ty + "px) scale(" + sc + ")";
     }
 
     function render() {
       var current = ctrl.getState();
       doc.body.setAttribute("data-lab-mode", current.mode);
+      doc.body.setAttribute("data-subview-mode", current.subview);
       doc.body.setAttribute("data-sky", current.sky);
 
       if (skyToggleBtn) {
-        skyToggleBtn.textContent =
-          current.sky === "helios" ? "☀ Day" : "☾ Night";
+        skyToggleBtn.textContent = current.sky === "helios" ? "☀ Day" : "☾ Night";
       }
 
       for (var v = 0; v < viewBlocks.length; v++) {
         var block = viewBlocks[v];
-        block.hidden = block.getAttribute("data-view") !== current.mode;
+        var viewType = block.getAttribute("data-view");
+        var shouldHide = viewType !== current.mode;
+        block.hidden = shouldHide;
+        block.classList.toggle("hidden", shouldHide);
       }
 
       for (var sv = 0; sv < subviewBlocks.length; sv++) {
         var sBlock = subviewBlocks[sv];
-        sBlock.hidden = sBlock.getAttribute("data-subview") !== current.subview;
+        var sType = sBlock.getAttribute("data-subview");
+        var hideSub = sType !== current.subview;
+        sBlock.hidden = hideSub;
+        sBlock.classList.toggle("hidden", hideSub);
       }
 
       for (var i = 0; i < modeButtons.length; i++) {
         var btn = modeButtons[i];
-        var isCurrent = btn.getAttribute("data-mode-select") === current.mode;
-        btn.setAttribute("aria-pressed", isCurrent ? "true" : "false");
-        btn.classList.toggle("is-active", isCurrent);
+        var isActive = btn.getAttribute("data-mode-select") === current.mode;
+        btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+        btn.classList.toggle("is-active", isActive);
       }
 
       for (var sb = 0; sb < subviewButtons.length; sb++) {
@@ -521,10 +622,14 @@
         rBtn.classList.toggle("is-active", rActive);
       }
 
+      var focusTarget = current.drawerOpen
+        ? current.activeChamber
+        : current.hoveredBuilding;
+
       for (var b = 0; b < buildingNodes.length; b++) {
         var bNode = buildingNodes[b];
         var bId = bNode.getAttribute("data-building-id");
-        var bActive = current.drawerOpen && bId === current.activeChamber;
+        var bActive = Boolean(focusTarget && bId === focusTarget);
         bNode.setAttribute("data-active", bActive ? "true" : "false");
       }
 
@@ -533,7 +638,7 @@
         var pTarget = pNode.getAttribute("data-path-to");
         pNode.setAttribute(
           "data-active",
-          current.drawerOpen && pTarget === current.activeChamber ? "true" : "false"
+          Boolean(focusTarget && pTarget === focusTarget) ? "true" : "false"
         );
       }
 
@@ -549,18 +654,38 @@
       if (inspectorDrawer) {
         inspectorDrawer.setAttribute(
           "data-open",
+          current.cardVisible ? "true" : "false"
+        );
+        inspectorDrawer.setAttribute(
+          "data-expanded",
           current.drawerOpen ? "true" : "false"
         );
       }
 
-      if (townTitleEl && current.buildingInfo) {
-        townTitleEl.textContent = current.buildingInfo.title.toUpperCase();
+      var info = current.previewInfo;
+      if (townTitleEl && info) {
+        townTitleEl.textContent = info.title;
+      }
+      if (cardRouteBadgeEl && info) {
+        cardRouteBadgeEl.textContent = info.route;
+      }
+      if (cardRoleSubtitleEl && info) {
+        cardRoleSubtitleEl.textContent = info.roleSubtitle;
+      }
+      if (cardThesisEl && info) {
+        cardThesisEl.textContent = info.thesis;
+      }
+      if (exploreBtn && info) {
+        exploreBtn.setAttribute("data-explore-target", info.id);
+        exploreBtn.textContent = current.drawerOpen
+          ? "Exploring " + info.route + " · Interactive Chamber ↓"
+          : "Explore " + info.route + " →";
       }
 
       for (var cp = 0; cp < chamberPanels.length; cp++) {
         var panel = chamberPanels[cp];
         var panelId = panel.getAttribute("data-chamber-panel");
-        panel.hidden = panelId !== current.activeChamber;
+        panel.hidden = !(info && panelId === info.id);
       }
 
       for (var k = 0; k < chamberCards.length; k++) {
@@ -672,6 +797,14 @@
       });
     }
 
+    if (exploreBtn) {
+      exploreBtn.addEventListener("click", function (ev) {
+        var targetId = ev.currentTarget.getAttribute("data-explore-target");
+        ctrl.visitBuilding(targetId || ctrl.getState().previewInfo.id);
+        render();
+      });
+    }
+
     if (skyToggleBtn) {
       skyToggleBtn.addEventListener("click", function () {
         ctrl.toggleSky();
@@ -694,6 +827,13 @@
     }
 
     for (var b = 0; b < buildingNodes.length; b++) {
+      buildingNodes[b].addEventListener("mouseenter", function (ev) {
+        var bId = ev.currentTarget.getAttribute("data-building-id");
+        if (bId && bId !== "AGORA") {
+          ctrl.hoverBuilding(bId);
+          render();
+        }
+      });
       buildingNodes[b].addEventListener("click", function (ev) {
         ev.stopPropagation();
         ctrl.visitBuilding(ev.currentTarget.getAttribute("data-building-id"));
@@ -714,8 +854,8 @@
         if (!rect || !rect.width || !rect.height) return;
         var nx = (ev.clientX - rect.left) / rect.width - 0.5;
         var ny = (ev.clientY - rect.top) / rect.height - 0.5;
-        parallaxOffset.x = Math.round(-nx * 24);
-        parallaxOffset.y = Math.round(-ny * 15);
+        parallaxOffset.x = Math.round(-nx * 22);
+        parallaxOffset.y = Math.round(-ny * 14);
         updateCameraTransform();
       });
       mapStageEl.addEventListener("mouseleave", function () {
@@ -777,6 +917,7 @@
   if (typeof module !== "undefined" && module.exports) {
     module.exports = {
       BUILDINGS: BUILDINGS,
+      ROUTE_TO_BUILDING: ROUTE_TO_BUILDING,
       ROLE_ROUTES: ROLE_ROUTES,
       createLabController: createLabController,
       bindDom: bindDom

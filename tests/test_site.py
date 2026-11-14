@@ -205,14 +205,17 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert 'data-view="lab"' in html
     assert 'data-view="lore"' in html
 
-    # Interactive Graphic Town Map SVG & Buildings (including HARBOR -> About Me)
+    # Interactive Graphic Town Map SVG & Buildings (including HARBOR -> About Me and isometric routes)
     assert 'id="citadel-town-map"' in html
     assert 'id="town-explorer"' in html
     assert 'id="world-camera"' in html
     for building_id in ("EXP-01", "EXP-02", "EXP-03", "EXP-04", "HARBOR"):
         assert f'data-building-id="{building_id}"' in html, f"Missing town building {building_id}"
+    for route_path in ("/about", "/builder", "/strategist", "/philosopher", "/practitioner"):
+        assert f'data-route="{route_path}"' in html, f"Missing isometric landmark route {route_path}"
     assert 'data-chamber-panel="HARBOR"' in html
     assert "About Me" in html
+    assert "Explore →" in html
 
     # Role Router buttons
     for role in ("Builder", "Strategist", "Philosopher", "Overwhelmed Leader"):
@@ -259,6 +262,12 @@ for (const expId of ['EXP-01', 'EXP-02', 'EXP-03', 'EXP-04', 'HARBOR']) {
 const overviewState = ctrl.resetCamera();
 if (overviewState.camera.zoom !== 1 || overviewState.drawerOpen !== false) {
   throw new Error('Expected resetCamera() to return zoom=1 and close drawer');
+}
+
+// 2b. Hovering a landmark reveals the floating detail card (cardVisible=true) with route, roleSubtitle, and thesis
+const hoverState = ctrl.hoverBuilding('/practitioner');
+if (!hoverState.cardVisible || hoverState.previewInfo.route !== '/practitioner' || !hoverState.previewInfo.thesis) {
+  throw new Error('Expected hoverBuilding(/practitioner) to reveal floating detail card with thesis');
 }
 
 // 3. Role router moves explorer to the corresponding building
