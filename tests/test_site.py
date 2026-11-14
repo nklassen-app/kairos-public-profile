@@ -216,10 +216,11 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert 'data-chamber-panel="HARBOR"' in html
     assert "About Me" in html
     assert "Explore →" in html
+    assert 'class="floating-bottom-dock"' not in html
 
-    # Role Router buttons
-    for role in ("Builder", "Strategist", "Philosopher", "Overwhelmed Leader"):
-        assert role in html, f"Missing Role Router button for {role}"
+    #Landmark roles represented across the Polis
+    for role in ("Builder", "Strategist", "Philosopher", "Practitioner"):
+        assert role in html, f"Missing landmark role {role}"
 
 
 def test_graphic_town_navigation_and_chamber_simulators_in_node() -> None:
