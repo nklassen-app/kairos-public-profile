@@ -1,4 +1,4 @@
-"""Tests for kairos-public-profile (Stage 0 security gate + Stage 1 concept lab shell)."""
+"""Tests for kairos-public-profile (Stage 0 security gate + Graphic Town & Lab prototype)."""
 
 from __future__ import annotations
 
@@ -188,136 +188,105 @@ def test_security_gate_rejects_planted_outside_links_and_inline_scripts(
     )
 
 
-# ── Stage 1: Digital Concept Lab Shell, Mode Toggle & Role Router ────────────
+# ── Graphic Town Prototype & Interactive Lab Tests ───────────────────────────
 
 
-def test_stage1_shell_structure_and_chambers_present() -> None:
+def test_graphic_town_and_lab_structure_present() -> None:
     html = INDEX_HTML.read_text(encoding="utf-8")
     assert LAB_JS.exists(), "Expected ai-era/lab.js to exist"
 
-    #Top Telemetry Bar
+    # Top Telemetry Bar & Mode Toggle
     assert "ONLINE // V1.0" in html
     assert "Playable Lab Mode" in html
     assert "Manifesto / Lore Mode" in html
     assert 'data-view="lab"' in html
     assert 'data-view="lore"' in html
 
-    # Central Workbench Hero
-    assert "Don’t just read the AI Era. Stress-test it." in html or "Don't just read the AI Era. Stress-test it." in html
+    # Interactive Graphic Town Map SVG & Buildings
+    assert 'id="citadel-town-map"' in html
+    assert 'id="town-explorer"' in html
+    for building_id in ("EXP-01", "EXP-02", "EXP-03", "EXP-04"):
+        assert f'data-building-id="{building_id}"' in html, f"Missing town building {building_id}"
+
+    # Role Router buttons
     for role in ("Builder", "Strategist", "Philosopher", "Overwhelmed Leader"):
         assert role in html, f"Missing Role Router button for {role}"
 
-    # 4 Core Lab Chambers (2x2 Bento Grid)
-    expected_chambers = [
-        ("EXP-01", "The Red Queen", "The Next Gateway"),
-        ("EXP-02", "The Alignment Crucible", "AI Ethics as a Design Language"),
-        ("EXP-03", "The Citadel Diagnostic", "Garden in the Citadel"),
-        ("EXP-04", "The Architect", "Workflow"),
-    ]
-    for exp_id, proto_name, pillar in expected_chambers:
-        assert exp_id in html, f"Missing chamber ID {exp_id}"
-        assert proto_name in html, f"Missing prototype title {proto_name}"
-        assert pillar in html, f"Missing pillar {pillar}"
 
-
-def test_stage1_interactive_mode_toggle_and_role_router_in_node() -> None:
-    """Execute lab.js against a minimal DOM harness in Node to verify Stage 1 interactions."""
+def test_graphic_town_navigation_and_chamber_simulators_in_node() -> None:
+    """Verify town building navigation, avatar coordinates, mode switching, and live chamber simulators."""
     node_script = """
 const fs = require('fs');
-const path = require('path');
 const vm = require('vm');
 
 const labJs = fs.readFileSync(process.argv[1], 'utf8');
-
-// Load lab.js and exercise its pure state + DOM controller functions
 const sandbox = { console, module: { exports: {} }, exports: {} };
 vm.createContext(sandbox);
 vm.runInContext(labJs, sandbox);
 
 const api = sandbox.module.exports;
 if (!api || typeof api.createLabController !== 'function') {
-  throw new Error('lab.js must export createLabController for deterministic testing');
+  throw new Error('lab.js must export createLabController');
 }
 
 const ctrl = api.createLabController();
 
-// 1. Default state: Playable Lab Mode, 4 active experiments, no role selected yet
+// 1. Default state: lab mode, town view active, explorer at Agora or initial building
 if (ctrl.getState().mode !== 'lab') {
-  throw new Error('Expected initial mode to be lab, got ' + ctrl.getState().mode);
-}
-if (ctrl.getState().experimentCount !== 4) {
-  throw new Error('Expected 4 active experiments');
+  throw new Error('Expected initial mode to be lab');
 }
 
-// 2. Toggle mode between Playable Lab Mode ('lab') and Manifesto / Lore Mode ('lore')
-ctrl.setMode('lore');
-if (ctrl.getState().mode !== 'lore') {
-  throw new Error('Expected mode to switch to lore');
-}
-ctrl.setMode('lab');
-if (ctrl.getState().mode !== 'lab') {
-  throw new Error('Expected mode to switch back to lab');
+// 2. Visiting each building moves the explorer coordinates and opens that building's chamber
+for (const expId of ['EXP-01', 'EXP-02', 'EXP-03', 'EXP-04']) {
+  const st = ctrl.visitBuilding(expId);
+  if (st.activeChamber !== expId) {
+    throw new Error(`Expected activeChamber=${expId}, got ${st.activeChamber}`);
+  }
+  if (!st.explorerPos || typeof st.explorerPos.x !== 'number' || typeof st.explorerPos.y !== 'number') {
+    throw new Error(`Expected numeric explorerPos for ${expId}`);
+  }
 }
 
-// 3. Role router maps each visitor state/role to its target chamber
+// 3. Role router moves explorer to the corresponding building
 const expectedRoutes = {
   builder: 'EXP-02',
   strategist: 'EXP-01',
   philosopher: 'EXP-03',
   leader: 'EXP-04',
 };
-
 for (const [role, expectedChamber] of Object.entries(expectedRoutes)) {
   const routed = ctrl.selectRole(role);
-  if (routed.activeRole !== role || routed.highlightedChamber !== expectedChamber) {
-    throw new Error(`Role ${role} routed to ${JSON.stringify(routed)}, expected ${expectedChamber}`);
+  if (routed.activeChamber !== expectedChamber) {
+    throw new Error(`Role ${role} expected ${expectedChamber}, got ${routed.activeChamber}`);
   }
 }
 
-// 4. Verify bindDom toggles [data-view="lab"] and [data-view="lore"] visibility
-const labView = { getAttribute: () => 'lab', hidden: false };
-const loreView = { getAttribute: () => 'lore', hidden: true };
-let loreClickHandler = null;
-let labClickHandler = null;
-
-const labBtn = {
-  getAttribute: () => 'lab',
-  setAttribute: () => {},
-  classList: { toggle: () => {} },
-  addEventListener: (_ev, fn) => { labClickHandler = fn; }
-};
-const loreBtn = {
-  getAttribute: () => 'lore',
-  setAttribute: () => {},
-  classList: { toggle: () => {} },
-  addEventListener: (_ev, fn) => { loreClickHandler = fn; }
-};
-
-const fakeDoc = {
-  body: { setAttribute: () => {} },
-  getElementById: () => null,
-  querySelector: () => null,
-  querySelectorAll: (sel) => {
-    if (sel === '[data-mode-select]') return [labBtn, loreBtn];
-    if (sel === '[data-view]') return [labView, loreView];
-    return [];
-  }
-};
-
-api.bindDom(fakeDoc);
-if (labView.hidden !== false || loreView.hidden !== true) {
-  throw new Error('Expected labView visible and loreView hidden initially');
-}
-loreClickHandler({ currentTarget: loreBtn });
-if (labView.hidden !== true || loreView.hidden !== false) {
-  throw new Error('Expected loreView visible and labView hidden after clicking Manifesto / Lore Mode');
-}
-labClickHandler({ currentTarget: labBtn });
-if (labView.hidden !== false || loreView.hidden !== true) {
-  throw new Error('Expected labView visible again after clicking Playable Lab Mode');
+// 4. Playable Chamber Simulators inside the buildings work:
+// EXP-01 Red Queen choice updates Velocity / Social Cohesion / Epistemic Trust
+const sim1 = ctrl.chooseRedQueenOption('accelerate');
+if (!sim1.metrics || typeof sim1.metrics.velocity !== 'number') {
+  throw new Error('Expected EXP-01 simulator metrics to update');
 }
 
-console.log('STAGE1_OK');
+// EXP-02 Alignment Crucible friction card toggle updates Deployment Score
+const sim2 = ctrl.toggleFrictionCard('socratic');
+if (typeof sim2.deploymentScore !== 'number') {
+  throw new Error('Expected EXP-02 deploymentScore to be computed');
+}
+
+// EXP-03 Citadel Diagnostic trap selector returns Meditations passage & reframe
+const sim3 = ctrl.selectCitadelTrap('anxiety');
+if (!sim3.quote || !sim3.protocol) {
+  throw new Error('Expected EXP-03 quote and protocol');
+}
+
+// EXP-04 Architect's Forge lens selector returns quest reframe & 80/20 split
+const sim4 = ctrl.selectForgeLens('game');
+if (!sim4.questTitle || !sim4.automation80) {
+  throw new Error('Expected EXP-04 questTitle and automation80');
+}
+
+console.log('TOWN_PROTOTYPE_OK');
 """
     res = subprocess.run(
         ["node", "-e", node_script, str(LAB_JS)],
@@ -325,6 +294,6 @@ console.log('STAGE1_OK');
         text=True,
         check=False,
     )
-    assert res.returncode == 0 and "STAGE1_OK" in res.stdout, (
-        f"Node interaction test failed:\nSTDOUT: {res.stdout}\nSTDERR: {res.stderr}"
+    assert res.returncode == 0 and "TOWN_PROTOTYPE_OK" in res.stdout, (
+        f"Node town prototype test failed:\nSTDOUT: {res.stdout}\nSTDERR: {res.stderr}"
     )

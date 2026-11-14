@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'; connect-src 'none'">
 <meta name="referrer" content="no-referrer">
-<title>AI Era — Digital Concept Lab</title>
-<meta name="description" content="Thinking clearly about the AI era: an interactive concept lab to stress-test ethical design dilemmas, historical macro-narratives, and human agency.">
+<title>AI Era — Digital Concept Lab &amp; Citadel</title>
+<meta name="description" content="Thinking clearly about the AI era: an interactive concept town and workbench to stress-test ethical design dilemmas, historical macro-narratives, and human agency.">
 <!-- No web fonts, CDN, analytics or embeds: this page makes no call to a third party. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23d98a3c' stroke-width='3'/%3E%3C/svg%3E">
 <script src="lab.js" defer></script>
@@ -14,17 +14,19 @@
   :root {
     --bg: #121210;
     --surface: #1a1916;
-    --surface-elevated: #22201c;
+    --surface-elevated: #23211d;
+    --map-ground: #151411;
+    --map-grid: #211f1a;
     --ink: #F4F1EA;
     --muted: #a6a095;
     --rule: #2e2b25;
-    --rule-strong: #464138;
+    --rule-strong: #484339;
 
     /* 4 Chamber Signal Accents */
-    --amber: #d98a3c;
-    --copper: #c86d51;
-    --sage: #6b9e78;
-    --cobalt: #5a86c5;
+    --amber: #e09240;
+    --copper: #d17052;
+    --sage: #6fa67d;
+    --cobalt: #5f8fd1;
 
     --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
     --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -38,6 +40,8 @@
       --bg: #faf8f4;
       --surface: #f2efe9;
       --surface-elevated: #ffffff;
+      --map-ground: #ede8de;
+      --map-grid: #dfd9cc;
       --ink: #1f1d1a;
       --muted: #5f5a52;
       --rule: #dfdad0;
@@ -59,25 +63,25 @@
     background: var(--bg);
     color: var(--ink);
     font-family: var(--font-serif);
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-size: 1.05rem;
+    line-height: 1.6;
   }
 
   /* ── 1. Top Telemetry Bar ── */
   .telemetry-bar {
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: 30;
     background: var(--bg);
     border-bottom: 1px solid var(--rule);
-    padding: 0.65rem 1.25rem;
+    padding: 0.6rem 1.25rem;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
   }
 
   .telemetry-inner {
-    max-width: 72rem;
+    max-width: 82rem;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -90,7 +94,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.9rem;
+    gap: 0.85rem;
     color: var(--muted);
   }
 
@@ -107,12 +111,10 @@
     height: 0.5rem;
     border-radius: 50%;
     background: var(--sage);
-    box-shadow: 0 0 0 2px rgba(107, 158, 120, 0.25);
+    box-shadow: 0 0 0 2px rgba(111, 166, 125, 0.25);
   }
 
-  .telemetry-divider {
-    color: var(--rule-strong);
-  }
+  .telemetry-divider { color: var(--rule-strong); }
 
   .mode-switch {
     display: inline-flex;
@@ -144,73 +146,79 @@
     font-weight: 600;
   }
 
-  /* ── Main Container (adapts to Lab vs Lore mode) ── */
+  /* ── Main Container ── */
   main {
-    max-width: 72rem;
+    max-width: 82rem;
     margin: 0 auto;
-    padding: 3.5rem 1.25rem 5rem;
+    padding: 2.25rem 1.25rem 4.5rem;
   }
 
   body[data-lab-mode="lore"] main {
     max-width: 42rem;
+    padding-top: 3.25rem;
   }
 
-  /* ── 2. Hero Section ("The Central Workbench") ── */
+  /* ── 2. Hero & Role Router Header ── */
   .hero-workbench {
     border-bottom: 1px solid var(--rule);
-    padding-bottom: 2.75rem;
-    margin-bottom: 3rem;
+    padding-bottom: 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-top-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
   }
 
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--amber);
-    margin: 0 0 0.9rem;
+    margin: 0 0 0.55rem;
   }
 
   h1 {
     font-family: var(--font-serif);
-    font-size: clamp(2.15rem, 5vw, 3.35rem);
+    font-size: clamp(2rem, 4.2vw, 3rem);
     line-height: 1.08;
     font-weight: 600;
     letter-spacing: -0.015em;
-    margin: 0 0 1.15rem;
-    max-width: 46rem;
+    margin: 0 0 0.5rem;
   }
 
   .hero-thesis {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--muted);
     max-width: 44rem;
-    margin: 0 0 2rem;
+    margin: 0;
   }
 
-  body[data-lab-mode="lore"] .hero-thesis {
-    margin-bottom: 0;
-  }
-
+  /* Role Router Strip */
   .router-panel {
     background: var(--surface);
     border: 1px solid var(--rule-strong);
     border-radius: 6px;
-    padding: 1.25rem;
+    padding: 0.95rem 1.1rem;
   }
 
   .router-header {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.7rem;
   }
 
   .router-prompt {
     font-family: var(--font-sans);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--ink);
     margin: 0;
@@ -225,9 +233,9 @@
 
   .role-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr));
-    gap: 0.65rem;
-    margin-bottom: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 0.55rem;
+    margin-bottom: 0.65rem;
   }
 
   .role-btn {
@@ -236,15 +244,13 @@
     background: var(--surface-elevated);
     border: 1px solid var(--rule);
     border-radius: 4px;
-    padding: 0.75rem 0.85rem;
+    padding: 0.55rem 0.75rem;
     color: var(--ink);
     cursor: pointer;
     transition: border-color 0.15s ease, transform 0.1s ease;
   }
 
-  .role-btn:hover {
-    border-color: var(--rule-strong);
-  }
+  .role-btn:hover { border-color: var(--rule-strong); }
 
   .role-btn.is-active,
   .role-btn[aria-pressed="true"] {
@@ -255,40 +261,39 @@
   .role-btn-code {
     display: block;
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     color: var(--muted);
-    margin-bottom: 0.2rem;
   }
 
   .role-btn-title {
     display: block;
     font-family: var(--font-sans);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 600;
   }
 
   .router-readout {
     margin: 0;
-    padding-top: 0.75rem;
+    padding-top: 0.55rem;
     border-top: 1px dashed var(--rule);
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     color: var(--muted);
   }
 
-  /* ── 3A. Playable Lab Mode: 2x2 Bento Grid ── */
+  /* ── 3. Graphic Town Layout (Interactive Map + Interior Chamber) ── */
   .section-head {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .section-title {
     font-family: var(--font-sans);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -296,22 +301,268 @@
     margin: 0;
   }
 
-  .section-meta {
+  .town-stage-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(21rem, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  @media (max-width: 64rem) {
+    .town-stage-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Graphic Town Map Frame */
+  .town-map-frame {
+    background: var(--map-ground);
+    border: 1px solid var(--rule-strong);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  }
+
+  .town-hud-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.6rem 0.95rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--rule);
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--muted);
   }
 
+  .town-hud-coords {
+    color: var(--amber);
+    font-weight: 600;
+  }
+
+  .town-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+  }
+
+  /* SVG Town Interactive Elements */
+  .town-path {
+    fill: none;
+    stroke: var(--rule-strong);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 8 8;
+    transition: stroke 0.25s ease, stroke-width 0.25s ease;
+  }
+
+  .town-path[data-active="true"] {
+    stroke: var(--amber);
+    stroke-width: 6;
+    stroke-dasharray: none;
+  }
+
+  .town-building {
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .town-building:hover {
+    filter: brightness(1.15);
+  }
+
+  .town-building .building-halo {
+    opacity: 0.14;
+    transition: opacity 0.25s ease, r 0.25s ease;
+  }
+
+  .town-building[data-active="true"] .building-halo {
+    opacity: 0.36;
+  }
+
+  .town-building .building-plate {
+    fill: var(--surface-elevated);
+    stroke: var(--rule-strong);
+    stroke-width: 1.5;
+    transition: stroke 0.2s ease;
+  }
+
+  .town-building[data-active="true"] .building-plate {
+    stroke: var(--ink);
+    stroke-width: 2.2;
+  }
+
+  #town-explorer {
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .town-legend-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    background: var(--surface);
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  /* ── Inside-Building Interactive Chamber Inspector ── */
+  .chamber-inspector {
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 8px;
+    padding: 1.35rem;
+  }
+
+  .inspector-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber);
+  }
+
+  .chamber-panel h3 {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    line-height: 1.2;
+    margin: 0 0 0.35rem;
+  }
+
+  .chamber-panel-sub {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  .dilemma-box {
+    background: var(--surface-elevated);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    padding: 0.85rem 0.95rem;
+    margin-bottom: 1rem;
+    font-size: 0.94rem;
+  }
+
+  .dilemma-tag {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .sim-btn-stack {
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .sim-btn {
+    appearance: none;
+    width: 100%;
+    text-align: left;
+    background: var(--surface-elevated);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 0.86rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .sim-btn:hover {
+    border-color: var(--ink);
+  }
+
+  .sim-btn.is-active,
+  .sim-btn[aria-pressed="true"] {
+    border-color: var(--amber);
+    background: rgba(224, 146, 64, 0.12);
+    font-weight: 600;
+  }
+
+  /* Telemetry Meters */
+  .meter-group {
+    display: grid;
+    gap: 0.55rem;
+    margin-bottom: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .meter-row-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.2rem;
+  }
+
+  .meter-track {
+    height: 0.45rem;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    background: var(--amber);
+    transition: width 0.3s ease;
+  }
+
+  .meter-fill.cohesion { background: var(--sage); }
+  .meter-fill.trust { background: var(--cobalt); }
+
+  .sim-readout {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.75rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .score-pill {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--copper);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ── Classic Bento Grid Subview ── */
   .bento-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
+    gap: 1.15rem;
   }
 
   @media (max-width: 52rem) {
-    .bento-grid {
-      grid-template-columns: 1fr;
-    }
+    .bento-grid { grid-template-columns: 1fr; }
   }
 
   .chamber-card {
@@ -320,11 +571,9 @@
     border: 1px solid var(--rule);
     border-top: 3px solid var(--chamber-accent);
     border-radius: 6px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    padding: 1.35rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
   }
 
   .chamber-card[data-accent="amber"] { --chamber-accent: var(--amber); }
@@ -337,70 +586,18 @@
     box-shadow: 0 0 0 1px var(--chamber-accent);
   }
 
-  .chamber-card[data-dimmed="true"] {
-    opacity: 0.45;
-  }
-
   .chamber-meta {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
     font-family: var(--font-mono);
-    font-size: 0.73rem;
+    font-size: 0.72rem;
+    margin-bottom: 0.5rem;
   }
 
-  .chamber-id {
-    color: var(--chamber-accent);
-    font-weight: 600;
-  }
+  .chamber-id { color: var(--chamber-accent); font-weight: 600; }
+  .chamber-pillar { color: var(--muted); }
 
-  .chamber-pillar {
-    color: var(--muted);
-  }
-
-  .chamber-card h2 {
-    font-family: var(--font-serif);
-    font-size: 1.45rem;
-    line-height: 1.25;
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-  }
-
-  .chamber-brief {
-    margin: 0 0 1.15rem;
-    font-family: var(--font-sans);
-    font-size: 0.92rem;
-    color: var(--muted);
-  }
-
-  .chamber-workbench-preview {
-    background: var(--surface-elevated);
-    border: 1px solid var(--rule-strong);
-    border-radius: 4px;
-    padding: 1rem;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--ink);
-  }
-
-  .preview-label {
-    display: block;
-    color: var(--chamber-accent);
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-  }
-
-  .preview-Spec {
-    display: block;
-    color: var(--muted);
-    font-size: 0.74rem;
-    margin-top: 0.45rem;
-  }
-
-  /* ── 3B. Manifesto / Lore Mode: Single-Column Essay View ── */
+  /* ── Manifesto / Lore Mode: Single-Column Essay View ── */
   .manifesto-article {
     font-size: 1.14rem;
     line-height: 1.72;
@@ -432,9 +629,7 @@
     margin: 0 0 0.85rem;
   }
 
-  .manifesto-chapter p {
-    margin: 0 0 1.35rem;
-  }
+  .manifesto-chapter p { margin: 0 0 1.35rem; }
 </style>
 </head>
 <body data-lab-mode="lab">
@@ -465,128 +660,409 @@
 
 <main>
   <!-- ═══════════════════════════════════════════════════════════════════
-       VIEW A: PLAYABLE LAB MODE (Interactive Workbench & 2x2 Bento Grid)
+       VIEW A: PLAYABLE LAB MODE (Graphic Town Map + Live Chamber Workbench)
        ═══════════════════════════════════════════════════════════════════ -->
   <div data-view="lab">
     <section class="hero-workbench" aria-labelledby="hero-lab-heading">
-      <p class="eyebrow">AI Era // Digital Concept Lab</p>
-      <h1 id="hero-lab-heading">Don’t just read the AI Era. Stress-test it.</h1>
-      <p class="hero-thesis">
-        An experimental workbench for builders, strategists, and thinkers: interact with ethical design dilemmas, macro-historical gateways, and resilient human workflows.
-      </p>
+      <div class="hero-top-row">
+        <div>
+          <p class="eyebrow">AI Era // Interactive Concept Town &amp; Workbench</p>
+          <h1 id="hero-lab-heading">Don’t just read the AI Era. Stress-test it.</h1>
+          <p class="hero-thesis">
+            Explore the four districts of the AI Era Citadel: click any building on the map (or choose your role below) to walk there and run its live experiment.
+          </p>
+        </div>
+
+        <div class="mode-switch" role="group" aria-label="Workbench layout view">
+          <button type="button" class="mode-btn is-active" data-subview-select="town" aria-pressed="true">
+            Graphic Town Map
+          </button>
+          <button type="button" class="mode-btn" data-subview-select="cards" aria-pressed="false">
+            Bento Card Grid
+          </button>
+        </div>
+      </div>
 
       <div class="router-panel" aria-label="Role and state experiment router">
         <div class="router-header">
-          <p class="router-prompt">Calibrate Workbench — Select your current role or state:</p>
-          <span id="router-target-badge" class="router-badge">TARGET -&gt; ALL CHAMBERS (04)</span>
+          <p class="router-prompt">Dispatch Explorer by Role — Select your current state:</p>
+          <span id="router-target-badge" class="router-badge">LOCATION -&gt; The Observatory of Gateways</span>
         </div>
 
         <div class="role-grid">
           <button type="button" class="role-btn" data-role-select="builder" aria-pressed="false">
-            <span class="role-btn-code">ROLE // 01</span>
+            <span class="role-btn-code">ROLE // 01 · NE FOUNDRY</span>
             <span class="role-btn-title">Builder</span>
           </button>
-          <button type="button" class="role-btn" data-role-select="strategist" aria-pressed="false">
-            <span class="role-btn-code">ROLE // 02</span>
+          <button type="button" class="role-btn is-active" data-role-select="strategist" aria-pressed="true">
+            <span class="role-btn-code">ROLE // 02 · NW PEAK</span>
             <span class="role-btn-title">Strategist</span>
           </button>
           <button type="button" class="role-btn" data-role-select="philosopher" aria-pressed="false">
-            <span class="role-btn-code">ROLE // 03</span>
+            <span class="role-btn-code">ROLE // 03 · SW GARDEN</span>
             <span class="role-btn-title">Philosopher</span>
           </button>
           <button type="button" class="role-btn" data-role-select="leader" aria-pressed="false">
-            <span class="role-btn-code">ROLE // 04</span>
+            <span class="role-btn-code">ROLE // 04 · SE BASTION</span>
             <span class="role-btn-title">Overwhelmed Leader</span>
           </button>
         </div>
 
         <p id="router-telemetry-readout" class="router-readout" aria-live="polite">
-          Select your current role or state above to calibrate the workbench and highlight your starting chamber.
+          Explorer routed to the Northwest Observatory (EXP-01): test how technological gateways shift Velocity, Social Cohesion, and Epistemic Trust.
         </p>
       </div>
     </section>
 
-    <section aria-labelledby="chambers-heading">
+    <!-- ── SUBVIEW 1: GRAPHIC TOWN MAP + LIVE CHAMBER INSPECTOR ── -->
+    <section data-subview="town" aria-label="Interactive Graphic Town">
+      <div class="town-stage-layout">
+        <!-- Left: Illustrated Interactive SVG Town Map -->
+        <div class="town-map-frame">
+          <div class="town-hud-top">
+            <span>POLIS MAP // THE AI ERA CITADEL</span>
+            <span id="town-hud-coords" class="town-hud-coords">LOC // 315°NW · OBSERVATORY PEAK</span>
+          </div>
+
+          <svg id="citadel-town-map" class="town-svg" viewBox="0 0 1120 600" role="img" aria-label="Interactive map of the AI Era Concept Town with four clickable buildings">
+            <defs>
+              <pattern id="topo-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--map-grid)" stroke-width="1"/>
+              </pattern>
+              <radialGradient id="amber-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#e09240" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#e09240" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="copper-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#d17052" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#d17052" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="sage-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#6fa67d" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#6fa67d" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="cobalt-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#5f8fd1" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#5f8fd1" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Terrain Grid & Topographic Contour Rings -->
+            <rect width="1120" height="600" fill="url(#topo-grid)"/>
+            <ellipse cx="560" cy="300" rx="490" ry="250" fill="none" stroke="var(--rule)" stroke-width="1.5" stroke-dasharray="6 10"/>
+            <ellipse cx="560" cy="300" rx="350" ry="175" fill="none" stroke="var(--rule)" stroke-width="1.2"/>
+
+            <!-- Scenic Aqueduct / River Channel running through the Polis -->
+            <path d="M 0 335 Q 290 280, 560 300 T 1120 275" fill="none" stroke="#253447" stroke-width="18" opacity="0.55"/>
+            <path d="M 0 335 Q 290 280, 560 300 T 1120 275" fill="none" stroke="#5f8fd1" stroke-width="2" stroke-dasharray="10 14" opacity="0.45"/>
+
+            <!-- Stone Pathways radiating from Central Agora (560, 300) to the 4 Districts -->
+            <path class="town-path" data-path-to="EXP-01" data-active="true" d="M 560 300 Q 410 280, 250 165"/>
+            <path class="town-path" data-path-to="EXP-02" data-active="false" d="M 560 300 Q 710 280, 865 165"/>
+            <path class="town-path" data-path-to="EXP-03" data-active="false" d="M 560 300 Q 410 340, 255 445"/>
+            <path class="town-path" data-path-to="EXP-04" data-active="false" d="M 560 300 Q 710 340, 865 445"/>
+
+            <!-- Ambient Cypress Trees & Stone Mile Markers -->
+            <g fill="#3a4f3e" opacity="0.8">
+              <circle cx="430" cy="215" r="9"/><circle cx="448" cy="225" r="7"/>
+              <circle cx="690" cy="215" r="9"/><circle cx="672" cy="225" r="7"/>
+              <circle cx="420" cy="390" r="9"/><circle cx="440" cy="402" r="7"/>
+              <circle cx="700" cy="390" r="9"/><circle cx="680" cy="402" r="7"/>
+            </g>
+
+            <!-- ── CENTRAL AGORA (Wayfinder Gate) ── -->
+            <g class="town-building" data-building-id="AGORA" tabindex="0" role="button" aria-label="The Central Agora Wayfinder">
+              <circle cx="560" cy="300" r="46" fill="var(--surface)" stroke="var(--rule-strong)" stroke-width="3"/>
+              <circle cx="560" cy="300" r="34" fill="none" stroke="var(--amber)" stroke-width="1.2" stroke-dasharray="4 4"/>
+              <polygon points="560,272 567,293 588,300 567,307 560,328 553,307 532,300 553,293" fill="var(--amber)" opacity="0.85"/>
+              <text x="560" y="362" text-anchor="middle" fill="var(--muted)" font-family="monospace" font-size="11" letter-spacing="1">AGORA // 00</text>
+            </g>
+
+            <!-- ── BUILDING 01 (NW): THE OBSERVATORY OF GATEWAYS (EXP-01) ── -->
+            <g class="town-building" data-building-id="EXP-01" data-active="true" tabindex="0" role="button" aria-label="EXP-01 The Observatory of Gateways — The Red Queen's Simulator">
+              <circle class="building-halo" cx="250" cy="155" r="95" fill="url(#amber-glow)"/>
+              <!-- Terraced Stone Plinth -->
+              <polygon points="165,195 250,230 335,195 250,162" fill="#2b261e" stroke="#e09240" stroke-width="2"/>
+              <!-- Observatory Cylinder & Classical Dome -->
+              <rect x="212" y="122" width="76" height="58" rx="4" fill="#362f24" stroke="#e09240" stroke-width="2"/>
+              <path d="M 208 122 A 42 38 0 0 1 292 122 Z" fill="#e09240" opacity="0.88"/>
+              <!-- Astrolabe / Telescope Aperture -->
+              <circle cx="250" cy="112" r="24" fill="none" stroke="#F4F1EA" stroke-width="1.5" stroke-dasharray="5 3"/>
+              <line x1="250" y1="108" x2="282" y2="82" stroke="#F4F1EA" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="284" cy="80" r="5" fill="#e09240"/>
+              <!-- Building Nameplate -->
+              <rect class="building-plate" x="135" y="212" width="230" height="44" rx="5"/>
+              <text x="250" y="230" text-anchor="middle" fill="#e09240" font-family="monospace" font-size="11" font-weight="bold">EXP-01 // THE OBSERVATORY</text>
+              <text x="250" y="247" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="600">The Next Gateway · Red Queen Sim</text>
+            </g>
+
+            <!-- ── BUILDING 02 (NE): THE ALIGNMENT CRUCIBLE & FOUNDRY (EXP-02) ── -->
+            <g class="town-building" data-building-id="EXP-02" data-active="false" tabindex="0" role="button" aria-label="EXP-02 The Alignment Crucible — AI Ethics as a Design Language">
+              <circle class="building-halo" cx="865" cy="155" r="95" fill="url(#copper-glow)"/>
+              <!-- Foundry Base -->
+              <polygon points="780,195 865,230 950,195 865,162" fill="#2d221e" stroke="#d17052" stroke-width="2"/>
+              <!-- Stepped Workshop Hall & Twin Chimneys -->
+              <rect x="815" y="124" width="100" height="56" rx="3" fill="#3a2923" stroke="#d17052" stroke-width="2"/>
+              <polygon points="808,124 865,92 922,124" fill="#d17052" opacity="0.88"/>
+              <!-- Glowing Crucible Arches -->
+              <rect x="832" y="142" width="18" height="28" rx="9" fill="#e09240"/>
+              <rect x="856" y="142" width="18" height="28" rx="9" fill="#e09240"/>
+              <rect x="880" y="142" width="18" height="28" rx="9" fill="#e09240"/>
+              <!-- Building Nameplate -->
+              <rect class="building-plate" x="750" y="212" width="230" height="44" rx="5"/>
+              <text x="865" y="230" text-anchor="middle" fill="#d17052" font-family="monospace" font-size="11" font-weight="bold">EXP-02 // THE CRUCIBLE HALL</text>
+              <text x="865" y="247" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="600">AI Ethics · Productive Friction</text>
+            </g>
+
+            <!-- ── BUILDING 03 (SW): THE GARDEN IN THE CITADEL (EXP-03) ── -->
+            <g class="town-building" data-building-id="EXP-03" data-active="false" tabindex="0" role="button" aria-label="EXP-03 The Garden in the Citadel — Stoic Diagnostic">
+              <circle class="building-halo" cx="255" cy="435" r="95" fill="url(#sage-glow)"/>
+              <!-- Peristyle Walled Courtyard -->
+              <polygon points="165,465 255,502 345,465 255,428" fill="#1e2b22" stroke="#6fa67d" stroke-width="2"/>
+              <rect x="205" y="395" width="100" height="58" rx="4" fill="#243529" stroke="#6fa67d" stroke-width="2"/>
+              <!-- Classical Colonnade Pillars & Reflecting Pool -->
+              <line x1="222" y1="402" x2="222" y2="446" stroke="#F4F1EA" stroke-width="4"/>
+              <line x1="244" y1="402" x2="244" y2="446" stroke="#F4F1EA" stroke-width="4"/>
+              <line x1="266" y1="402" x2="266" y2="446" stroke="#F4F1EA" stroke-width="4"/>
+              <line x1="288" y1="402" x2="288" y2="446" stroke="#F4F1EA" stroke-width="4"/>
+              <polygon points="198,400 255,372 312,400" fill="#6fa67d" opacity="0.88"/>
+              <!-- Building Nameplate -->
+              <rect class="building-plate" x="140" y="485" width="230" height="44" rx="5"/>
+              <text x="255" y="503" text-anchor="middle" fill="#6fa67d" font-family="monospace" font-size="11" font-weight="bold">EXP-03 // STOIC PERISTYLE</text>
+              <text x="255" y="520" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="600">Garden in the Citadel · State Check</text>
+            </g>
+
+            <!-- ── BUILDING 04 (SE): THE ARCHITECT'S FORGE & CLOCKTOWER (EXP-04) ── -->
+            <g class="town-building" data-building-id="EXP-04" data-active="false" tabindex="0" role="button" aria-label="EXP-04 The Architect's Forge — Energy Alchemist">
+              <circle class="building-halo" cx="865" cy="435" r="95" fill="url(#cobalt-glow)"/>
+              <!-- Bastion Base -->
+              <polygon points="775,465 865,502 955,465 865,428" fill="#1d2633" stroke="#5f8fd1" stroke-width="2"/>
+              <!-- Guildhall & Kinetic Clockwork Tower -->
+              <rect x="820" y="388" width="90" height="64" rx="4" fill="#233042" stroke="#5f8fd1" stroke-width="2"/>
+              <rect x="846" y="356" width="38" height="34" rx="3" fill="#5f8fd1" opacity="0.9"/>
+              <circle cx="865" cy="418" r="16" fill="none" stroke="#F4F1EA" stroke-width="2"/>
+              <line x1="865" y1="418" x2="865" y2="407" stroke="#e09240" stroke-width="2.5"/>
+              <line x1="865" y1="418" x2="875" y2="418" stroke="#e09240" stroke-width="2.5"/>
+              <!-- Building Nameplate -->
+              <rect class="building-plate" x="750" y="485" width="230" height="44" rx="5"/>
+              <text x="865" y="503" text-anchor="middle" fill="#5f8fd1" font-family="monospace" font-size="11" font-weight="bold">EXP-04 // ARCHITECT’S FORGE</text>
+              <text x="865" y="520" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="600">Energy Alchemist · 80/20 Craft</text>
+            </g>
+
+            <!-- ── ANIMATED EXPLORER AVATAR TOKEN ── -->
+            <g id="town-explorer" transform="translate(250, 165)">
+              <circle cx="0" cy="0" r="18" fill="#e09240" opacity="0.28"/>
+              <circle cx="0" cy="0" r="10" fill="#F4F1EA" stroke="#121210" stroke-width="2.5"/>
+              <circle cx="0" cy="0" r="4" fill="#e09240"/>
+              <rect x="-34" y="-34" width="68" height="16" rx="3" fill="#121210" stroke="#e09240" stroke-width="1"/>
+              <text x="0" y="-23" text-anchor="middle" fill="#F4F1EA" font-family="monospace" font-size="9" font-weight="bold">EXPLORER</text>
+            </g>
+          </svg>
+
+          <div class="town-legend-bar">
+            <span>CLICK ANY BUILDING ON THE MAP TO WALK THERE &amp; OPEN ITS WORKBENCH</span>
+            <span>4 DISTRICTS ONLINE</span>
+          </div>
+        </div>
+
+        <!-- Right: Live Inside-Building Interactive Chamber Workbench -->
+        <aside class="chamber-inspector" aria-live="polite">
+          <div class="inspector-banner">
+            <span id="town-hud-building">INSIDE // THE OBSERVATORY OF GATEWAYS</span>
+            <span>LIVE V1 SIMULATOR</span>
+          </div>
+
+          <!-- Chamber 01 Interior: The Red Queen's Simulator -->
+          <div class="chamber-panel" data-chamber-panel="EXP-01">
+            <h3>EXP-01 // The Red Queen’s Simulator</h3>
+            <p class="chamber-panel-sub">Macro-Historical Decision Deck · The Next Gateway</p>
+
+            <div class="dilemma-box">
+              <span class="dilemma-tag">DILEMMA CARD // YEAR 2027</span>
+              Autonomous R&amp;D loops reduce frontier model training time by 80%, accelerating protein and materials discovery while grid load and institutional distrust spike.
+            </div>
+
+            <div class="sim-btn-stack" role="group" aria-label="Tactical gateway choices">
+              <button type="button" class="sim-btn" data-rq-choice="accelerate" aria-pressed="false">
+                1. Accelerate &amp; Decentralize Compute
+              </button>
+              <button type="button" class="sim-btn" data-rq-choice="ration" aria-pressed="false">
+                2. Impose Global Compute Rationing
+              </button>
+              <button type="button" class="sim-btn is-active" data-rq-choice="commons" aria-pressed="true">
+                3. Build Open Verification Commons
+              </button>
+            </div>
+
+            <div class="meter-group">
+              <div>
+                <div class="meter-row-top">
+                  <span>VELOCITY (INNOVATION)</span>
+                  <span id="rq-velocity-val">78%</span>
+                </div>
+                <div class="meter-track"><div id="rq-velocity-bar" class="meter-fill" style="width: 78%"></div></div>
+              </div>
+              <div>
+                <div class="meter-row-top">
+                  <span>SOCIAL COHESION</span>
+                  <span id="rq-cohesion-val">74%</span>
+                </div>
+                <div class="meter-track"><div id="rq-cohesion-bar" class="meter-fill cohesion" style="width: 74%"></div></div>
+              </div>
+              <div>
+                <div class="meter-row-top">
+                  <span>EPISTEMIC TRUST</span>
+                  <span id="rq-trust-val">86%</span>
+                </div>
+                <div class="meter-track"><div id="rq-trust-bar" class="meter-fill trust" style="width: 86%"></div></div>
+              </div>
+            </div>
+
+            <div id="rq-verdict-text" class="sim-readout">
+              Open provenance and participatory governance slightly temper raw speed while preserving high epistemic trust across society.
+            </div>
+          </div>
+
+          <!-- Chamber 02 Interior: The Alignment Crucible -->
+          <div class="chamber-panel" data-chamber-panel="EXP-02" hidden>
+            <h3>EXP-02 // The Alignment Crucible</h3>
+            <p class="chamber-panel-sub">AI Ethics as a Design Language · Productive Friction</p>
+
+            <div class="dilemma-box">
+              <span class="dilemma-tag">PRODUCT SPEC // STUDENT TUTORING COMPANION</span>
+              Equip <strong>2 of 4 Productive Friction Cards</strong> below to ship this AI tutor without inducing skill atrophy or sycophancy:
+            </div>
+
+            <div class="sim-btn-stack" role="group" aria-label="Productive Friction Cards">
+              <button type="button" class="sim-btn is-active" data-friction-card="socratic" aria-pressed="true">
+                + Socratic Resistance Mode (Hypothesis First)
+              </button>
+              <button type="button" class="sim-btn" data-friction-card="speedbump" aria-pressed="false">
+                + Cognitive Load Speedbump (Deliberate Pause)
+              </button>
+              <button type="button" class="sim-btn" data-friction-card="provenance" aria-pressed="false">
+                + Provenance &amp; Uncertainty Watermark
+              </button>
+              <button type="button" class="sim-btn is-active" data-friction-card="cutoff" aria-pressed="true">
+                + Hard Session Cutoff (Anti-Parasocial Guard)
+              </button>
+            </div>
+
+            <span class="score-pill">AGENCY DEPLOYMENT SCORE: <span id="crucible-score-val">90 / 100</span></span>
+            <div id="crucible-guard-readout" class="sim-readout">
+              Prevents skill atrophy by requiring the student's own hypothesis before hinting. Caps parasocial attachment and returns the learner to real-world practice.
+            </div>
+          </div>
+
+          <!-- Chamber 03 Interior: The Citadel Diagnostic -->
+          <div class="chamber-panel" data-chamber-panel="EXP-03" hidden>
+            <h3>EXP-03 // The Citadel Diagnostic</h3>
+            <p class="chamber-panel-sub">Garden in the Citadel · Stoic State Check</p>
+
+            <div class="dilemma-box">
+              <span class="dilemma-tag">2-MINUTE STATE CHECK</span>
+              Select the cognitive friction trap pulling at your attention right now:
+            </div>
+
+            <div class="sim-btn-stack" role="group" aria-label="Cognitive friction traps">
+              <button type="button" class="sim-btn is-active" data-citadel-trap="noise" aria-pressed="true">
+                1. External Noise (Outrage / Feed Velocity)
+              </button>
+              <button type="button" class="sim-btn" data-citadel-trap="anxiety" aria-pressed="false">
+                2. Outcome Anxiety (Future Tripping)
+              </button>
+              <button type="button" class="sim-btn" data-citadel-trap="exhaustion" aria-pressed="false">
+                3. Role Exhaustion (People Pleasing)
+              </button>
+            </div>
+
+            <div class="dilemma-box">
+              <span class="dilemma-tag">MARCUS AURELIUS // CALIBRATED PASSAGE</span>
+              <span id="citadel-quote-text">“You always own the option of having no opinion. There is never any need to get worked up or to trouble your soul about things you can't control.” — Meditations 6.52</span>
+            </div>
+
+            <div id="citadel-protocol-text" class="sim-readout">
+              60-Second Protocol: Name one noisy headline pulling at your attention. Ask: 'Does this require a design decision from me today?' If not, close the loop and return to one concrete craft artifact.
+            </div>
+          </div>
+
+          <!-- Chamber 04 Interior: The Architect's Forge -->
+          <div class="chamber-panel" data-chamber-panel="EXP-04" hidden>
+            <h3>EXP-04 // The Architect’s Forge</h3>
+            <p class="chamber-panel-sub">Energy Alchemist · 80% Automation / 20% Human Craft</p>
+
+            <div class="dilemma-box">
+              <span class="dilemma-tag">DRAINING MAINTENANCE INPUT</span>
+              “Answering 30 routine stakeholder threads and formatting quarterly alignment notes.”
+            </div>
+
+            <div class="sim-btn-stack" role="group" aria-label="Archetype Lenses">
+              <button type="button" class="sim-btn is-active" data-forge-lens="pioneer" aria-pressed="true">
+                Lens 01 // The Pioneer
+              </button>
+              <button type="button" class="sim-btn" data-forge-lens="dialectician" aria-pressed="false">
+                Lens 02 // The Dialectician
+              </button>
+              <button type="button" class="sim-btn" data-forge-lens="game" aria-pressed="false">
+                Lens 03 // The Game Designer
+              </button>
+            </div>
+
+            <span id="forge-quest-title" class="score-pill">QUEST // Map the Uncharted Territory</span>
+            <div class="sim-readout">
+              <p id="forge-auto-text" style="margin: 0 0 0.55rem;">
+                80% Delegated to Agent: Cluster the 30 routine stakeholder threads by underlying decision type and draft standard factual replies.
+              </p>
+              <p id="forge-craft-text" style="margin: 0; color: var(--ink);">
+                20% Human Craft: Hand-write the single strategic memo that reframes the team's next frontier question.
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ── SUBVIEW 2: CLASSIC BENTO CARD GRID (Click any card to jump on map) ── -->
+    <section data-subview="cards" hidden aria-label="Classic Bento Card Grid">
       <div class="section-head">
-        <h2 id="chambers-heading" class="section-title">The 4 Core Lab Chambers</h2>
-        <span class="section-meta">2×2 INTERACTIVE BENTO GRID // STAGE 1 SHELL</span>
+        <h2 class="section-title">The 4 Core Lab Chambers (Card Index — Click any card to enter on the Map)</h2>
       </div>
 
       <div class="bento-grid">
-        <!-- Chamber 01 -->
         <article class="chamber-card" data-chamber-id="EXP-01" data-accent="amber">
-          <div>
-            <div class="chamber-meta">
-              <span class="chamber-id">EXP-01 // The Red Queen’s Simulator</span>
-              <span class="chamber-pillar">The Next Gateway · Macro-History</span>
-            </div>
-            <h2>The Next Gateway</h2>
-            <p class="chamber-brief">
-              Navigate historical and 2027 AI inflection points, balancing acceleration against systemic collapse.
-            </p>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-01 // The Red Queen’s Simulator</span>
+            <span class="chamber-pillar">The Next Gateway · NW Peak</span>
           </div>
-          <div class="chamber-workbench-preview">
-            <span class="preview-label">SIMULATOR DECK // STAGE 2 MODULE</span>
-            Dilemma: Year 2027 — Autonomous R&amp;D loops cut model training time by 80%, while grid instability spikes.
-            <span class="preview-Spec">METRICS: Velocity · Social Cohesion · Epistemic Trust</span>
-          </div>
+          <h2>The Observatory of Gateways</h2>
+          <p>Navigate historical and 2027 AI inflection points, balancing Velocity, Social Cohesion, and Epistemic Trust.</p>
         </article>
 
-        <!-- Chamber 02 -->
         <article class="chamber-card" data-chamber-id="EXP-02" data-accent="copper">
-          <div>
-            <div class="chamber-meta">
-              <span class="chamber-id">EXP-02 // The Alignment Crucible</span>
-              <span class="chamber-pillar">AI Ethics as a Design Language</span>
-            </div>
-            <h2>AI Ethics as a Design Language</h2>
-            <p class="chamber-brief">
-              Inspect product specs with hidden ethical fault lines and apply Productive Friction cards to protect human agency.
-            </p>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-02 // The Alignment Crucible</span>
+            <span class="chamber-pillar">AI Ethics · NE Foundry</span>
           </div>
-          <div class="chamber-workbench-preview">
-            <span class="preview-label">DILEMMA ENGINE // STAGE 2 MODULE</span>
-            Spec: Empathetic AI companion for student tutoring. Select 2 of 4 Productive Friction patterns.
-            <span class="preview-Spec">GUARDS: Socratic Resistance · Speedbump · Provenance · Cutoff</span>
-          </div>
+          <h2>The Alignment Crucible</h2>
+          <p>Equip Productive Friction cards on AI product specs to safeguard human agency, mastery, and participation.</p>
         </article>
 
-        <!-- Chamber 03 -->
         <article class="chamber-card" data-chamber-id="EXP-03" data-accent="sage">
-          <div>
-            <div class="chamber-meta">
-              <span class="chamber-id">EXP-03 // The Citadel Diagnostic</span>
-              <span class="chamber-pillar">Garden in the Citadel · Stoic Coping</span>
-            </div>
-            <h2>Garden in the Citadel</h2>
-            <p class="chamber-brief">
-              Map present cognitive friction against Marcus Aurelius’s <em>Meditations</em> for a 60-second reframe protocol.
-            </p>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-03 // The Citadel Diagnostic</span>
+            <span class="chamber-pillar">Garden in the Citadel · SW Peristyle</span>
           </div>
-          <div class="chamber-workbench-preview">
-            <span class="preview-label">STATE DIAGNOSTIC // STAGE 3 MODULE</span>
-            Select trap: External Noise · Outcome Anxiety · Role Exhaustion.
-            <span class="preview-Spec">OUTPUT: Calibrated Meditations passage + 60s Reframe Protocol</span>
-          </div>
+          <h2>Garden in the Citadel</h2>
+          <p>Map present cognitive friction against Marcus Aurelius’s <em>Meditations</em> for a 60-second reframe protocol.</p>
         </article>
 
-        <!-- Chamber 04 -->
         <article class="chamber-card" data-chamber-id="EXP-04" data-accent="cobalt">
-          <div>
-            <div class="chamber-meta">
-              <span class="chamber-id">EXP-04 // The Architect’s Forge</span>
-              <span class="chamber-pillar">Workflow &amp; Energy Architecture</span>
-            </div>
-            <h2>The Architect’s Forge</h2>
-            <p class="chamber-brief">
-              Convert draining maintenance chores into pioneering creative quests with an 80/20 agent workflow split.
-            </p>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-04 // The Architect’s Forge</span>
+            <span class="chamber-pillar">Energy Architecture · SE Bastion</span>
           </div>
-          <div class="chamber-workbench-preview">
-            <span class="preview-label">ENERGY ALCHEMIST // STAGE 3 MODULE</span>
-            Select draining task + Archetype Lens (Pioneer · Dialectician · Game Designer).
-            <span class="preview-Spec">OUTPUT: Quest Reframe + 80% Automation / 20% Craft Split</span>
-          </div>
+          <h2>The Architect’s Forge</h2>
+          <p>Convert draining administrative chores into pioneering creative quests with an 80/20 agent workflow split.</p>
         </article>
       </div>
     </section>
