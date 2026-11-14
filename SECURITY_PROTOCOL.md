@@ -68,16 +68,23 @@ The accounts are the real attack surface; the sites themselves are static.
 
 ### 3. The pages
 
-- **Static HTML, no JavaScript.** No script, no script to inject into. A page
-  that truly needs one amends this protocol first. **[every push]**
-- **A Content-Security-Policy in every page** that lets it load only its own
-  styles and images — nothing from another host. GitHub Pages cannot set
-  headers, so it sits in the page as a `<meta>` tag. **[code]**
+- **Self-hosted static HTML, CSS and vanilla JavaScript only — no external
+  scripts, inline scripts or dependencies.** *(Amended 2026-11-14 for the
+  `ai-era` interactive concept lab.)* Client-side scripts are allowed only as
+  plain `.js` files in this repository (`script-src 'self'`), with no inline
+  `<script>` blocks, no `on*` event attributes, no third-party libraries and
+  `connect-src 'none'` so no script can make a network call. **[code] [every push]**
+- **A Content-Security-Policy in every page** (`default-src 'none';
+  script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+  base-uri 'none'; form-action 'none'; connect-src 'none'`) that lets it load
+  only its own scripts, styles and images — nothing from another host and no
+  outbound connections. GitHub Pages cannot set headers, so it sits in the page
+  as a `<meta>` tag. **[code]**
 - **No forms, analytics, embeds, web fonts or CDN.** Each one would send
   visitors' data to a third party. **[code]** (a check before each push
   refuses a page that loads anything from outside)
 - **Outbound links do not leak** — `rel="noopener"` and a strict referrer
-  policy. **[code]**
+  policy (`no-referrer`). **[code]**
 
 ### 4. Domain
 

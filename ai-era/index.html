@@ -3,92 +3,535 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Era</title>
-<meta name="description" content="Thinking clearly about the AI era: how to build AI that serves human goods, and what this technological gateway means for civilization.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'; connect-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>AI Era — Digital Concept Lab</title>
+<meta name="description" content="Thinking clearly about the AI era: an interactive concept lab to stress-test ethical design dilemmas, historical macro-narratives, and human agency.">
 <!-- No web fonts, CDN, analytics or embeds: this page makes no call to a third party. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23a4572e' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23d98a3c' stroke-width='3'/%3E%3C/svg%3E">
+<script src="lab.js" defer></script>
 <style>
   :root {
-    --bg: #faf8f4;
-    --ink: #1f1d1a;
-    --muted: #5f5a52;
-    --rule: #e2ddd3;
-    --accent: #a4572e;
-    color-scheme: light dark;
+    --bg: #121210;
+    --surface: #1a1916;
+    --surface-elevated: #22201c;
+    --ink: #F4F1EA;
+    --muted: #a6a095;
+    --rule: #2e2b25;
+    --rule-strong: #464138;
+
+    /* 4 Chamber Signal Accents */
+    --amber: #d98a3c;
+    --copper: #c86d51;
+    --sage: #6b9e78;
+    --cobalt: #5a86c5;
+
+    --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+
+    color-scheme: dark light;
   }
-  @media (prefers-color-scheme: dark) {
+
+  @media (prefers-color-scheme: light) {
     :root {
-      --bg: #161513;
-      --ink: #ece8e1;
-      --muted: #a7a196;
-      --rule: #2e2b27;
-      --accent: #e0956a;
+      --bg: #faf8f4;
+      --surface: #f2efe9;
+      --surface-elevated: #ffffff;
+      --ink: #1f1d1a;
+      --muted: #5f5a52;
+      --rule: #dfdad0;
+      --rule-strong: #bfb8aa;
+
+      --amber: #b3661e;
+      --copper: #a4572e;
+      --sage: #3d724b;
+      --cobalt: #335d99;
     }
   }
+
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
+
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-    font-size: 1.125rem;
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
     line-height: 1.65;
   }
-  main {
-    max-width: 40rem;
-    margin: 0 auto;
-    padding: 4.5rem 1rem 4rem;
+
+  /* ── 1. Top Telemetry Bar ── */
+  .telemetry-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.65rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
   }
-  header { margin-bottom: 3.5rem; }
-  .mark {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-size: 0.8rem;
+
+  .telemetry-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .telemetry-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--muted);
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--sage);
+    box-shadow: 0 0 0 2px rgba(107, 158, 120, 0.25);
+  }
+
+  .telemetry-divider {
+    color: var(--rule-strong);
+  }
+
+  .mode-switch {
+    display: inline-flex;
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .mode-btn {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.65rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .mode-btn.is-active,
+  .mode-btn[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  /* ── Main Workbench Container ── */
+  main {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.25rem 5rem;
+  }
+
+  /* ── 2. Hero Section ("The Central Workbench") ── */
+  .hero-workbench {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 1rem;
+    color: var(--amber);
+    margin: 0 0 0.9rem;
   }
+
   h1 {
-    font-size: clamp(2.2rem, 7vw, 3rem);
-    line-height: 1.1;
+    font-family: var(--font-serif);
+    font-size: clamp(2.15rem, 5vw, 3.35rem);
+    line-height: 1.08;
     font-weight: 600;
-    margin: 0 0 1.25rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.15rem;
+    max-width: 46rem;
   }
-  .line {
-    font-size: 1.25rem;
+
+  .hero-thesis {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 44rem;
+    margin: 0 0 2rem;
+  }
+
+  .router-panel {
+    background: var(--surface);
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    padding: 1.25rem;
+  }
+
+  .router-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .router-prompt {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .router-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+  }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .role-btn {
+    appearance: none;
+    text-align: left;
+    background: var(--surface-elevated);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.75rem 0.85rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .role-btn:hover {
+    border-color: var(--rule-strong);
+  }
+
+  .role-btn.is-active,
+  .role-btn[aria-pressed="true"] {
+    border-color: var(--amber);
+    box-shadow: inset 0 0 0 1px var(--amber);
+  }
+
+  .role-btn-code {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .role-btn-title {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .router-readout {
+    margin: 0;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── 3. The 4 Core Lab Chambers (2x2 Bento Grid) ── */
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--muted);
     margin: 0;
   }
-  section {
-    border-top: 1px solid var(--rule);
-    padding: 2rem 0 0.5rem;
+
+  .section-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
   }
-  h2 {
-    font-size: 1.4rem;
-    line-height: 1.3;
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 52rem) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .chamber-card {
+    --chamber-accent: var(--amber);
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--chamber-accent);
+    border-radius: 6px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .chamber-card[data-accent="amber"] { --chamber-accent: var(--amber); }
+  .chamber-card[data-accent="copper"] { --chamber-accent: var(--copper); }
+  .chamber-card[data-accent="sage"] { --chamber-accent: var(--sage); }
+  .chamber-card[data-accent="cobalt"] { --chamber-accent: var(--cobalt); }
+
+  .chamber-card[data-highlighted="true"] {
+    border-color: var(--chamber-accent);
+    box-shadow: 0 0 0 1px var(--chamber-accent);
+  }
+
+  .chamber-card[data-dimmed="true"] {
+    opacity: 0.52;
+  }
+
+  .chamber-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+  }
+
+  .chamber-id {
+    color: var(--chamber-accent);
     font-weight: 600;
-    margin: 0 0 0.75rem;
   }
-  section p { margin: 0 0 1.5rem; }
+
+  .chamber-pillar {
+    color: var(--muted);
+  }
+
+  .chamber-card h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0 0 0.65rem;
+  }
+
+  .chamber-lore {
+    margin: 0 0 1.25rem;
+    color: var(--ink);
+  }
+
+  .chamber-workbench-preview {
+    background: var(--surface-elevated);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--muted);
+  }
+
+  .preview-label {
+    display: block;
+    color: var(--chamber-accent);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  /* Mode visibility behavior */
+  body[data-lab-mode="lore"] .chamber-workbench-preview {
+    display: none;
+  }
 </style>
 </head>
-<body>
-<main>
-  <header>
-    <p class="mark">Topics</p>
-    <h1>AI Era</h1>
-    <p class="line">Thinking clearly about the AI era: how to build AI that serves human goods, and what this technological gateway means for civilization.</p>
-  </header>
+<body data-lab-mode="lab">
 
-  <section>
-    <h2>AI ethics</h2>
-    <p>Ethics as a design language, not a rulebook. No universal principle settles every conflict, so the real work happens in product design: building internal goods like agency, participation, mastery, and growth into the AI applications people actually use. Practical frameworks for teams shaping committed products, drawn from the classroom and the workshop.</p>
+<header class="telemetry-bar" role="banner">
+  <div class="telemetry-inner">
+    <div class="telemetry-cluster">
+      <span class="status-pill">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>ONLINE // V1.0</span>
+      </span>
+      <span class="telemetry-divider" aria-hidden="true">|</span>
+      <span>04 ACTIVE EXPERIMENTS</span>
+      <span class="telemetry-divider" aria-hidden="true">|</span>
+      <span id="telemetry-mode-readout">MODE // PLAYABLE LAB</span>
+    </div>
+
+    <div class="mode-switch" role="group" aria-label="Surface display mode">
+      <button type="button" class="mode-btn is-active" data-mode-Select="lab" aria-pressed="true">
+        Playable Lab Mode
+      </button>
+      <button type="button" class="mode-btn" data-mode-Select="lore" aria-pressed="false">
+        Manifesto / Lore Mode
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero-workbench" aria-labelledby="hero-heading">
+    <p class="eyebrow">AI Era // Digital Concept Lab</p>
+    <h1 id="hero-heading">Don’t just read the AI Era. Stress-test it.</h1>
+    <p class="hero-thesis">
+      Thinking clearly about the AI era: how to build AI that serves human goods, and what this technological gateway means for civilization.
+    </p>
+
+    <div class="router-panel" aria-label="Role and state experiment router">
+      <div class="router-header">
+        <p class="router-prompt">Calibrate Workbench — Select your current role or state:</p>
+        <span id="router-target-badge" class="router-badge">TARGET -&gt; ALL CHAMBERS (04)</span>
+      </div>
+
+      <div class="role-grid">
+        <button type="button" class="role-btn" data-role-select="builder" aria-pressed="false">
+          <span class="role-btn-code">ROLE // 01</span>
+          <span class="role-btn-title">Builder</span>
+        </button>
+        <button type="button" class="role-btn" data-role-select="strategist" aria-pressed="false">
+          <span class="role-btn-code">ROLE // 02</span>
+          <span class="role-btn-title">Strategist</span>
+        </button>
+        <button type="button" class="role-btn" data-role-select="philosopher" aria-pressed="false">
+          <span class="role-btn-code">ROLE // 03</span>
+          <span class="role-btn-title">Philosopher</span>
+        </button>
+        <button type="button" class="role-btn" data-role-select="leader" aria-pressed="false">
+          <span class="role-btn-code">ROLE // 04</span>
+          <span class="role-btn-title">Overwhelmed Leader</span>
+        </button>
+      </div>
+
+      <p id="router-telemetry-readout" class="router-readout" aria-live="polite">
+        Select your current role or state above to calibrate the workbench and highlight your starting chamber.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <h2>AI’s potential to transform the world</h2>
-    <p>AI as a one-way gateway, on the scale of the agricultural and mechanical revolutions. In deterministic natural systems such as proteins, materials, and energy, it can break the Red Queen’s Race of stagnating innovation. In self-reflexive social systems such as education and society, the same power behaves very differently, and that difference matters.</p>
+  <section aria-labelledby="chambers-heading">
+    <div class="section-head">
+      <h2 id="chambers-heading" class="section-title">The 4 Core Lab Chambers</h2>
+      <span class="section-meta">2×2 INTERACTIVE BENTO GRID // STAGE 1 SHELL</span>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Chamber 01 -->
+      <article class="chamber-card" data-chamber-id="EXP-01" data-accent="amber">
+        <div>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-01 // The Red Queen’s Simulator</span>
+            <span class="chamber-pillar">The Next Gateway · Macro-History</span>
+          </div>
+          <h2>AI’s potential to transform the world</h2>
+          <p class="chamber-lore">
+            AI as a one-way gateway, on the scale of the agricultural and mechanical revolutions. In deterministic natural systems such as proteins, materials, and energy, it can break the Red Queen’s Race of stagnating innovation. In self-reflexive social systems such as education and society, the same power behaves very differently, and that difference matters.
+          </p>
+        </div>
+        <div class="chamber-workbench-preview">
+          <span class="preview-label">CHAMBER 01 TELEMETRY // READY FOR STAGE 2</span>
+          Macro-historical decision deck: balance Velocity, Social Cohesion, and Epistemic Trust across technological inflection points.
+        </div>
+      </article>
+
+      <!-- Chamber 02 -->
+      <article class="chamber-card" data-chamber-id="EXP-02" data-accent="copper">
+        <div>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-02 // The Alignment Crucible</span>
+            <span class="chamber-pillar">AI Ethics as a Design Language</span>
+          </div>
+          <h2>AI ethics</h2>
+          <p class="chamber-lore">
+            Ethics as a design language, not a rulebook. No universal principle settles every conflict, so the real work happens in product design: building internal goods like agency, participation, mastery, and growth into the AI applications people actually use. Practical frameworks for teams shaping committed products, drawn from the classroom and the workshop.
+          </p>
+        </div>
+        <div class="chamber-workbench-preview">
+          <span class="preview-label">CHAMBER 02 TELEMETRY // READY FOR STAGE 2</span>
+          Productive Friction dilemma engine: apply Socratic Resistance, Provenance, and Cognitive Speedbumps to prevent skill atrophy.
+        </div>
+      </article>
+
+      <!-- Chamber 03 -->
+      <article class="chamber-card" data-chamber-id="EXP-03" data-accent="sage">
+        <div>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-03 // The Citadel Diagnostic</span>
+            <span class="chamber-pillar">Garden in the Citadel · Inner Resilience</span>
+          </div>
+          <h2>Garden in the Citadel</h2>
+          <p class="chamber-lore">
+            A two-minute state check for builders and thinkers operating inside high-velocity technical shifts. Map present cognitive friction — external noise, outcome anxiety, or role exhaustion — against classical Stoic principles from Marcus Aurelius’s <em>Meditations</em>.
+          </p>
+        </div>
+        <div class="chamber-workbench-preview">
+          <span class="preview-label">CHAMBER 03 TELEMETRY // READY FOR STAGE 3</span>
+          3-state cognitive trap selector + card-flip Cognitive Reframe Protocol.
+        </div>
+      </article>
+
+      <!-- Chamber 04 -->
+      <article class="chamber-card" data-chamber-id="EXP-04" data-accent="cobalt">
+        <div>
+          <div class="chamber-meta">
+            <span class="chamber-id">EXP-04 // The Architect’s Forge</span>
+            <span class="chamber-pillar">AI-Native Workflow &amp; Energy Architecture</span>
+          </div>
+          <h2>The Architect’s Forge</h2>
+          <p class="chamber-lore">
+            Turning draining administrative maintenance into pioneering creative quests. Pair deliberate human judgment with structured agent workflows so 80% of routine drudgery is automated and the crucial 20% remains high-leverage craft.
+          </p>
+        </div>
+        <div class="chamber-workbench-preview">
+          <span class="preview-label">CHAMBER 04 TELEMETRY // READY FOR STAGE 3</span>
+          Energy Alchemist converter: reframe draining tasks through Pioneer, Dialectician, and Game Designer lenses.
+        </div>
+      </article>
+    </div>
   </section>
 </main>
 </body>
