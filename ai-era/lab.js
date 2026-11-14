@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * AI Era Digital Concept Lab — Asymmetric Ancient Greek Polis & Harbor Controller
+ * AI Era Digital Concept Lab — Natural Asymmetric Aegean Polis & Harbor Controller
  * Self-contained, zero-dependency client-side controller.
  * Runs under CSP: script-src 'self'; connect-src 'none'.
  */
@@ -12,8 +12,8 @@
       title: "The Old Town Agora & Stoa",
       prototype: "AGORA // 00 · The Sacred Way",
       pillar: "Central Forum & Wayfinder",
-      x: 780,
-      y: 410,
+      x: 660,
+      y: 395,
       camX: 0,
       camY: 0,
       zoom: 1,
@@ -24,10 +24,10 @@
       title: "The Tholos of Gateways",
       prototype: "EXP-01 // The Red Queen's Simulator",
       pillar: "The Next Gateway · Macro-History",
-      x: 545,
-      y: 235,
-      camX: 195,
-      camY: 135,
+      x: 390,
+      y: 220,
+      camX: 295,
+      camY: 155,
       zoom: 1.52,
       accent: "amber"
     },
@@ -36,10 +36,10 @@
       title: "The Forge of Hephaestus",
       prototype: "EXP-02 // The Alignment Crucible",
       pillar: "AI Ethics as a Design Language",
-      x: 985,
-      y: 265,
-      camX: -165,
-      camY: 115,
+      x: 945,
+      y: 405,
+      camX: -145,
+      camY: 15,
       zoom: 1.52,
       accent: "copper"
     },
@@ -48,10 +48,10 @@
       title: "The Stoic Peristyle Garden",
       prototype: "EXP-03 // The Citadel Diagnostic",
       pillar: "Garden in the Citadel · Inner Resilience",
-      x: 495,
-      y: 485,
-      camX: 225,
-      camY: -45,
+      x: 1245,
+      y: 345,
+      camX: -345,
+      camY: 65,
       zoom: 1.52,
       accent: "sage"
     },
@@ -60,10 +60,10 @@
       title: "The Tower of the Winds",
       prototype: "EXP-04 // The Architect's Forge",
       pillar: "Workflow & Energy Architecture",
-      x: 1055,
-      y: 470,
-      camX: -205,
-      camY: -35,
+      x: 735,
+      y: 265,
+      camX: 35,
+      camY: 125,
       zoom: 1.52,
       accent: "cobalt"
     },
@@ -72,10 +72,10 @@
       title: "The Maritime Harbor Stoa",
       prototype: "HARBOR // About Me & The Voyages",
       pillar: "From Classics to the AI Era",
-      x: 775,
-      y: 665,
-      camX: 15,
-      camY: -165,
+      x: 555,
+      y: 615,
+      camX: 165,
+      camY: -145,
       zoom: 1.48,
       accent: "amber"
     }
@@ -94,21 +94,21 @@
       label: "Strategist",
       chamberTitle: "EXP-01 // The Tholos of Gateways",
       rationale:
-        "Routed to the Acropolis Tholos (EXP-01): stress-test civilization metrics across AI gateways."
+        "Routed to the High Acropolis Tholos (EXP-01): stress-test civilization metrics across AI gateways."
     },
     philosopher: {
       chamber: "EXP-03",
       label: "Philosopher",
       chamberTitle: "EXP-03 // The Stoic Peristyle Garden",
       rationale:
-        "Routed to the Peristyle Garden (EXP-03): calibrate cognitive friction against Marcus Aurelius."
+        "Routed to the Eastern Cape Sanctuary (EXP-03): calibrate cognitive friction against Marcus Aurelius."
     },
     leader: {
       chamber: "EXP-04",
       label: "Overwhelmed Leader",
       chamberTitle: "EXP-04 // The Tower of the Winds",
       rationale:
-        "Routed to the Tower of the Winds (EXP-04): transmute draining maintenance into creative craft."
+        "Routed to the Upper Ridge Clocktower (EXP-04): transmute draining maintenance into creative craft."
     }
   };
 
@@ -236,7 +236,7 @@
       explorerPos: { x: BUILDINGS.AGORA.x, y: BUILDINGS.AGORA.y },
       camera: { x: 0, y: 0, zoom: 1 },
       routeMessage:
-        "Click any building in the Polis, the Harbor Stoa, or a role below to explore.",
+        "Click any landmark across the island, the Harbor Stoa, or a role below to explore.",
       redQueenChoice: "commons",
       equippedFriction: ["socratic", "cutoff"],
       citadelTrap: "noise",

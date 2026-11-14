@@ -258,7 +258,7 @@
     height: 100vh;
     min-height: 45rem;
     overflow: hidden;
-    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-horizon) 34%, var(--sea-mid) 34%, var(--sea-deep) 100%);
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-horizon) 33%, var(--sea-mid) 33%, var(--sea-deep) 100%);
     user-select: none;
   }
 
@@ -269,7 +269,7 @@
   }
 
   #world-camera {
-    transform-origin: 780px 440px;
+    transform-origin: 760px 410px;
     transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -691,20 +691,20 @@
 
 <main>
   <!-- ═══════════════════════════════════════════════════════════════════
-       VIEW A: PLAYABLE LAB MODE (Asymmetric Ancient Greek Town & Harbor)
+       VIEW A: PLAYABLE LAB MODE (Natural Asymmetric Aegean Headland & Town)
        ═══════════════════════════════════════════════════════════════════ -->
   <div data-view="lab">
     <section data-subview="town" id="polis-viewport" class="polis-viewport" aria-label="Interactive Ancient Greek Polis World">
 
-      <!-- Full-Viewport Isometric Illustrated Aegean Island Town & Harbor SVG -->
-      <svg id="citadel-town-map" class="polis-svg" viewBox="0 0 1600 940" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustrated Ancient Greek Town and Harbor with five interactive landmarks">
+      <!-- Full-Viewport Isometric Illustrated Aegean Headland, Hillside Town & SW Harbor SVG -->
+      <svg id="citadel-town-map" class="polis-svg" viewBox="0 0 1600 940" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustrated Ancient Greek Town and Harbor with five naturally distributed landmarks">
         <defs>
           <linearGradient id="island-cliff" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="var(--cliff-light)"/>
             <stop offset="55%" stop-color="var(--cliff-Mid)"/>
             <stop offset="100%" stop-color="var(--cliff-shadow)"/>
           </linearGradient>
-          <linearGradient id="meadow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="meadow-grad" x1="0%" y1="0%" x2="100%" y2="85%">
             <stop offset="0%" stop-color="var(--grass-top)"/>
             <stop offset="100%" stop-color="var(--grass-mid)"/>
           </linearGradient>
@@ -716,185 +716,192 @@
         <!-- Camera Group (Zooms & Pans smoothly when visiting buildings) -->
         <g id="world-camera">
 
-          <!-- ── 1. Distant Aegean Horizon, Sun/Moon Halo & Drifting Clouds ── -->
-          <circle cx="760" cy="130" r="88" fill="#f7d586" opacity="0.35"/>
-          <circle cx="760" cy="130" r="46" fill="#fce8b2" opacity="0.65"/>
+          <!-- ── 1. Asymmetric Aegean Horizon, Off-Center Sun & Drifting Clouds ── -->
+          <circle cx="1090" cy="125" r="88" fill="#f7d586" opacity="0.35"/>
+          <circle cx="1090" cy="125" r="46" fill="#fce8b2" opacity="0.65"/>
 
-          <!-- Distant Mediterranean Islands -->
-          <polygon points="90,320 235,235 395,320" fill="#7c98ad" opacity="0.45"/>
-          <polygon points="1190,320 1345,225 1520,320" fill="#7c98ad" opacity="0.45"/>
+          <!-- Distant Mediterranean Headlands -->
+          <polygon points="40,315 190,220 350,315" fill="#7c98ad" opacity="0.45"/>
+          <polygon points="1220,315 1390,235 1560,315" fill="#7c98ad" opacity="0.4"/>
 
           <!-- Drifting Clouds -->
           <g class="anim-cloud-1" fill="#ffffff" opacity="0.72">
-            <ellipse cx="290" cy="110" rx="64" ry="20"/>
-            <ellipse cx="328" cy="103" rx="44" ry="16"/>
-            <ellipse cx="1240" cy="122" rx="70" ry="20"/>
-            <ellipse cx="1285" cy="114" rx="46" ry="16"/>
+            <ellipse cx="250" cy="105" rx="64" ry="20"/>
+            <ellipse cx="288" cy="98" rx="44" ry="16"/>
+            <ellipse cx="1270" cy="118" rx="70" ry="20"/>
+            <ellipse cx="1315" cy="110" rx="46" ry="16"/>
           </g>
           <g class="anim-cloud-2" fill="#ffffff" opacity="0.55">
-            <ellipse cx="560" cy="84" rx="52" ry="15"/>
-            <ellipse cx="1010" cy="92" rx="58" ry="16"/>
+            <ellipse cx="620" cy="82" rx="52" ry="15"/>
+            <ellipse cx="940" cy="95" rx="48" ry="14"/>
           </g>
 
           <!-- Shimmering Aegean Sea Ripples -->
           <g stroke="#8be3f5" stroke-width="2" opacity="0.38" fill="none">
-            <path d="M 110 510 Q 150 502, 190 510 T 270 510"/>
-            <path d="M 1340 530 Q 1380 522, 1420 530 T 1500 530"/>
-            <path d="M 160 760 Q 200 752, 240 760 T 320 760"/>
-            <path d="M 1270 790 Q 1310 782, 1350 790 T 1430 790"/>
+            <path d="M 90 480 Q 130 472, 170 480 T 250 480"/>
+            <path d="M 1360 545 Q 1400 537, 1440 545 T 1520 545"/>
+            <path d="M 180 770 Q 220 762, 260 770 T 340 770"/>
+            <path d="M 1050 755 Q 1090 747, 1130 755 T 1210 755"/>
           </g>
 
-          <!-- ── 2. Asymmetric Acropolis Peninsula & Sheltered Southern Harbor Bay ── -->
+          <!-- ── 2. Irregular, Organic Island Coastline (NW Acropolis Crag + SW Bay + Long East Cape) ── -->
           <g filter="url(#soft-shadow)">
-            <!-- Turquoise Coastal Reef Lagoon -->
-            <path d="M 240 450 Q 430 165, 790 175 Q 1165 185, 1330 455 Q 1355 685, 1085 775 Q 780 835, 470 770 Q 215 675, 240 450 Z" fill="var(--sea-shallow)" opacity="0.44"/>
+            <!-- Asymmetric Turquoise Reef Shallows following the irregular coastline -->
+            <path d="M 175 335 Q 210 155, 435 145 Q 690 135, 895 215 Q 1190 205, 1445 335 Q 1500 445, 1345 535 Q 1125 605, 865 655 Q 725 765, 455 755 Q 235 725, 255 555 Q 150 465, 175 335 Z" fill="var(--sea-shallow)" opacity="0.44"/>
 
-            <!-- 3D Limestone Cliff Escarpment -->
-            <path d="M 295 450 L 295 540 Q 435 715, 595 725 L 625 635 Q 775 565, 925 635 L 955 725 Q 1125 710, 1265 535 L 1265 450 Z" fill="url(#island-cliff)"/>
+            <!-- Small Offshore Rocky Islet / Sea Stack off the South-East Coast -->
+            <polygon points="1165,665 1235,642 1285,672 1225,702" fill="var(--cliff-Mid)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <polygon points="1180,660 1230,645 1268,665 1222,682" fill="var(--grass-mid)"/>
+            <path d="M 1222 662 Q 1228 634, 1234 662 Z" fill="#2d5234"/>
 
-            <!-- Organic Asymmetric Island Surface with Carved Southern Harbor Cove -->
-            <path d="M 295 450 Q 375 215, 575 190 Q 785 165, 1035 225 Q 1235 280, 1265 460 Q 1245 645, 1015 695 L 940 650 Q 885 570, 775 570 Q 665 570, 610 650 L 535 695 Q 325 640, 295 450 Z" fill="url(#meadow-grad)" stroke="#dfd3be" stroke-width="5"/>
+            <!-- 3D Limestone Cliff Escarpment (Steep on NW Crag, recessed at SW Harbor Bay, tapering to East Cape) -->
+            <path d="M 215 320 L 215 415 Q 265 495, 345 535 L 395 625 Q 495 535, 655 575 L 735 665 Q 925 645, 1085 555 Q 1275 515, 1410 430 L 1410 355 Z" fill="url(#island-cliff)"/>
 
-            <!-- Stepped Acropolis Rock Crag (Upper-Left High Ground for EXP-01) -->
-            <polygon points="395,285 535,195 695,245 585,335" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
-            <polygon points="395,285 585,335 585,358 395,308" fill="var(--cliff-Mid)"/>
+            <!-- Irregular Natural Island Landmass (High NW Promontory, S-Curve Spine, SW Harbor Bight, Narrow Eastern Cape) -->
+            <path d="M 215 320 Q 245 170, 425 160 Q 595 150, 765 215 Q 965 245, 1185 255 Q 1375 265, 1410 355 Q 1365 445, 1145 485 Q 995 515, 855 585 L 735 625 Q 675 540, 545 545 Q 435 550, 395 605 L 335 505 Q 205 425, 215 320 Z" fill="url(#meadow-grad)" stroke="#dfd3be" stroke-width="5"/>
 
-            <!-- Eastern Artisan Terrace (Upper-Right Ridge for EXP-02) -->
-            <polygon points="865,275 995,215 1135,280 1005,342" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
+            <!-- High Steep NW Acropolis Rock Bastion (Under EXP-01 at 390, 220) -->
+            <polygon points="245,275 395,175 555,225 475,325 295,335" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
+            <polygon points="245,275 295,335 475,325 475,352 285,362 245,302" fill="var(--cliff-Mid)"/>
 
-            <!-- Continuous Paved Old Town Stone Plaza (Eliminates central dead space) -->
-            <polygon points="525,355 775,285 1035,365 1045,515 775,575 505,505" fill="var(--town-plaza)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <!-- Upper-Central Ridge Outcrop (Under EXP-04 Tower of the Winds at 735, 265) -->
+            <polygon points="625,265 745,208 865,258 775,318 645,312" fill="var(--cliff-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+
+            <!-- Winding Asymmetric Old Town Terraced Stone Paving (Flows diagonally from NW crag through Agora to Artisan Forge) -->
+            <path d="M 455 325 Q 585 305, 765 315 Q 945 325, 1065 395 Q 1045 485, 885 515 Q 715 535, 565 495 Q 465 445, 455 325 Z" fill="var(--town-plaza)" stroke="var(--cliff-shadow)" stroke-width="2"/>
           </g>
 
-          <!-- ── 3. Winding Cobblestone Town Streets Connecting All 5 Landmarks ── -->
-          <path class="town-path" data-path-to="EXP-01" data-active="false" d="M 780 410 L 665 345 L 545 235"/>
-          <path class="town-path" data-path-to="EXP-02" data-active="false" d="M 780 410 L 885 345 L 985 265"/>
-          <path class="town-path" data-path-to="EXP-03" data-active="false" d="M 780 410 L 635 450 L 495 485"/>
-          <path class="town-path" data-path-to="EXP-04" data-active="false" d="M 780 410 L 920 440 L 1055 470"/>
-          <path class="town-path" data-path-to="HARBOR" data-active="false" d="M 780 410 L 775 535 L 775 665"/>
+          <!-- ── 3. Natural Winding Cobblestone Roads & Switchback Trails ── -->
+          <!-- Steep Switchback Sacred Way climbing from Old Town Agora (660,395) up to NW Acropolis (390,220) -->
+          <path class="town-path" data-path-to="EXP-01" data-active="false" d="M 660 395 L 555 365 L 495 295 L 390 220"/>
+          <!-- Ridge Steps from Old Town Agora (660,395) up to Central Ridge Tower of the Winds (735,265) -->
+          <path class="town-path" data-path-to="EXP-04" data-active="false" d="M 660 395 L 695 335 L 735 265"/>
+          <!-- Artisan Street from Agora (660,395) east to Forge of Hephaestus (945,405) -->
+          <path class="town-path" data-path-to="EXP-02" data-active="false" d="M 660 395 Q 805 415, 945 405"/>
+          <!-- Coastal Olive-Grove Trail continuing east from Forge (945,405) out to the Eastern Cape Garden (1245,345) -->
+          <path class="town-path" data-path-to="EXP-03" data-active="false" d="M 660 395 Q 805 415, 945 405 Q 1095 385, 1245 345"/>
+          <!-- Winding Harbor Road descending southwest from Agora (660,395) down to the SW Harbor Stoa (555,615) -->
+          <path class="town-path" data-path-to="HARBOR" data-active="false" d="M 660 395 Q 625 495, 555 615"/>
 
-          <!-- ── 4. Dense Ancient Greek Town Fabric (Theater, Stoas, Terracotta Houses) ── -->
-          <!-- Hillside Stone Amphitheater / Odeon (North-Central Slope, nestled between EXP-01 & EXP-02) -->
-          <g transform="translate(765, 268)">
-            <path d="M -78 18 A 78 48 0 0 1 78 18 Z" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="2"/>
-            <path d="M -62 18 A 62 38 0 0 1 62 18 Z" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <path d="M -45 18 A 45 27 0 0 1 45 18 Z" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <ellipse cx="0" cy="18" rx="26" ry="13" fill="#d4b88c" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <rect x="-34" y="24" width="68" height="10" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.2"/>
+          <!-- ── 4. Organic Ancient Greek Hillside Town Fabric (Irregular Clusters) ── -->
+          <!-- Hillside Stone Theater / Odeon tucked into the NW Acropolis shoulder (565, 265) -->
+          <g transform="translate(575, 268)">
+            <path d="M -58 14 A 58 36 0 0 1 58 14 Z" fill="var(--marble-shadow)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
+            <path d="M -44 14 A 44 27 0 0 1 44 14 Z" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.4"/>
+            <path d="M -30 14 A 30 18 0 0 1 30 14 Z" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.2"/>
+            <ellipse cx="0" cy="14" rx="18" ry="9" fill="#d4b88c" stroke="var(--cliff-shadow)" stroke-width="1.2"/>
           </g>
 
-          <!-- Long Stoa Portico (North Agora Colonnade with Terracotta Roof) -->
-          <g transform="translate(655, 330)">
-            <rect x="-55" y="-16" width="110" height="28" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="-60,-16 0,-34 60,-16" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+          <!-- Long Diagonal Stoa Portico framing the Western side of the Agora (545, 395) -->
+          <g transform="translate(535, 395) rotate(-8)">
+            <rect x="-52" y="-15" width="104" height="26" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="-56,-15 0,-31 56,-15" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
             <g fill="var(--marble-mid)">
-              <rect x="-46" y="-14" width="6" height="24"/>
-              <rect x="-26" y="-14" width="6" height="24"/>
-              <rect x="-6" y="-14" width="6" height="24"/>
-              <rect x="14" y="-14" width="6" height="24"/>
-              <rect x="34" y="-14" width="6" height="24"/>
+              <rect x="-42" y="-13" width="5" height="22"/>
+              <rect x="-22" y="-13" width="5" height="22"/>
+              <rect x="-2" y="-13" width="5" height="22"/>
+              <rect x="18" y="-13" width="5" height="22"/>
+              <rect x="38" y="-13" width="5" height="22"/>
             </g>
           </g>
 
-          <!-- Clustered Greek Courtyard Houses (West Quarter, between EXP-01, Agora & EXP-03) -->
+          <!-- Irregular Terracotta-Roofed Town Neighborhoods along the Hillside Spine -->
           <g>
-            <!-- House cluster A -->
-            <rect x="575" y="362" width="46" height="32" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="571,362 598,346 625,362" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
-            <rect x="592" y="378" width="10" height="16" fill="#5c4028"/>
+            <!-- Upper Western Slope Houses (climbing toward Acropolis) -->
+            <rect x="462" y="334" width="44" height="30" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="458,334 484,319 510,334" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <rect x="612" y="384" width="42" height="30" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="608,384 633,369 658,384" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <rect x="422" y="368" width="40" height="28" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="418,368 442,354 466,368" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <rect x="562" y="408" width="48" height="34" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="558,408 586,392 614,408" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <!-- Central Neighborhood between Agora, Clocktower & Artisan Forge -->
+            <rect x="758" y="342" width="52" height="32" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="754,342 784,325 814,342" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <!-- House cluster B (East Quarter, between EXP-02, Agora & EXP-04) -->
-            <rect x="862" y="346" width="52" height="34" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="858,346 888,329 918,346" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <rect x="802" y="362" width="44" height="30" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="798,362 824,347 850,362" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <rect x="904" y="372" width="46" height="32" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="900,372 927,356 954,372" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <rect x="838" y="332" width="46" height="28" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="834,332 861,317 888,332" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <rect x="875" y="406" width="50" height="34" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="871,406 900,389 929,406" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <!-- Lower Merchant Quarter winding down toward the SW Harbor -->
+            <rect x="558" y="448" width="48" height="32" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="554,448 582,432 610,448" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <!-- Southern Old Town Houses & Market Stalls sloping toward the Harbor -->
-            <rect x="642" y="468" width="56" height="34" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="638,468 670,451 702,468" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <rect x="652" y="462" width="54" height="34" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="648,462 679,445 710,462" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <rect x="845" y="466" width="56" height="34" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="841,466 873,449 905,466" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <rect x="702" y="484" width="44" height="28" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="698,484 724,470 750,484" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <rect x="688" y="505" width="44" height="28" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="684,505 710,491 736,505" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <rect x="765" y="452" width="50" height="32" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="761,452 790,435 819,452" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
 
-            <rect x="812" y="505" width="44" height="28" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
-            <polygon points="808,505 834,491 860,505" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
+            <!-- Workshops & Kilns around the Forge of Hephaestus -->
+            <rect x="855" y="446" width="46" height="30" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="851,446 878,431 905,446" fill="#d97248" stroke="var(--terracotta-dark)" stroke-width="1.2"/>
           </g>
 
-          <!-- Mediterranean Cypress & Olive Trees woven through the Town -->
+          <!-- Natural Groves of Olive & Cypress Trees (Dense on the Eastern Cape & Hill Slopes) -->
           <g>
-            <path d="M 638 308 Q 646 268, 654 308 Z" fill="#2d5234"/>
-            <path d="M 656 316 Q 663 282, 670 316 Z" fill="#396641"/>
-            <path d="M 852 308 Q 860 268, 868 308 Z" fill="#2d5234"/>
-            <path d="M 622 456 Q 630 418, 638 456 Z" fill="#2d5234"/>
-            <path d="M 942 448 Q 950 410, 958 448 Z" fill="#2d5234"/>
-            <circle cx="538" cy="382" r="16" fill="#6b8f56"/><circle cx="550" cy="376" r="13" fill="#82a86b"/>
-            <circle cx="978" cy="392" r="16" fill="#6b8f56"/><circle cx="965" cy="386" r="13" fill="#82a86b"/>
-            <circle cx="628" cy="548" r="17" fill="#6b8f56"/><circle cx="928" cy="548" r="17" fill="#6b8f56"/>
+            <!-- Olive grove along the path to the Eastern Cape Garden -->
+            <circle cx="1085" cy="342" r="19" fill="#6b8f56"/><circle cx="1102" cy="335" r="15" fill="#82a86b"/>
+            <circle cx="1125" cy="368" r="17" fill="#6b8f56"/><circle cx="1142" cy="360" r="14" fill="#82a86b"/>
+            <circle cx="1075" cy="435" r="18" fill="#6b8f56"/><circle cx="1092" cy="428" r="14" fill="#82a86b"/>
+            <!-- Cypress sentinels along the hills -->
+            <path d="M 312 315 Q 320 272, 328 315 Z" fill="#2d5234"/>
+            <path d="M 332 325 Q 339 288, 346 325 Z" fill="#396641"/>
+            <path d="M 632 292 Q 640 252, 648 292 Z" fill="#2d5234"/>
+            <path d="M 875 288 Q 883 248, 891 288 Z" fill="#2d5234"/>
+            <path d="M 1155 295 Q 1163 252, 1171 295 Z" fill="#2d5234"/>
+            <path d="M 1345 365 Q 1353 322, 1361 365 Z" fill="#2d5234"/>
+            <path d="M 485 512 Q 493 472, 501 512 Z" fill="#2d5234"/>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               CENTRAL AGORA FORUM (AGORA // 00 — Heart of the Old Town)
+               OLD TOWN AGORA FORUM (AGORA // 00 — Winding West-Central Heart at 660, 395)
                ══════════════════════════════════════════════════════════════ -->
           <g class="town-building" data-building-id="AGORA" tabindex="0" role="button" aria-label="The Old Town Agora — Click to view full Polis">
-            <ellipse cx="780" cy="414" rx="74" ry="40" fill="var(--marble-shadow)"/>
-            <ellipse cx="780" cy="408" rx="70" ry="37" fill="var(--marble-light)" stroke="#d47a1c" stroke-width="2.5"/>
-            <ellipse cx="780" cy="408" rx="48" ry="25" fill="none" stroke="#c45133" stroke-width="1.8" stroke-dasharray="5 4"/>
-            <!-- Mosaic Compass Star & Central Marble Tholos Fountain -->
-            <polygon points="780,382 788,401 816,408 788,415 780,434 772,415 744,408 772,401" fill="#d47a1c" opacity="0.85"/>
-            <circle cx="780" cy="408" r="10" fill="#38bdf8" stroke="var(--marble-light)" stroke-width="2.5"/>
-            <!-- Twin Agora Braziers -->
-            <rect x="716" y="380" width="8" height="24" fill="var(--marble-mid)" stroke="var(--cliff-shadow)"/>
-            <circle class="anim-flame" cx="720" cy="375" r="5" fill="#f59e0b"/>
-            <rect x="836" y="380" width="8" height="24" fill="var(--marble-mid)" stroke="var(--cliff-shadow)"/>
-            <circle class="anim-flame" cx="840" cy="375" r="5" fill="#f59e0b"/>
+            <ellipse cx="660" cy="399" rx="64" ry="34" fill="var(--marble-shadow)"/>
+            <ellipse cx="660" cy="394" rx="60" ry="31" fill="var(--marble-light)" stroke="#d47a1c" stroke-width="2.2"/>
+            <ellipse cx="660" cy="394" rx="42" ry="21" fill="none" stroke="#c45133" stroke-width="1.6" stroke-dasharray="5 4"/>
+            <polygon points="660,372 667,388 692,394 667,400 660,416 653,400 628,394 653,388" fill="#d47a1c" opacity="0.85"/>
+            <circle cx="660" cy="394" r="8" fill="#38bdf8" stroke="var(--marble-light)" stroke-width="2"/>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 01 (NW ACROPOLIS): THE THOLOS OF GATEWAYS (EXP-01)
+               LANDMARK 01 (HIGH NW ACROPOLIS CRAG, 390, 220): THE THOLOS OF GATEWAYS
                ══════════════════════════════════════════════════════════════ -->
           <g class="town-building" data-building-id="EXP-01" data-active="false" tabindex="0" role="button" aria-label="EXP-01 The Tholos of Gateways — The Red Queen's Simulator">
-            <!-- Stepped Marble Stylobate Base -->
-            <ellipse cx="545" cy="256" rx="96" ry="46" fill="var(--marble-shadow)"/>
-            <ellipse cx="545" cy="249" rx="88" ry="41" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2"/>
-            <ellipse cx="545" cy="242" rx="76" ry="35" fill="var(--marble-light)" stroke="#d47a1c" stroke-width="2"/>
+            <!-- Stepped Marble Stylobate Base on the NW Cliff -->
+            <ellipse cx="390" cy="240" rx="92" ry="44" fill="var(--marble-shadow)"/>
+            <ellipse cx="390" cy="233" rx="84" ry="39" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <ellipse cx="390" cy="226" rx="72" ry="33" fill="var(--marble-light)" stroke="#d47a1c" stroke-width="2"/>
 
             <!-- Circular Peristyle Doric Columns -->
             <g fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6">
-              <rect x="488" y="184" width="11" height="54" rx="2"/>
-              <rect x="508" y="190" width="11" height="54" rx="2"/>
-              <rect x="530" y="194" width="11" height="54" rx="2"/>
-              <rect x="550" y="194" width="11" height="54" rx="2"/>
-              <rect x="572" y="190" width="11" height="54" rx="2"/>
-              <rect x="592" y="184" width="11" height="54" rx="2"/>
+              <rect x="336" y="170" width="10" height="52" rx="2"/>
+              <rect x="355" y="176" width="10" height="52" rx="2"/>
+              <rect x="376" y="180" width="10" height="52" rx="2"/>
+              <rect x="395" y="180" width="10" height="52" rx="2"/>
+              <rect x="416" y="176" width="10" height="52" rx="2"/>
+              <rect x="435" y="170" width="10" height="52" rx="2"/>
             </g>
 
             <!-- Terracotta & Gold Tholos Rotunda Dome -->
-            <ellipse cx="545" cy="184" rx="68" ry="22" fill="var(--marble-mid)" stroke="#d47a1c" stroke-width="2"/>
-            <path d="M 480 182 Q 545 118, 610 182 Z" fill="#d47a1c" stroke="#8c4a27" stroke-width="2"/>
+            <ellipse cx="390" cy="170" rx="64" ry="20" fill="var(--marble-mid)" stroke="#d47a1c" stroke-width="2"/>
+            <path d="M 328 168 Q 390 106, 452 168 Z" fill="#d47a1c" stroke="#8c4a27" stroke-width="2"/>
 
             <!-- Rotating Golden Celestial Armillary Sphere / Astrolabe -->
-            <g class="anim-spin" transform="translate(545, 114)">
-              <circle cx="0" cy="0" r="24" fill="none" stroke="#f59e0b" stroke-width="2.8"/>
-              <ellipse cx="0" cy="0" rx="24" ry="9" fill="none" stroke="#fffdf8" stroke-width="1.8"/>
-              <ellipse cx="0" cy="0" rx="9" ry="24" fill="none" stroke="#f59e0b" stroke-width="1.8"/>
+            <g class="anim-spin" transform="translate(390, 102)">
+              <circle cx="0" cy="0" r="23" fill="none" stroke="#f59e0b" stroke-width="2.8"/>
+              <ellipse cx="0" cy="0" rx="23" ry="9" fill="none" stroke="#fffdf8" stroke-width="1.8"/>
+              <ellipse cx="0" cy="0" rx="9" ry="23" fill="none" stroke="#f59e0b" stroke-width="1.8"/>
               <circle cx="0" cy="0" r="5" fill="#fffdf8"/>
             </g>
 
             <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(545, 296)">
+            <g class="building-pill" transform="translate(390, 278)">
               <rect class="building-pill-bg" x="-122" y="-16" width="244" height="32" rx="16" fill="var(--surface-solid)" stroke="#d47a1c" stroke-width="2" filter="url(#soft-shadow)"/>
               <circle cx="-100" cy="0" r="6" fill="#d47a1c"/>
               <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="700">01 · The Tholos of Gateways</text>
@@ -902,38 +909,70 @@
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 02 (NE RIDGE): THE FORGE OF HEPHAESTUS (EXP-02)
+               LANDMARK 04 (UPPER CENTRAL RIDGE, 735, 265): THE TOWER OF THE WINDS
+               ══════════════════════════════════════════════════════════════ -->
+          <g class="town-building" data-building-id="EXP-04" data-active="false" tabindex="0" role="button" aria-label="EXP-04 The Tower of the Winds — Energy Alchemist">
+            <!-- Stone Courtyard Plinth on the Central Ridge -->
+            <polygon points="645,275 735,318 825,275 735,232" fill="var(--marble-mid)" stroke="#2962ab" stroke-width="2.2"/>
+
+            <!-- Adjacent Guild Wing & Tall Octagonal Hellenistic Clocktower -->
+            <rect x="672" y="226" width="48" height="44" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.6"/>
+            <polygon points="668,226 696,208 724,226" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.4"/>
+
+            <rect x="704" y="164" width="76" height="104" rx="3" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <polygon points="696,164 742,126 788,164" fill="#2962ab" stroke="#1e3a8a" stroke-width="2"/>
+
+            <!-- Spinning Bronze Astrolabe Gear Mechanism on the Tower Face -->
+            <g class="anim-spin" transform="translate(742, 216)">
+              <circle cx="0" cy="0" r="24" fill="#1e293b" stroke="#d47a1c" stroke-width="3.8"/>
+              <line x1="-24" y1="0" x2="24" y2="0" stroke="#d47a1c" stroke-width="2.4"/>
+              <line x1="0" y1="-24" x2="0" y2="24" stroke="#d47a1c" stroke-width="2.4"/>
+              <line x1="-17" y1="-17" x2="17" y2="17" stroke="#d47a1c" stroke-width="2.4"/>
+              <line x1="-17" y1="17" x2="17" y2="-17" stroke="#d47a1c" stroke-width="2.4"/>
+              <circle cx="0" cy="0" r="6.5" fill="#f59e0b"/>
+            </g>
+
+            <!-- Floating Location Pill -->
+            <g class="building-pill" transform="translate(735, 315)">
+              <rect class="building-pill-bg" x="-118" y="-16" width="236" height="32" rx="16" fill="var(--surface-solid)" stroke="#2962ab" stroke-width="2" filter="url(#soft-shadow)"/>
+              <circle cx="-96" cy="0" r="6" fill="#2962ab"/>
+              <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="700">04 · Tower of the Winds</text>
+            </g>
+          </g>
+
+          <!-- ══════════════════════════════════════════════════════════════
+               LANDMARK 02 (MID-EAST ARTISAN QUARTER, 945, 405): THE FORGE OF HEPHAESTUS
                ══════════════════════════════════════════════════════════════ -->
           <g class="town-building" data-building-id="EXP-02" data-active="false" tabindex="0" role="button" aria-label="EXP-02 The Forge of Hephaestus — AI Ethics as a Design Language">
             <!-- Isometric Stepped Marble Platform -->
-            <polygon points="875,278 985,324 1095,278 985,232" fill="var(--marble-shadow)"/>
-            <polygon points="885,270 985,314 1085,270 985,226" fill="var(--marble-light)" stroke="#c45133" stroke-width="2"/>
+            <polygon points="835,418 945,464 1055,418 945,372" fill="var(--marble-shadow)"/>
+            <polygon points="845,410 945,454 1045,410 945,366" fill="var(--marble-light)" stroke="#c45133" stroke-width="2"/>
 
             <!-- Temple Cella & Fluted Doric Colonnade -->
-            <rect x="915" y="202" width="140" height="66" fill="#3a2620" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <rect x="875" y="342" width="140" height="66" fill="#3a2620" stroke="var(--cliff-shadow)" stroke-width="2"/>
             <!-- Glowing Bronze Crucible Arches -->
-            <rect class="anim-flame" x="935" y="220" width="20" height="40" rx="10" fill="#f59e0b"/>
-            <rect class="anim-flame" x="975" y="216" width="20" height="44" rx="10" fill="#ef4444"/>
-            <rect class="anim-flame" x="1015" y="220" width="20" height="40" rx="10" fill="#f59e0b"/>
+            <rect class="anim-flame" x="895" y="360" width="20" height="40" rx="10" fill="#f59e0b"/>
+            <rect class="anim-flame" x="935" y="356" width="20" height="44" rx="10" fill="#ef4444"/>
+            <rect class="anim-flame" x="975" y="360" width="20" height="40" rx="10" fill="#f59e0b"/>
 
             <!-- Front Marble Columns -->
             <g fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5">
-              <rect x="919" y="202" width="10" height="66"/>
-              <rect x="946" y="202" width="10" height="66"/>
-              <rect x="973" y="202" width="10" height="66"/>
-              <rect x="1000" y="202" width="10" height="66"/>
-              <rect x="1027" y="202" width="10" height="66"/>
-              <rect x="1045" y="202" width="10" height="66"/>
+              <rect x="879" y="342" width="10" height="66"/>
+              <rect x="906" y="342" width="10" height="66"/>
+              <rect x="933" y="342" width="10" height="66"/>
+              <rect x="960" y="342" width="10" height="66"/>
+              <rect x="987" y="342" width="10" height="66"/>
+              <rect x="1005" y="342" width="10" height="66"/>
             </g>
 
             <!-- Classical Triangular Pediment & Terracotta Roof -->
-            <polygon points="904,202 985,154 1066,202" fill="#c45133" stroke="#7c2d12" stroke-width="2"/>
-            <polygon points="920,196 985,163 1050,196" fill="var(--marble-mid)"/>
-            <line x1="965" y1="184" x2="1005" y2="184" stroke="#d47a1c" stroke-width="2.5"/>
-            <circle cx="985" cy="177" r="4.5" fill="#d47a1c"/>
+            <polygon points="864,342 945,294 1026,342" fill="#c45133" stroke="#7c2d12" stroke-width="2"/>
+            <polygon points="880,336 945,303 1010,336" fill="var(--marble-mid)"/>
+            <line x1="925" y1="324" x2="965" y2="324" stroke="#d47a1c" stroke-width="2.5"/>
+            <circle cx="945" cy="317" r="4.5" fill="#d47a1c"/>
 
             <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(985, 336)">
+            <g class="building-pill" transform="translate(945, 474)">
               <rect class="building-pill-bg" x="-124" y="-16" width="248" height="32" rx="16" fill="var(--surface-solid)" stroke="#c45133" stroke-width="2" filter="url(#soft-shadow)"/>
               <circle cx="-102" cy="0" r="6" fill="#c45133"/>
               <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="700">02 · The Forge of Hephaestus</text>
@@ -941,33 +980,33 @@
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 03 (WEST TERRACE): THE STOIC PERISTYLE GARDEN (EXP-03)
+               LANDMARK 03 (SECLUDED FAR-EASTERN CAPE, 1245, 345): STOIC PERISTYLE GARDEN
                ══════════════════════════════════════════════════════════════ -->
           <g class="town-building" data-building-id="EXP-03" data-active="false" tabindex="0" role="button" aria-label="EXP-03 The Stoic Peristyle Garden — Citadel Diagnostic">
-            <!-- Isometric Walled Sanctuary Courtyard -->
-            <polygon points="375,495 495,550 615,495 495,440" fill="var(--marble-light)" stroke="#2f7d55" stroke-width="2.5"/>
+            <!-- Isometric Walled Sanctuary Courtyard out on the Eastern Promontory -->
+            <polygon points="1130,355 1245,408 1360,355 1245,302" fill="var(--marble-light)" stroke="#2f7d55" stroke-width="2.5"/>
             <!-- Shimmering Turquoise Reflecting Basin -->
-            <polygon points="425,495 495,528 565,495 495,462" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
-            <ellipse class="anim-ripple" cx="495" cy="495" rx="34" ry="15" fill="none" stroke="#ffffff" stroke-width="2"/>
-            <ellipse class="anim-ripple" cx="495" cy="495" rx="15" ry="7" fill="#e0f2fe"/>
+            <polygon points="1178,355 1245,386 1312,355 1245,324" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+            <ellipse class="anim-ripple" cx="1245" cy="355" rx="32" ry="14" fill="none" stroke="#ffffff" stroke-width="2"/>
+            <ellipse class="anim-ripple" cx="1245" cy="355" rx="14" ry="6" fill="#e0f2fe"/>
 
             <!-- Rear Stoa Colonnade & Pergola -->
-            <rect x="425" y="408" width="140" height="48" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2"/>
-            <polygon points="415,408 495,374 575,408" fill="#2f7d55" stroke="#1e4d35" stroke-width="2"/>
+            <rect x="1178" y="272" width="134" height="46" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <polygon points="1168,272 1245,238 1322,272" fill="#2f7d55" stroke="#1e4d35" stroke-width="2"/>
             <g fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.4">
-              <rect x="436" y="408" width="9" height="48"/>
-              <rect x="462" y="408" width="9" height="48"/>
-              <rect x="490" y="408" width="9" height="48"/>
-              <rect x="518" y="408" width="9" height="48"/>
-              <rect x="544" y="408" width="9" height="48"/>
+              <rect x="1188" y="272" width="9" height="46"/>
+              <rect x="1214" y="272" width="9" height="46"/>
+              <rect x="1240" y="272" width="9" height="46"/>
+              <rect x="1266" y="272" width="9" height="46"/>
+              <rect x="1292" y="272" width="9" height="46"/>
             </g>
 
             <!-- Sanctuary Cypress Trees -->
-            <path d="M 390 482 Q 398 434, 406 482 Z" fill="#1e4d35"/>
-            <path d="M 584 482 Q 592 434, 600 482 Z" fill="#1e4d35"/>
+            <path d="M 1142 342 Q 1150 296, 1158 342 Z" fill="#1e4d35"/>
+            <path d="M 1332 342 Q 1340 296, 1348 342 Z" fill="#1e4d35"/>
 
             <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(495, 566)">
+            <g class="building-pill" transform="translate(1245, 424)">
               <rect class="building-pill-bg" x="-124" y="-16" width="248" height="32" rx="16" fill="var(--surface-solid)" stroke="#2f7d55" stroke-width="2" filter="url(#soft-shadow)"/>
               <circle cx="-102" cy="0" r="6" fill="#2f7d55"/>
               <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="700">03 · Stoic Peristyle Garden</text>
@@ -975,60 +1014,25 @@
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 04 (EAST QUARTER): THE TOWER OF THE WINDS (EXP-04)
-               ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-04" data-active="false" tabindex="0" role="button" aria-label="EXP-04 The Tower of the Winds — Energy Alchemist">
-            <!-- Stone Courtyard Plinth -->
-            <polygon points="945,485 1055,538 1165,485 1055,432" fill="var(--marble-mid)" stroke="#2962ab" stroke-width="2.5"/>
-
-            <!-- Octagonal Hellenistic Tower of the Winds & Adjacent Guild Stoa -->
-            <rect x="985" y="432" width="54" height="48" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
-            <polygon points="980,432 1012,412 1044,432" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
-
-            <rect x="1022" y="368" width="84" height="112" rx="3" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
-            <polygon points="1014,368 1064,328 1114,368" fill="#2962ab" stroke="#1e3a8a" stroke-width="2"/>
-
-            <!-- Spinning Bronze Astrolabe Gear Mechanism on the Tower Face -->
-            <g class="anim-spin" transform="translate(1064, 424)">
-              <circle cx="0" cy="0" r="26" fill="#1e293b" stroke="#d47a1c" stroke-width="4"/>
-              <line x1="-26" y1="0" x2="26" y2="0" stroke="#d47a1c" stroke-width="2.5"/>
-              <line x1="0" y1="-26" x2="0" y2="26" stroke="#d47a1c" stroke-width="2.5"/>
-              <line x1="-18" y1="-18" x2="18" y2="18" stroke="#d47a1c" stroke-width="2.5"/>
-              <line x1="-18" y1="18" x2="18" y2="-18" stroke="#d47a1c" stroke-width="2.5"/>
-              <circle cx="0" cy="0" r="7" fill="#f59e0b"/>
-            </g>
-
-            <!-- Floating Location Pill -->
-            <g class="building-pill" transform="translate(1055, 556)">
-              <rect class="building-pill-bg" x="-124" y="-16" width="248" height="32" rx="16" fill="var(--surface-solid)" stroke="#2962ab" stroke-width="2" filter="url(#soft-shadow)"/>
-              <circle cx="-102" cy="0" r="6" fill="#2962ab"/>
-              <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="700">04 · Tower of the Winds</text>
-            </g>
-          </g>
-
-          <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 05 (SOUTH BAY): THE COTHON HARBOR & MARITIME STOA
+               LANDMARK 05 (SHELTERED SW HARBOR COVE, 555, 615): MARITIME HARBOR STOA
                Leads to the "About Me" Card (HARBOR)
                ══════════════════════════════════════════════════════════════ -->
-          <!-- Curved Stone Harbor Breakwaters / Moles Embracing the Bay -->
+          <!-- Asymmetric Western Stone Breakwater Mole & Pharos Lighthouse protecting the SW Bay -->
           <g filter="url(#soft-shadow)">
-            <!-- West Mole & Pharos Lighthouse -->
-            <path d="M 555 675 Q 575 775, 695 795 L 705 772 Q 605 752, 588 665 Z" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
-            <!-- East Mole -->
-            <path d="M 995 675 Q 975 775, 855 795 L 845 772 Q 945 752, 962 665 Z" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
-            <!-- Pharos Harbor Lighthouse on West Mole Tip -->
-            <rect x="682" y="732" width="22" height="44" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
-            <rect x="686" y="716" width="14" height="16" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
-            <circle class="anim-flame" cx="693" cy="710" r="7" fill="#f59e0b"/>
+            <path d="M 355 575 Q 350 695, 495 725 L 508 698 Q 392 672, 392 565 Z" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
+            <!-- Pharos Harbor Lighthouse at the Mole Tip -->
+            <rect x="482" y="658" width="22" height="44" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.8"/>
+            <rect x="486" y="642" width="14" height="16" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="1.5"/>
+            <circle class="anim-flame" cx="493" cy="636" r="7" fill="#f59e0b"/>
           </g>
 
-          <!-- Moored Greek Trireme & Merchant Galley in the Harbor Basin -->
-          <g transform="translate(645, 725)" class="anim-ship">
-            <path d="M -38 12 L 38 12 L 26 28 L -26 28 Z" fill="#8c4a27" stroke="#4a2511" stroke-width="1.8"/>
-            <line x1="0" y1="-22" x2="0" y2="12" stroke="#4a2511" stroke-width="2.5"/>
-            <path d="M -26 -14 Q 0 -22, 26 -14 Q 30 2, 22 9 Q 0 4, -22 9 Z" fill="#fffdf8" stroke="#d47a1c" stroke-width="1.8"/>
+          <!-- Moored Greek Trireme & Merchant Ship in the SW Cove -->
+          <g transform="translate(455, 648)" class="anim-ship">
+            <path d="M -36 12 L 36 12 L 25 27 L -25 27 Z" fill="#8c4a27" stroke="#4a2511" stroke-width="1.8"/>
+            <line x1="0" y1="-20" x2="0" y2="12" stroke="#4a2511" stroke-width="2.5"/>
+            <path d="M -24 -13 Q 0 -21, 24 -13 Q 28 2, 20 9 Q 0 4, -20 9 Z" fill="#fffdf8" stroke="#d47a1c" stroke-width="1.8"/>
           </g>
-          <g transform="translate(895, 728)" class="anim-ship">
+          <g transform="translate(695, 682)" class="anim-ship">
             <path d="M -34 10 L 34 10 L 24 25 L -24 25 Z" fill="#7c3f1d" stroke="#4a2511" stroke-width="1.8"/>
             <line x1="0" y1="-20" x2="0" y2="10" stroke="#4a2511" stroke-width="2.5"/>
             <path d="M -22 -12 Q 0 -19, 22 -12 Q 26 2, 18 8 Q 0 3, -18 8 Z" fill="#fce8b2" stroke="#2962ab" stroke-width="1.8"/>
@@ -1036,32 +1040,32 @@
 
           <!-- Interactive Harbor Building: The Maritime Stoa & Navarch's Hall (HARBOR -> About Me) -->
           <g class="town-building" data-building-id="HARBOR" data-active="false" tabindex="0" role="button" aria-label="The Harbor Stoa — Open About Me Card">
-            <!-- Stone Harbor Quay & Timber Piers -->
-            <polygon points="620,655 930,655 955,692 595,692" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
-            <rect x="745" y="692" width="60" height="32" fill="#8c5832" stroke="#4a2511" stroke-width="1.8"/>
+            <!-- Angled Stone Harbor Quay & Timber Pier following the SW Cove -->
+            <polygon points="415,595 705,605 725,642 395,632" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="2.5"/>
+            <rect x="535" y="636" width="54" height="32" fill="#8c5832" stroke="#4a2511" stroke-width="1.8"/>
 
             <!-- Grand Colonnaded Maritime Stoa Building -->
-            <rect x="675" y="592" width="200" height="66" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
+            <rect x="465" y="535" width="185" height="62" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="2"/>
             <!-- Terracotta Tiled Hip Roof & Central Pediment -->
-            <polygon points="665,592 775,552 885,592" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="2"/>
-            <polygon points="730,592 775,564 820,592" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
+            <polygon points="455,535 557,496 660,535" fill="var(--terracotta)" stroke="var(--terracotta-dark)" stroke-width="2"/>
+            <polygon points="515,535 557,508 600,535" fill="var(--marble-mid)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
 
-            <!-- Maritime Stoa Arches & Columns -->
+            <!-- Maritime Stoa Arches -->
             <g fill="#2b3d4f">
-              <rect x="692" y="608" width="20" height="48" rx="10"/>
-              <rect x="726" y="608" width="20" height="48" rx="10"/>
-              <rect x="765" y="604" width="22" height="52" rx="11" fill="#d47a1c"/>
-              <rect x="804" y="608" width="20" height="48" rx="10"/>
-              <rect x="838" y="608" width="20" height="48" rx="10"/>
+              <rect x="482" y="550" width="18" height="45" rx="9"/>
+              <rect x="514" y="550" width="18" height="45" rx="9"/>
+              <rect x="547" y="546" width="20" height="49" rx="10" fill="#d47a1c"/>
+              <rect x="582" y="550" width="18" height="45" rx="9"/>
+              <rect x="614" y="550" width="18" height="45" rx="9"/>
             </g>
 
             <!-- Terracotta Amphorae on the Quay -->
-            <ellipse cx="652" cy="668" rx="5" ry="9" fill="#c85a38"/>
-            <ellipse cx="664" cy="670" rx="5" ry="9" fill="#c85a38"/>
-            <ellipse cx="894" cy="668" rx="5" ry="9" fill="#c85a38"/>
+            <ellipse cx="442" cy="608" rx="5" ry="9" fill="#c85a38"/>
+            <ellipse cx="454" cy="610" rx="5" ry="9" fill="#c85a38"/>
+            <ellipse cx="674" cy="614" rx="5" ry="9" fill="#c85a38"/>
 
             <!-- Floating Harbor Location Pill -->
-            <g class="building-pill" transform="translate(775, 750)">
+            <g class="building-pill" transform="translate(555, 692)">
               <rect class="building-pill-bg" x="-126" y="-16" width="252" height="32" rx="16" fill="var(--surface-solid)" stroke="#d47a1c" stroke-width="2" filter="url(#soft-shadow)"/>
               <circle cx="-104" cy="0" r="6" fill="#d47a1c"/>
               <text class="building-pill-text" x="8" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="12" font-weight="700">05 · The Harbor — About Me</text>
@@ -1069,7 +1073,7 @@
           </g>
 
           <!-- ── ANIMATED OWL OF ATHENA / PHILOSOPHER EXPLORER TOKEN ── -->
-          <g id="town-explorer" transform="translate(780, 410)">
+          <g id="town-explorer" transform="translate(660, 395)">
             <circle cx="0" cy="0" r="22" fill="#f59e0b" opacity="0.28"/>
             <circle cx="0" cy="0" r="12" fill="#1e1b16" stroke="#f59e0b" stroke-width="2.8"/>
             <circle cx="-4" cy="-2" r="2.3" fill="#fffdf8"/>
@@ -1265,29 +1269,29 @@
           <div class="dock-top-row">
             <h1 class="dock-headline">Don’t just read the AI Era. Stress-test it.</h1>
             <p id="router-telemetry-readout" class="dock-sub">
-              Click any building in the Polis, the Harbor Stoa, or a role below to explore.
+              Click any landmark across the island, the Harbor Stoa, or a role below to explore.
             </p>
           </div>
 
           <div class="role-grid">
             <button type="button" class="role-btn" data-role-select="builder" aria-pressed="false">
-              <span class="role-btn-code">01 · NE FORGE</span>
+              <span class="role-btn-code">01 · ARTISAN FORGE</span>
               <span class="role-btn-title">Builder</span>
             </button>
             <button type="button" class="role-btn" data-role-select="strategist" aria-pressed="false">
-              <span class="role-btn-code">02 · NW THOLOS</span>
+              <span class="role-btn-code">02 · NW ACROPOLIS</span>
               <span class="role-btn-title">Strategist</span>
             </button>
             <button type="button" class="role-btn" data-role-select="philosopher" aria-pressed="false">
-              <span class="role-btn-code">03 · SW GARDEN</span>
+              <span class="role-btn-code">03 · EAST CAPE</span>
               <span class="role-btn-title">Philosopher</span>
             </button>
             <button type="button" class="role-btn" data-role-select="leader" aria-pressed="false">
-              <span class="role-btn-code">04 · SE TOWER</span>
+              <span class="role-btn-code">04 · RIDGE TOWER</span>
               <span class="role-btn-title">Overwhelmed Leader</span>
             </button>
             <button type="button" class="role-btn" data-visit-building="HARBOR" aria-pressed="false">
-              <span class="role-btn-code">05 · HARBOR STOA</span>
+              <span class="role-btn-code">05 · SW COVE</span>
               <span class="role-btn-title">About Me</span>
             </button>
           </div>
@@ -1301,7 +1305,7 @@
         <article class="chamber-card" data-chamber-id="EXP-01" data-accent="amber">
           <div class="chamber-meta">
             <span class="chamber-id">EXP-01 // The Red Queen’s Simulator</span>
-            <span class="chamber-pillar">The Next Gateway · NW Tholos</span>
+            <span class="chamber-pillar">The Next Gateway · NW Acropolis</span>
           </div>
           <h2>The Tholos of Gateways</h2>
           <p>Navigate historical and 2027 AI inflection points, balancing Velocity, Social Cohesion, and Epistemic Trust.</p>
@@ -1310,7 +1314,7 @@
         <article class="chamber-card" data-chamber-id="EXP-02" data-accent="copper">
           <div class="chamber-meta">
             <span class="chamber-id">EXP-02 // The Alignment Crucible</span>
-            <span class="chamber-pillar">AI Ethics · NE Forge</span>
+            <span class="chamber-pillar">AI Ethics · Artisan Quarter</span>
           </div>
           <h2>The Forge of Hephaestus</h2>
           <p>Equip Productive Friction cards on AI product specs to safeguard human agency, mastery, and participation.</p>
@@ -1319,7 +1323,7 @@
         <article class="chamber-card" data-chamber-id="EXP-03" data-accent="sage">
           <div class="chamber-meta">
             <span class="chamber-id">EXP-03 // The Citadel Diagnostic</span>
-            <span class="chamber-pillar">Garden in the Citadel · SW Peristyle</span>
+            <span class="chamber-pillar">Garden in the Citadel · Eastern Cape</span>
           </div>
           <h2>The Stoic Peristyle Garden</h2>
           <p>Map present cognitive friction against Marcus Aurelius’s <em>Meditations</em> for a 60-second reframe protocol.</p>
@@ -1328,7 +1332,7 @@
         <article class="chamber-card" data-chamber-id="EXP-04" data-accent="cobalt">
           <div class="chamber-meta">
             <span class="chamber-id">EXP-04 // The Architect’s Forge</span>
-            <span class="chamber-pillar">Energy Architecture · SE Tower</span>
+            <span class="chamber-pillar">Energy Architecture · Central Ridge</span>
           </div>
           <h2>The Tower of the Winds</h2>
           <p>Convert draining administrative chores into pioneering creative quests with an 80/20 agent workflow split.</p>
@@ -1337,7 +1341,7 @@
         <article class="chamber-card" data-chamber-id="HARBOR" data-accent="amber">
           <div class="chamber-meta">
             <span class="chamber-id">HARBOR // The Maritime Stoa</span>
-            <span class="chamber-pillar">About Me · South Bay</span>
+            <span class="chamber-pillar">About Me · SW Harbor Cove</span>
           </div>
           <h2>About Me — From Classics to the AI Era</h2>
           <p>How people turn data into knowledge they accept as true: from Late Antique poetry to modern agentic AI and design ethics.</p>
