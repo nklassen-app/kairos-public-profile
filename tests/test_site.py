@@ -218,7 +218,7 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert "ONLINE // V1.0" not in html
     assert "waterfall-grad" not in html
 
-    # Consolidated top-right menu & Mode Toggle (Manifesto removed from top-right pill)
+    # Consolidated top-right menu & Mode Toggle (Manifesto removed from top-right pill and DOM)
     nav_match = re.search(r'<nav class="consolidated-menu"[^>]*>(.*?)</nav>', html, re.DOTALL)
     assert nav_match, "Expected consolidated top-right navigation menu"
     nav_html = nav_match.group(1)
@@ -226,7 +226,9 @@ def test_graphic_town_and_lab_structure_present() -> None:
     for item in ("Polis Map", "Card Grid", "About Me", "Day"):
         assert item in nav_html, f"Expected '{item}' in top-right navigation pill"
     assert 'data-view="lab"' in html
-    assert 'data-view="lore"' in html
+    assert 'data-view="lore"' not in html
+    assert 'aria-label="AI Era Manifesto"' not in html
+    assert 'data-chamber-panel="HARBOR"' not in html
 
     # Interactive Graphic Town Map SVG & Buildings (including HARBOR -> About Me and isometric routes)
     assert 'id="citadel-town-map"' in html
@@ -236,14 +238,16 @@ def test_graphic_town_and_lab_structure_present() -> None:
         assert f'data-building-id="{building_id}"' in html, f"Missing town building {building_id}"
     for route_path in ("/about", "/builder", "/strategist", "/philosopher", "/practitioner"):
         assert f'data-route="{route_path}"' in html, f"Missing isometric landmark route {route_path}"
+        assert f'href="{route_path}/"' in html, f"Missing Enter button href='{route_path}/'"
+    assert 'id="drawer-link"' in html
     assert "About Me" in html
     assert 'class="floating-bottom-dock"' not in html
 
-    # Simplified five building cards (4 topic cards + About Me card)
+    # Simplified five building cards (4 topic cards + Harbor Stoa: About Me card)
     expected_topic_cards = [
         (
             "The Strategist: The Next Gateway",
-            "Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine.",
+            "I'm a historian by training, and I think we are standing in front of another one-way gateway.",
         ),
         (
             "The Builder: Applied AI Ethics",
@@ -251,14 +255,14 @@ def test_graphic_town_and_lab_structure_present() -> None:
         ),
         (
             "The Philosopher: Garden in the Citadel",
-            "Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart",
+            "What belongs in that garden is the question I keep bringing to the timeless works of Stoic philosophy.",
         ),
         (
             "The Practitioner: Kairos OS",
             "The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput.",
         ),
         (
-            "About Me",
+            "Harbor Stoa: About Me",
             "I’m Nikolaus Klassen. My path to the AI era started in the humanities, with a PhD in Classics and Cultural History",
         ),
     ]
@@ -266,6 +270,19 @@ def test_graphic_town_and_lab_structure_present() -> None:
     for card_title, card_snippet in expected_topic_cards:
         assert card_title in html and card_title in lab_js_text, f"Missing topic card title: {card_title}"
         assert card_snippet in html and card_snippet in lab_js_text, f"Missing topic card copy: {card_snippet}"
+
+    # Verify all 5 interior subpages and sanitized portrait photo exist
+    for slug in ("strategist", "builder", "philosopher", "practitioner", "about"):
+        subpage = REPO_ROOT / slug / "index.html"
+        assert subpage.exists(), f"Missing interior page {slug}/index.html"
+        sub_html = subpage.read_text(encoding="utf-8")
+        assert 'href="/"' in sub_html and "Return to the Polis" in sub_html
+
+    profile_img = REPO_ROOT / "assets" / "profile.jpg"
+    assert profile_img.exists(), "Expected /assets/profile.jpg for /about/ page"
+    img_header = profile_img.read_bytes()[:1024]
+    for forbidden_exif in (b"SM-G970U", b"2021:08:05", b"L12XLLD00SM", b"\x25\x88"):
+        assert forbidden_exif not in img_header, f"Private EXIF/GPS tag {forbidden_exif!r} still present in profile.jpg"
 
     # Landmark roles represented across the Polis
     for role in ("Builder", "Strategist", "Philosopher", "Practitioner"):

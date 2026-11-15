@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'" />
+  <meta name="referrer" content="no-referrer" />
+  <title>About Nikolaus Klassen · AI Era</title>
+  <style>
+    :root {
+      --bg: #f6f3ec;
+      --surface: #efeae0;
+      --text: #1f1e1b;
+      --muted: #656158;
+      --accent: #8c5a32;
+      --border: rgba(31, 30, 27, 0.14);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+      line-height: 1.65;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+    .back-link:hover { color: var(--text); }
+    .eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 620px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+    .portrait {
+      width: 180px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    h1 {
+      font-size: clamp(1.85rem, 4vw, 2.4rem);
+      line-height: 1.2;
+      margin: 0 0 0.5rem;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0 0 1.25rem;
+    }
+    h2 {
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin: 2.5rem 0 1.25rem;
+    }
+    .cv-item {
+      margin-bottom: 1.75rem;
+    }
+    .cv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .cv-role {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .cv-org {
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .cv-date {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .cv-desc {
+      margin: 0.35rem 0 0;
+      color: var(--text);
+      font-size: 0.96rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <a href="/" class="back-link">&larr; Return to the Polis</a>
+
+    <div class="eyebrow">Harbor Stoa · /about</div>
+
+    <section class="hero">
+      <!-- Place portrait photo at /assets/profile.jpg -->
+      <img src="/assets/profile.jpg" alt="Nikolaus Klassen" class="portrait" />
+      <div>
+        <h1>Nikolaus Klassen, PhD</h1>
+        <p class="subtitle">
+          Technical Program Manager in Agentic AI · University Lecturer in Applied AI Ethics · Historian of Ideas
+        </p>
+        <p>
+          My work sits at the intersection of classical humanities and frontier technology. Trained as a historian of Late Antiquity and cultural history, I spent my early career investigating how human societies adapt inherited frameworks of thought when their world changes underneath them.
+        </p>
+        <p>
+          Today, I help build and deploy agentic AI systems at Google and teach Applied AI Ethics at the University of Colorado Boulder. Whether I am coordinating complex AI product lifecycles, designing ethical choice architectures with my students, or reading Marcus Aurelius, I am guided by a single question: how can we shape machine intelligence so that it expands—rather than replaces—human agency, mastery, and judgment?
+        </p>
+      </div>
+    </section>
+
+    <section aria-label="Curriculum Vitae">
+      <h2>Industry Experience</h2>
+
+      <div class="cv-item">
+        <div class="cv-header">
+          <div>
+            <span class="cv-role">Technical Program Manager, Agentic AI</span> ·
+            <span class="cv-org">Google</span>
+          </div>
+          <span class="cv-date">2026 – Present</span>
+        </div>
+        <p class="cv-desc">
+          Leading technical program management for building, evaluating, and deploying agentic AI capabilities across core product lifecycles, translating frontier model behavior into reliable, human-centered product architectures.
+        </p>
+      </div>
+
+      <div class="cv-item">
+        <div class="cv-header">
+          <div>
+            <span class="cv-role">Senior Data &amp; Business Analyst</span> ·
+            <span class="cv-org">Google</span>
+          </div>
+          <span class="cv-date">2020 – 2026</span>
+        </div>
+        <p class="cv-desc">
+          Architected data observability pipelines, large-scale ETL systems, and proportional measurement frameworks for high-stakes policy, trust, and election security initiatives.
+        </p>
+      </div>
+
+      <h2>Academic Appointments &amp; Writing</h2>
+
+      <div class="cv-item">
+        <div class="cv-header">
+          <div>
+            <span class="cv-role">Lecturer, Applied AI Ethics</span> ·
+            <span class="cv-org">University of Colorado Boulder (ATLAS Institute)</span>
+          </div>
+          <span class="cv-date">2025 – Present</span>
+        </div>
+        <p class="cv-desc">
+          Designed and taught the curriculum for Applied AI Ethics, approaching ethics not as a compliance checklist, but as a constructive design language for building human agency, mastery, and epistemic integrity into AI systems.
+        </p>
+      </div>
+
+      <div class="cv-item">
+        <div class="cv-header">
+          <div>
+            <span class="cv-role">Author &amp; Researcher</span> ·
+            <span class="cv-org">Independent Scholarship</span>
+          </div>
+          <span class="cv-date">Ongoing</span>
+        </div>
+        <p class="cv-desc">
+          Author of the essay series <em>Reading Marcus</em> (on Stoic flourishing in the AI era) and the book project <em>The Next Gateway?</em> examining technological plateaus, civilizational thresholds, and the bifurcation of scientific and social complexity. Co-author of peer-reviewed research on organizational pacing and academic practice.
+        </p>
+      </div>
+
+      <h2>Education</h2>
+
+      <div class="cv-item">
+        <div class="cv-header">
+          <div>
+            <span class="cv-role">Ph.D. in Classics &amp; Cultural History</span>
+          </div>
+        </div>
+        <p class="cv-desc">
+          Doctoral research on Late Antique poetry and the transformation of classical intellectual traditions, with interdisciplinary academic training in Germany, including Bielefeld University and Goethe University Frankfurt.
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

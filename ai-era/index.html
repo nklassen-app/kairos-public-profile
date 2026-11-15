@@ -539,6 +539,36 @@
     line-height: 1.62;
   }
 
+  .card-actions {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .enter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.95rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .enter-btn:hover {
+    opacity: 1;
+    transform: translateX(2px);
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
   .chamber-panel {
     margin-top: 0.95rem;
     padding-top: 0.95rem;
@@ -1429,12 +1459,15 @@
           </button>
         </div>
 
-        <!-- Simplified Topic Card (Title + Copy) -->
+        <!-- Simplified Topic Card (Title + Copy + Enter Link) -->
         <div class="floating-card-summary">
           <h2 id="town-hud-building" class="floating-card-title">The Strategist: The Next Gateway</h2>
           <p id="inspector-core-thesis" class="floating-card-thesis">
-            Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another oneway gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.
+            Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another one-way gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.
           </p>
+          <div class="card-actions">
+            <a id="drawer-link" href="/strategist/" class="enter-btn">Enter &rarr;</a>
+          </div>
         </div>
       </aside>
     </section>
@@ -1448,7 +1481,10 @@
             <span class="chamber-pillar">The Next Gateway</span>
           </div>
           <h2>The Strategist: The Next Gateway</h2>
-          <p>Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another oneway gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.</p>
+          <p>Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another one-way gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.</p>
+          <div class="card-actions">
+            <a href="/strategist/" class="enter-btn">Enter &rarr;</a>
+          </div>
         </article>
 
         <article class="chamber-card" data-chamber-id="EXP-02" data-accent="copper">
@@ -1458,6 +1494,9 @@
           </div>
           <h2>The Builder: Applied AI Ethics</h2>
           <p>Most AI ethics tells you what not to build. I keep getting stuck on the question it leaves open: what is an ethical AI product good for? My working answer is that it should leave people with more agency, mastery, and judgment than they had before. In an era where AI can build anything, should we start focusing on products that foster internal goods? I test that answer with my students at CU Boulder and in my own product work. Here is where it stands, and where it still breaks.</p>
+          <div class="card-actions">
+            <a href="/builder/" class="enter-btn">Enter &rarr;</a>
+          </div>
         </article>
 
         <article class="chamber-card" data-chamber-id="EXP-03" data-accent="sage">
@@ -1466,7 +1505,10 @@
             <span class="chamber-pillar">Garden in the Citadel</span>
           </div>
           <h2>The Philosopher: Garden in the Citadel</h2>
-          <p>Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart, and Marcus Aurelius wrote his Meditations between plague and frontier wars. It is finding its readers again in the AI era. But the Stoicism most people meet is the inner citadel: the mind as a fortress nothing external can breach. I think that is only half the picture. A fortress protects; it doesn’t flourish. Flourishing comes from tending a garden inside the walls. What belongs in that garden is the question I keep bringing to the timeless works of stoic philosophy.</p>
+          <p>Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart, and Marcus Aurelius wrote his Meditations between plague and frontier wars. It is finding its readers again in the AI era. But the Stoicism most people meet is the inner citadel: the mind as a fortress nothing external can breach. I think that is only half the picture. A fortress protects; it doesn’t flourish. Flourishing comes from tending a garden inside the walls. What belongs in that garden is the question I keep bringing to the timeless works of Stoic philosophy.</p>
+          <div class="card-actions">
+            <a href="/philosopher/" class="enter-btn">Enter &rarr;</a>
+          </div>
         </article>
 
         <article class="chamber-card" data-chamber-id="EXP-04" data-accent="cobalt">
@@ -1476,6 +1518,9 @@
           </div>
           <h2>The Practitioner: Kairos OS</h2>
           <p>The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput. Kairos is the right moment, and the nerve to act on it. Machines are about to own Chronos. So what is left for us? My bet is two things. Commitment, because nothing is at stake for a machine. And curiosity, because if AI really is a gateway, nobody has a map of the far side, and exploring is the best thing we bring to it. Kairos OS is the system I’m building to test that bet on my own working days. Some of it works, some doesn’t yet. I write up both.</p>
+          <div class="card-actions">
+            <a href="/practitioner/" class="enter-btn">Enter &rarr;</a>
+          </div>
         </article>
 
         <article class="chamber-card" data-chamber-id="HARBOR" data-accent="amber">
@@ -1483,58 +1528,14 @@
             <span class="chamber-id">Harbor Stoa - /about</span>
             <span class="chamber-pillar">About Me</span>
           </div>
-          <h2>About Me</h2>
+          <h2>Harbor Stoa: About Me</h2>
           <p>I’m Nikolaus Klassen. My path to the AI era started in the humanities, with a PhD in Classics and Cultural History studying how societies adapt old patterns of thought when their world shifts. Today, I’m a Technical Program Manager at Google, where I help build and deploy agentic AI systems. Between those two worlds, I teach Applied AI Ethics at CU Boulder. Across ancient texts, modern data pipelines, and autonomous agents, I’m drawn to the same underlying question: how do we turn raw information into knowledge we trust and act upon? This island is my workshop for thinking in public across all three roles.</p>
+          <div class="card-actions">
+            <a href="/about/" class="enter-btn">Enter &rarr;</a>
+          </div>
         </article>
       </div>
     </section>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       VIEW B: MANIFESTO / LORE MODE (Single-Column Editorial Reading View)
-       ═══════════════════════════════════════════════════════════════════ -->
-  <div data-view="lore" class="manifesto-container" hidden>
-    <section aria-labelledby="hero-lore-heading" style="margin-bottom: 2.5rem;">
-      <p class="chapter-numeral">Manifesto &amp; Field Notes</p>
-      <h1 id="hero-lore-heading" style="font-size: 2.75rem; margin: 0 0 0.75rem;">AI Era</h1>
-      <p style="font-size: 1.2rem; color: var(--muted); margin: 0;">
-        Thinking clearly about the AI era: how to build AI that serves human goods, and what this technological gateway means for civilization.
-      </p>
-    </section>
-
-    <article aria-label="AI Era Manifesto">
-      <section class="manifesto-chapter">
-        <p class="chapter-numeral">I · /strategist · Acropolis</p>
-        <h2>The Strategist: The Next Gateway</h2>
-        <p>
-          Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another oneway gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.
-        </p>
-      </section>
-
-      <section class="manifesto-chapter">
-        <p class="chapter-numeral">II · /builder · Artisan Forge</p>
-        <h2>The Builder: Applied AI Ethics</h2>
-        <p>
-          Most AI ethics tells you what not to build. I keep getting stuck on the question it leaves open: what is an ethical AI product good for? My working answer is that it should leave people with more agency, mastery, and judgment than they had before. In an era where AI can build anything, should we start focusing on products that foster internal goods? I test that answer with my students at CU Boulder and in my own product work. Here is where it stands, and where it still breaks.
-        </p>
-      </section>
-
-      <section class="manifesto-chapter">
-        <p class="chapter-numeral">III · /philosopher · Garden in the Citadel</p>
-        <h2>The Philosopher: Garden in the Citadel</h2>
-        <p>
-          Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart, and Marcus Aurelius wrote his Meditations between plague and frontier wars. It is finding its readers again in the AI era. But the Stoicism most people meet is the inner citadel: the mind as a fortress nothing external can breach. I think that is only half the picture. A fortress protects; it doesn’t flourish. Flourishing comes from tending a garden inside the walls. What belongs in that garden is the question I keep bringing to the timeless works of stoic philosophy.
-        </p>
-      </section>
-
-      <section class="manifesto-chapter">
-        <p class="chapter-numeral">IV · /practitioner · Horologion</p>
-        <h2>The Practitioner: Kairos OS</h2>
-        <p>
-          The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput. Kairos is the right moment, and the nerve to act on it. Machines are about to own Chronos. So what is left for us? My bet is two things. Commitment, because nothing is at stake for a machine. And curiosity, because if AI really is a gateway, nobody has a map of the far side, and exploring is the best thing we bring to it. Kairos OS is the system I’m building to test that bet on my own working days. Some of it works, some doesn’t yet. I write up both.
-        </p>
-      </section>
-    </article>
   </div>
 </main>
 </body>

@@ -26,11 +26,16 @@
     "EXP-01": {
       id: "EXP-01",
       route: "/strategist",
+      href: "/strategist/",
       landmark: "Acropolis",
+      tag: "Acropolis - /strategist",
+      shortLabel: "The Next Gateway",
       title: "The Strategist: The Next Gateway",
       roleSubtitle: "The Strategist: The Next Gateway",
+      body:
+        "Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another one-way gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.",
       thesis:
-        "Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another oneway gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.",
+        "Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another one-way gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.",
       prototype: "EXP-01 // The Next Gateway",
       pillar: "The Strategist: The Next Gateway",
       x: 565,
@@ -43,9 +48,14 @@
     "EXP-02": {
       id: "EXP-02",
       route: "/builder",
+      href: "/builder/",
       landmark: "Artisan Forge",
+      tag: "Artisan Forge - /builder",
+      shortLabel: "Applied AI Ethics",
       title: "The Builder: Applied AI Ethics",
       roleSubtitle: "The Builder: Applied AI Ethics",
+      body:
+        "Most AI ethics tells you what not to build. I keep getting stuck on the question it leaves open: what is an ethical AI product good for? My working answer is that it should leave people with more agency, mastery, and judgment than they had before. In an era where AI can build anything, should we start focusing on products that foster internal goods? I test that answer with my students at CU Boulder and in my own product work. Here is where it stands, and where it still breaks.",
       thesis:
         "Most AI ethics tells you what not to build. I keep getting stuck on the question it leaves open: what is an ethical AI product good for? My working answer is that it should leave people with more agency, mastery, and judgment than they had before. In an era where AI can build anything, should we start focusing on products that foster internal goods? I test that answer with my students at CU Boulder and in my own product work. Here is where it stands, and where it still breaks.",
       prototype: "EXP-02 // Applied AI Ethics",
@@ -60,11 +70,16 @@
     "EXP-03": {
       id: "EXP-03",
       route: "/philosopher",
+      href: "/philosopher/",
       landmark: "Garden in the Citadel",
+      tag: "Garden in the Citadel - /philosopher",
+      shortLabel: "Garden in the Citadel",
       title: "The Philosopher: Garden in the Citadel",
       roleSubtitle: "The Philosopher: Garden in the Citadel",
+      body:
+        "Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart, and Marcus Aurelius wrote his Meditations between plague and frontier wars. It is finding its readers again in the AI era. But the Stoicism most people meet is the inner citadel: the mind as a fortress nothing external can breach. I think that is only half the picture. A fortress protects; it doesn’t flourish. Flourishing comes from tending a garden inside the walls. What belongs in that garden is the question I keep bringing to the timeless works of Stoic philosophy.",
       thesis:
-        "Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart, and Marcus Aurelius wrote his Meditations between plague and frontier wars. It is finding its readers again in the AI era. But the Stoicism most people meet is the inner citadel: the mind as a fortress nothing external can breach. I think that is only half the picture. A fortress protects; it doesn’t flourish. Flourishing comes from tending a garden inside the walls. What belongs in that garden is the question I keep bringing to the timeless works of stoic philosophy.",
+        "Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart, and Marcus Aurelius wrote his Meditations between plague and frontier wars. It is finding its readers again in the AI era. But the Stoicism most people meet is the inner citadel: the mind as a fortress nothing external can breach. I think that is only half the picture. A fortress protects; it doesn’t flourish. Flourishing comes from tending a garden inside the walls. What belongs in that garden is the question I keep bringing to the timeless works of Stoic philosophy.",
       prototype: "EXP-03 // Garden in the Citadel",
       pillar: "The Philosopher: Garden in the Citadel",
       x: 1055,
@@ -77,9 +92,14 @@
     "EXP-04": {
       id: "EXP-04",
       route: "/practitioner",
+      href: "/practitioner/",
       landmark: "Horologion",
+      tag: "Horologion - /practitioner",
+      shortLabel: "Kairos OS",
       title: "The Practitioner: Kairos OS",
       roleSubtitle: "The Practitioner: Kairos OS",
+      body:
+        "The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput. Kairos is the right moment, and the nerve to act on it. Machines are about to own Chronos. So what is left for us? My bet is two things. Commitment, because nothing is at stake for a machine. And curiosity, because if AI really is a gateway, nobody has a map of the far side, and exploring is the best thing we bring to it. Kairos OS is the system I’m building to test that bet on my own working days. Some of it works, some doesn’t yet. I write up both.",
       thesis:
         "The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput. Kairos is the right moment, and the nerve to act on it. Machines are about to own Chronos. So what is left for us? My bet is two things. Commitment, because nothing is at stake for a machine. And curiosity, because if AI really is a gateway, nobody has a map of the far side, and exploring is the best thing we bring to it. Kairos OS is the system I’m building to test that bet on my own working days. Some of it works, some doesn’t yet. I write up both.",
       prototype: "EXP-04 // Kairos OS",
@@ -94,9 +114,14 @@
     HARBOR: {
       id: "HARBOR",
       route: "/about",
+      href: "/about/",
       landmark: "Harbor Stoa",
-      title: "About Me",
-      roleSubtitle: "About Me",
+      tag: "Harbor Stoa - /about",
+      shortLabel: "About Me",
+      title: "Harbor Stoa: About Me",
+      roleSubtitle: "Harbor Stoa: About Me",
+      body:
+        "I’m Nikolaus Klassen. My path to the AI era started in the humanities, with a PhD in Classics and Cultural History studying how societies adapt old patterns of thought when their world shifts. Today, I’m a Technical Program Manager at Google, where I help build and deploy agentic AI systems. Between those two worlds, I teach Applied AI Ethics at CU Boulder. Across ancient texts, modern data pipelines, and autonomous agents, I’m drawn to the same underlying question: how do we turn raw information into knowledge we trust and act upon? This island is my workshop for thinking in public across all three roles.",
       thesis:
         "I’m Nikolaus Klassen. My path to the AI era started in the humanities, with a PhD in Classics and Cultural History studying how societies adapt old patterns of thought when their world shifts. Today, I’m a Technical Program Manager at Google, where I help build and deploy agentic AI systems. Between those two worlds, I teach Applied AI Ethics at CU Boulder. Across ancient texts, modern data pipelines, and autonomous agents, I’m drawn to the same underlying question: how do we turn raw information into knowledge we trust and act upon? This island is my workshop for thinking in public across all three roles.",
       prototype: "HARBOR // About Me",
@@ -112,10 +137,20 @@
 
   var ROUTE_TO_BUILDING = {
     "/about": "HARBOR",
+    "/about/": "HARBOR",
+    about: "HARBOR",
     "/builder": "EXP-02",
+    "/builder/": "EXP-02",
+    builder: "EXP-02",
     "/strategist": "EXP-01",
+    "/strategist/": "EXP-01",
+    strategist: "EXP-01",
     "/philosopher": "EXP-03",
-    "/practitioner": "EXP-04"
+    "/philosopher/": "EXP-03",
+    philosopher: "EXP-03",
+    "/practitioner": "EXP-04",
+    "/practitioner/": "EXP-04",
+    practitioner: "EXP-04"
   };
 
   var ROLE_ROUTES = {
@@ -540,10 +575,14 @@
     var worldCameraGroup = doc.getElementById("world-camera");
     var explorerGroup = doc.getElementById("town-explorer");
     var inspectorDrawer = doc.getElementById("temple-inspector-drawer");
-    var townTitleEl = doc.getElementById("town-hud-building");
-    var cardRouteBadgeEl = doc.getElementById("inspector-route-badge");
+    var townTitleEl =
+      doc.getElementById("town-hud-building") || doc.getElementById("drawer-title");
+    var cardRouteBadgeEl =
+      doc.getElementById("inspector-route-badge") || doc.getElementById("drawer-tag");
     var cardRoleSubtitleEl = doc.getElementById("inspector-role-subtitle");
-    var cardThesisEl = doc.getElementById("inspector-core-thesis");
+    var cardThesisEl =
+      doc.getElementById("inspector-core-thesis") || doc.getElementById("drawer-body");
+    var drawerLinkEl = doc.getElementById("drawer-link");
     var routeStatusEl = doc.getElementById("router-telemetry-readout");
     var mapStageEl = doc.getElementById("polis-viewport");
 
@@ -672,15 +711,18 @@
         townTitleEl.textContent = info.title;
       }
       if (cardRouteBadgeEl && info) {
-        cardRouteBadgeEl.textContent = info.landmark
-          ? info.landmark + " - " + info.route
-          : info.route;
+        cardRouteBadgeEl.textContent =
+          info.tag ||
+          (info.landmark ? info.landmark + " - " + info.route : info.route);
       }
       if (cardRoleSubtitleEl && info) {
         cardRoleSubtitleEl.textContent = info.roleSubtitle;
       }
       if (cardThesisEl && info) {
-        cardThesisEl.textContent = info.thesis;
+        cardThesisEl.textContent = info.body || info.thesis;
+      }
+      if (drawerLinkEl && info) {
+        drawerLinkEl.setAttribute("href", info.href || info.route + "/");
       }
       if (exploreBtn && info) {
         exploreBtn.setAttribute("data-explore-target", info.id);
@@ -874,6 +916,9 @@
 
     for (var k = 0; k < chamberCards.length; k++) {
       chamberCards[k].addEventListener("click", function (ev) {
+        if (ev.target && ev.target.closest && ev.target.closest("a")) {
+          return;
+        }
         var cid = ev.currentTarget.getAttribute("data-chamber-id");
         ctrl.visitBuilding(cid);
         render();
