@@ -232,11 +232,10 @@ def test_graphic_town_and_lab_structure_present() -> None:
         assert f'data-building-id="{building_id}"' in html, f"Missing town building {building_id}"
     for route_path in ("/about", "/builder", "/strategist", "/philosopher", "/practitioner"):
         assert f'data-route="{route_path}"' in html, f"Missing isometric landmark route {route_path}"
-    assert 'data-chamber-panel="HARBOR"' in html
     assert "About Me" in html
     assert 'class="floating-bottom-dock"' not in html
 
-    # Simplified four topic cards (titles & copy)
+    # Simplified five building cards (4 topic cards + About Me card)
     expected_topic_cards = [
         (
             "The Strategist: The Next Gateway",
@@ -253,6 +252,10 @@ def test_graphic_town_and_lab_structure_present() -> None:
         (
             "The Practitioner: Kairos OS",
             "The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput.",
+        ),
+        (
+            "About Me",
+            "I’m Nikolaus Klassen. My path to the AI era started in the humanities, with a PhD in Classics and Cultural History",
         ),
     ]
     lab_js_text = LAB_JS.read_text(encoding="utf-8")
