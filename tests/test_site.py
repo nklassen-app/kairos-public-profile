@@ -209,8 +209,12 @@ def test_graphic_town_and_lab_structure_present() -> None:
     html = INDEX_HTML.read_text(encoding="utf-8")
     assert LAB_JS.exists(), "Expected ai-era/lab.js to exist"
 
-    # Top-left title lockup ('AI Era') present; old tracking bar removed
+    # Top-left title lockup ('AI Era') + subtitle present; old tracking bar removed
     assert 'class="brand-title">AI Era<' in html
+    assert (
+        "How do we live well, build, and flourish in an AI-native world? "
+        "Four inquiries into civilizational history, ethical design, Stoic philosophy, and the craft of work."
+    ) in html
     assert "ONLINE // V1.0" not in html
     assert "waterfall-grad" not in html
 

@@ -216,7 +216,7 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 0.75rem;
   }
@@ -228,11 +228,14 @@
     background: var(--surface);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-radius: 999px;
-    padding: 0.45rem 1.15rem;
+    border-radius: 20px;
+    padding: 0.65rem 1.38rem;
+    max-width: 39rem;
     display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    text-align: left;
     cursor: pointer;
     box-shadow: 0 10px 28px rgba(28, 37, 44, 0.16);
     color: var(--ink);
@@ -244,9 +247,16 @@
     transform: translateY(-1px);
   }
 
+  .brand-top-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
   .brand-title {
     font-family: var(--font-serif);
-    font-size: 1.32rem;
+    font-size: 1.58rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1;
@@ -255,15 +265,25 @@
   .brand-sep {
     color: var(--rule-strong);
     font-weight: 300;
+    font-size: 1.15rem;
   }
 
   .brand-subtitle {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: var(--amber);
+  }
+
+  .brand-tagline {
+    font-family: var(--font-serif);
+    font-size: 0.92rem;
+    font-weight: 400;
+    line-height: 1.42;
+    color: var(--ink);
+    opacity: 0.88;
   }
 
   .consolidated-menu {
@@ -761,13 +781,13 @@
   .standard-container {
     max-width: 74rem;
     margin: 0 auto;
-    padding: 5.5rem 1.25rem 4rem;
+    padding: 7.5rem 1.25rem 4rem;
   }
 
   .manifesto-container {
     max-width: 42rem;
     margin: 0 auto;
-    padding: 5.5rem 1.25rem 5rem;
+    padding: 7.5rem 1.25rem 5rem;
   }
 
   .bento-grid {
@@ -833,9 +853,12 @@
 <header class="top-header-bar" role="banner">
   <div class="top-header-inner">
     <button type="button" class="brand-lockup" data-reset-camera="true" aria-label="AI Era — Return to Full Polis Overview">
-      <span class="brand-title">AI Era</span>
-      <span class="brand-sep" aria-hidden="true">|</span>
-      <span class="brand-subtitle">THE POLIS &amp; CONCEPT LAB</span>
+      <span class="brand-top-row">
+        <span class="brand-title">AI Era</span>
+        <span class="brand-sep" aria-hidden="true">|</span>
+        <span class="brand-subtitle">THE POLIS &amp; CONCEPT LAB</span>
+      </span>
+      <span class="brand-tagline">How do we live well, build, and flourish in an AI-native world? Four inquiries into civilizational history, ethical design, Stoic philosophy, and the craft of work.</span>
     </button>
 
     <nav class="consolidated-menu" aria-label="Site navigation and view controls">
