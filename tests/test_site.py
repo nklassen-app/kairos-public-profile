@@ -200,8 +200,13 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert "ONLINE // V1.0" not in html
     assert "waterfall-grad" not in html
 
-    # Consolidated top-right menu & Mode Toggle
-    assert "Manifesto" in html
+    # Consolidated top-right menu & Mode Toggle (Manifesto removed from top-right pill)
+    nav_match = re.search(r'<nav class="consolidated-menu"[^>]*>(.*?)</nav>', html, re.DOTALL)
+    assert nav_match, "Expected consolidated top-right navigation menu"
+    nav_html = nav_match.group(1)
+    assert "Manifesto" not in nav_html
+    for item in ("Polis Map", "Card Grid", "About Me", "Day"):
+        assert item in nav_html, f"Expected '{item}' in top-right navigation pill"
     assert 'data-view="lab"' in html
     assert 'data-view="lore"' in html
 
@@ -218,22 +223,33 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert "Explore →" in html
     assert 'class="floating-bottom-dock"' not in html
 
-    #Landmark roles represented across the Polis
+    # Landmark roles represented across the Polis
     for role in ("Builder", "Strategist", "Philosopher", "Practitioner"):
         assert role in html, f"Missing landmark role {role}"
 
-    # Visual polish pass: centered island viewBox, 5 outward pill badges + 1px pointer lines,
-    # SE winding footpath, layered horizon silhouettes, terracotta roof ribbing, and Horologion sundial
+    # Visual polish & pill refinement: centered island viewBox, 5 tightly fitted plinth-anchored pill badges
+    # in '[Building Name] - /[lowercase-persona]' format, no 1px leader lines, SE footpath, layered horizon,
+    # terracotta roof ribbing, and Horologion sundial
     assert 'viewBox="0 -30 1600 980"' in html
-    for badge_label in (
-        "NW Acropolis · Strategist",
-        "Kairos Horologion · Practitioner",
-        "Artisan Forge · Builder",
-        "Garden in the Citadel · Philosopher",
-        "Harbor Stoa · About Me",
-    ):
-        assert badge_label in html, f"Missing enriched landmark pill badge: {badge_label}"
-    assert html.count('class="building-leader-line"') == 5
+    expected_pills = [
+        ("Acropolis", "/strategist"),
+        ("Horologion", "/practitioner"),
+        ("Artisan Forge", "/builder"),
+        ("Garden in the Citadel", "/philosopher"),
+        ("Harbor Stoa", "/about"),
+    ]
+    for bld_name, persona_slug in expected_pills:
+        expected_aria = f'aria-label="{bld_name} - {persona_slug}"'
+        expected_tspan = (
+            f'<tspan class="pill-name">{bld_name}</tspan>'
+            f'<tspan class="pill-sep"> - </tspan>'
+            f'<tspan class="building-pill-route"'
+        )
+        assert expected_aria in html, f"Missing landmark aria-label: {expected_aria}"
+        assert expected_tspan in html and f">{persona_slug}</tspan>" in html, (
+            f"Missing pill text '{bld_name} - {persona_slug}'"
+        )
+    assert "building-leader-line" not in html
     assert 'id="se-slope-footpath"' in html
     assert 'id="horizon-islands"' in html
     assert 'class="terracotta-ribbing"' in html

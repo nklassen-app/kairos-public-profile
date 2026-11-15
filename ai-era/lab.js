@@ -26,7 +26,7 @@
     "EXP-01": {
       id: "EXP-01",
       route: "/strategist",
-      title: "NW Acropolis",
+      title: "Acropolis",
       roleSubtitle: "Strategist — The Next Gateway",
       thesis:
         "AI as a one-way civilizational gateway: breaking the Red Queen's Race in deterministic science while testing epistemic trust in human institutions.",
@@ -74,7 +74,7 @@
     "EXP-04": {
       id: "EXP-04",
       route: "/practitioner",
-      title: "Kairos Horologion",
+      title: "Horologion",
       roleSubtitle: "Practitioner — Kairos OS",
       thesis:
         "Workflow and energy architecture: delegating 80% of draining maintenance to agentic pipelines to reclaim the 20% where human taste and pioneering craft live.",
@@ -126,9 +126,9 @@
       chamber: "EXP-01",
       route: "/strategist",
       label: "Strategist",
-      chamberTitle: "NW Acropolis · /strategist",
+      chamberTitle: "Acropolis · /strategist",
       rationale:
-        "Routed to NW Acropolis (/strategist — The Next Gateway): stress-test civilization metrics across AI gateways."
+        "Routed to Acropolis (/strategist — The Next Gateway): stress-test civilization metrics across AI gateways."
     },
     philosopher: {
       chamber: "EXP-03",
@@ -142,17 +142,17 @@
       chamber: "EXP-04",
       route: "/practitioner",
       label: "Overwhelmed Leader",
-      chamberTitle: "Kairos Horologion · /practitioner",
+      chamberTitle: "Horologion · /practitioner",
       rationale:
-        "Routed to Kairos Horologion (/practitioner — Kairos OS): convert draining maintenance into an 80/20 agentic quest."
+        "Routed to Horologion (/practitioner — Kairos OS): convert draining maintenance into an 80/20 agentic quest."
     },
     practitioner: {
       chamber: "EXP-04",
       route: "/practitioner",
       label: "Practitioner",
-      chamberTitle: "Kairos Horologion · /practitioner",
+      chamberTitle: "Horologion · /practitioner",
       rationale:
-        "Routed to Kairos Horologion (/practitioner — Kairos OS): convert draining maintenance into an 80/20 agentic quest."
+        "Routed to Horologion (/practitioner — Kairos OS): convert draining maintenance into an 80/20 agentic quest."
     }
   };
 

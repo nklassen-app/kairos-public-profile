@@ -368,53 +368,29 @@
     outline: none;
   }
 
-  /* 1px Pointer Leader Lines & Outward Margin Map Badges */
-  .building-leader-line {
-    fill: none;
-    stroke: var(--ink);
-    stroke-width: 1;
-    stroke-opacity: 0.45;
-    transition: stroke 0.22s ease, stroke-opacity 0.22s ease, stroke-width 0.22s ease;
-  }
-
-  .building-leader-dot {
-    fill: var(--surface-solid);
-    stroke: var(--ink);
-    stroke-width: 1;
-    stroke-opacity: 0.55;
-    transition: fill 0.22s ease, stroke 0.22s ease;
-  }
-
-  .town-building:hover .building-leader-line,
-  .town-building:focus-visible .building-leader-line,
-  .town-building[data-active="true"] .building-leader-line {
-    stroke: var(--gold-glow);
-    stroke-opacity: 0.95;
-    stroke-width: 1.35;
-  }
-
-  .town-building:hover .building-leader-dot,
-  .town-building:focus-visible .building-leader-dot,
-  .town-building[data-active="true"] .building-leader-dot {
-    fill: var(--gold-glow);
-    stroke: #1C252C;
-  }
-
+  /* Tightly Fitted Landmark Pill Badges Anchored to Lower Plinth Edges */
   .town-building .building-pill-bg {
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: fill 0.22s ease, stroke 0.22s ease, stroke-width 0.22s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease;
   }
 
   .town-building .building-pill-text {
-    transition: fill 0.2s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--ink);
+    transition: fill 0.2s ease;
+  }
+
+  .town-building .pill-sep {
+    font-weight: 500;
+    opacity: 0.55;
   }
 
   .town-building .building-pill-route {
-    opacity: 0;
-    transform: translateX(-6px);
-    transition: opacity 0.22s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), fill 0.2s ease;
-    pointer-events: none;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    transition: fill 0.2s ease;
   }
 
   .town-building:hover .building-pill-bg,
@@ -423,21 +399,17 @@
     fill: #1C252C;
     stroke: var(--gold-glow);
     stroke-width: 2.2;
-    transform: scaleX(1.28);
   }
 
   .town-building:hover .building-pill-text,
   .town-building:focus-visible .building-pill-text,
   .town-building[data-active="true"] .building-pill-text {
     fill: #F5EFE6;
-    transform: translateX(-34px);
   }
 
   .town-building:hover .building-pill-route,
   .town-building:focus-visible .building-pill-route,
   .town-building[data-active="true"] .building-pill-route {
-    opacity: 1;
-    transform: translateX(0);
     fill: var(--gold-glow);
   }
 
@@ -866,9 +838,6 @@
       <button type="button" class="mode-btn" data-subview-select="cards" aria-pressed="false">
         Card Grid
       </button>
-      <button type="button" class="mode-btn" data-mode-select="lore" aria-pressed="false">
-        Manifesto
-      </button>
       <button type="button" class="mode-btn" data-visit-building="HARBOR" aria-pressed="false">
         About Me
       </button>
@@ -1095,10 +1064,10 @@
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 3 (NORTHWEST HILL, 565, 235): NW ACROPOLIS -> /strategist
+               LANDMARK 3 (NORTHWEST HILL, 565, 235): ACROPOLIS -> /strategist
                ("Strategist — The Next Gateway": Elevated rocky citadel, grand columned sanctuary & sea-view terrace)
                ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-01" data-route="/strategist" data-active="false" tabindex="0" role="button" aria-label="NW Acropolis — Strategist: The Next Gateway (/strategist)">
+          <g class="town-building" data-building-id="EXP-01" data-route="/strategist" data-active="false" tabindex="0" role="button" aria-label="Acropolis - /strategist">
             <!-- 45° Directional Cast Shadow -->
             <polygon points="478,242 565,202 658,242 565,286" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
@@ -1144,21 +1113,18 @@
               <circle cx="0" cy="0" r="3.5" fill="#F2B249"/>
             </g>
 
-            <!-- 1px Pointer Line & Outward Margin Floating Pill Badge -->
-            <polyline class="building-leader-line" points="412,262 452,262 486,244"/>
-            <circle class="building-leader-dot" cx="486" cy="244" r="2.5"/>
-            <g class="building-pill" transform="translate(280, 262)">
-              <rect class="building-pill-bg" x="-132" y="-15" width="264" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">NW Acropolis · Strategist</text>
-              <text class="building-pill-route" x="108" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/strategist</text>
+            <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Acropolis -->
+            <g class="building-pill" transform="translate(532, 286)">
+              <rect class="building-pill-bg" x="-81" y="-13" width="162" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Acropolis</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/strategist</tspan></text>
             </g>
           </g>
 
           <!-- ══════════════════════════════════════════════════════════════
-               LANDMARK 5 (NORTH RIDGE, 865, 255): KAIROS HOROLOGION -> /practitioner
+               LANDMARK 5 (NORTH RIDGE, 865, 255): HOROLOGION -> /practitioner
                ("Practitioner — Kairos OS": Octagonal classical clock/wind tower beside a Bouleuterion council hall)
                ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-04" data-route="/practitioner" data-active="false" tabindex="0" role="button" aria-label="Kairos Horologion — Practitioner: Kairos OS (/practitioner)">
+          <g class="town-building" data-building-id="EXP-04" data-route="/practitioner" data-active="false" tabindex="0" role="button" aria-label="Horologion - /practitioner">
             <!-- 45° Directional Cast Shadow -->
             <polygon points="775,268 875,222 975,268 875,314" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
@@ -1206,7 +1172,7 @@
               <line x1="910" y1="132" x2="910" y2="178"/>
             </g>
 
-            <!-- Circular Sundial / Clock Face Detail Mounted on the Front Wall of the Kairos Horologion Tower -->
+            <!-- Circular Sundial / Clock Face Detail Mounted on the Front Wall of the Horologion Tower -->
             <g id="horologion-sundial" transform="translate(910, 226)">
               <!-- Outer Carved Marble & Bronze Sundial Bezel -->
               <circle cx="0" cy="0" r="14.5" fill="var(--marble-light)" stroke="#2962AB" stroke-width="2"/>
@@ -1232,13 +1198,10 @@
               <circle cx="0" cy="0" r="2.6" fill="#F2B249"/>
             </g>
 
-            <!-- 1px Pointer Line & Outward NE Green Margin Floating Pill Badge -->
-            <polyline class="building-leader-line" points="1038,242 992,242 946,252"/>
-            <circle class="building-leader-dot" cx="946" cy="252" r="2.5"/>
-            <g class="building-pill" transform="translate(1190, 242)">
-              <rect class="building-pill-bg" x="-152" y="-15" width="304" height="30" rx="15" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Kairos Horologion · Practitioner</text>
-              <text class="building-pill-route" x="128" y="4" text-anchor="middle" fill="#2962AB" font-family="monospace" font-size="10.5" font-weight="700">/practitioner</text>
+            <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Horologion -->
+            <g class="building-pill" transform="translate(918, 304)">
+              <rect class="building-pill-bg" x="-90" y="-13" width="180" height="26" rx="13" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="1.8" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Horologion</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#2962AB">/practitioner</tspan></text>
             </g>
           </g>
 
@@ -1246,7 +1209,7 @@
                LANDMARK 2 (WEST AGORA SLOPE, 515, 425): ARTISAN FORGE -> /builder
                ("Builder — AI Ethics": Classical temple workshop, courtyard, geometric floor mosaic & warm forge glow)
                ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-02" data-route="/builder" data-active="false" tabindex="0" role="button" aria-label="Artisan Forge — Builder: AI Ethics (/builder)">
+          <g class="town-building" data-building-id="EXP-02" data-route="/builder" data-active="false" tabindex="0" role="button" aria-label="Artisan Forge - /builder">
             <!-- 45° Directional Cast Shadow -->
             <polygon points="395,428 515,372 635,428 515,484" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
@@ -1284,13 +1247,10 @@
               <line x1="464" y1="333" x2="546" y2="370"/>
             </g>
 
-            <!-- 1px Pointer Line & Outward SW Green Margin Floating Pill Badge -->
-            <polyline class="building-leader-line" points="357,492 408,492 448,452"/>
-            <circle class="building-leader-dot" cx="448" cy="452" r="2.5"/>
-            <g class="building-pill" transform="translate(235, 492)">
-              <rect class="building-pill-bg" x="-122" y="-15" width="244" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Artisan Forge · Builder</text>
-              <text class="building-pill-route" x="96" y="4" text-anchor="middle" fill="var(--terracotta)" font-family="monospace" font-size="10.5" font-weight="700">/builder</text>
+            <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Artisan Forge -->
+            <g class="building-pill" transform="translate(485, 488)">
+              <rect class="building-pill-bg" x="-83" y="-13" width="166" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Artisan Forge</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--terracotta)">/builder</tspan></text>
             </g>
           </g>
 
@@ -1298,7 +1258,7 @@
                LANDMARK 4 (EAST CAPE, 1055, 385): GARDEN IN THE CITADEL -> /philosopher
                ("Philosopher — Reading Marcus": Walled colonnade Stoa framing a lush cypress/olive grove & semicircular stone benches)
                ══════════════════════════════════════════════════════════════ -->
-          <g class="town-building" data-building-id="EXP-03" data-route="/philosopher" data-active="false" tabindex="0" role="button" aria-label="Garden in the Citadel — Philosopher: Reading Marcus (/philosopher)">
+          <g class="town-building" data-building-id="EXP-03" data-route="/philosopher" data-active="false" tabindex="0" role="button" aria-label="Garden in the Citadel - /philosopher">
             <!-- 45° Directional Cast Shadow -->
             <polygon points="935,388 1065,328 1195,388 1065,448" fill="var(--cast-shadow)" transform="translate(14, 10)"/>
 
@@ -1338,13 +1298,10 @@
             <path class="anim-cypress-alt" d="M 1058 368 Q 1065 320, 1072 368 Z" fill="var(--cypress-dark)"/>
             <path class="anim-cypress" d="M 1142 392 Q 1149 345, 1156 392 Z" fill="var(--cypress-dark)"/>
 
-            <!-- 1px Pointer Line & Outward East/SE Margin Floating Pill Badge -->
-            <polyline class="building-leader-line" points="1183,448 1145,448 1118,422"/>
-            <circle class="building-leader-dot" cx="1118" cy="422" r="2.5"/>
-            <g class="building-pill" transform="translate(1345, 448)">
-              <rect class="building-pill-bg" x="-162" y="-15" width="324" height="30" rx="15" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Garden in the Citadel · Philosopher</text>
-              <text class="building-pill-route" x="136" y="4" text-anchor="middle" fill="var(--olive-foliage)" font-family="monospace" font-size="10.5" font-weight="700">/philosopher</text>
+            <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Garden in the Citadel -->
+            <g class="building-pill" transform="translate(1092, 448)">
+              <rect class="building-pill-bg" x="-116" y="-13" width="232" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Garden in the Citadel</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--olive-foliage)">/philosopher</tspan></text>
             </g>
           </g>
 
@@ -1367,7 +1324,7 @@
           </g>
 
           <!-- Interactive Harbor Stoa, Wooden Dock & Moored Wooden Boat -->
-          <g class="town-building" data-building-id="HARBOR" data-route="/about" data-active="false" tabindex="0" role="button" aria-label="Harbor Stoa — About Me (/about)">
+          <g class="town-building" data-building-id="HARBOR" data-route="/about" data-active="false" tabindex="0" role="button" aria-label="Harbor Stoa - /about">
             <!-- 45° Cast Shadow of the Harbor Stoa -->
             <polygon points="652,585 775,532 898,585 775,638" fill="var(--cast-shadow)" transform="translate(12, 10)"/>
 
@@ -1412,13 +1369,10 @@
             </g>
             <polygon points="735,546 775,522 815,546" fill="var(--marble-light)" stroke="var(--cliff-shadow)" stroke-width="1.5"/>
 
-            <!-- 1px Pointer Line & Matching Pill Badge for Harbor Stoa Beside the Southern Pier -->
-            <polyline class="building-leader-line" points="938,638 878,638 828,648"/>
-            <circle class="building-leader-dot" cx="828" cy="648" r="2.5"/>
-            <g class="building-pill" transform="translate(1060, 638)">
-              <rect class="building-pill-bg" x="-122" y="-15" width="244" height="30" rx="15" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="2" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle" fill="var(--ink)" font-family="sans-serif" font-size="11.5" font-weight="700">Harbor Stoa · About Me</text>
-              <text class="building-pill-route" x="96" y="4" text-anchor="middle" fill="#D47A1C" font-family="monospace" font-size="10.5" font-weight="700">/about</text>
+            <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Harbor Stoa -->
+            <g class="building-pill" transform="translate(732, 650)">
+              <rect class="building-pill-bg" x="-72" y="-13" width="144" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Harbor Stoa</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/about</tspan></text>
             </g>
           </g>
 
@@ -1447,7 +1401,7 @@
 
         <!-- Floating Detail Card Summary (Revealed on Hover or Click) -->
         <div class="floating-card-summary">
-          <h2 id="town-hud-building" class="floating-card-title">NW Acropolis</h2>
+          <h2 id="town-hud-building" class="floating-card-title">Acropolis</h2>
           <p id="inspector-role-subtitle" class="floating-card-subtitle">Strategist — The Next Gateway</p>
           <p id="inspector-core-thesis" class="floating-card-thesis">
             AI as a one-way civilizational gateway: breaking the Red Queen's Race in deterministic science while testing epistemic trust in human institutions.
@@ -1457,10 +1411,10 @@
           </button>
         </div>
 
-        <!-- Chamber 01 Interior: NW Acropolis (/strategist) -->
+        <!-- Chamber 01 Interior: Acropolis (/strategist) -->
         <div class="chamber-panel" data-chamber-panel="EXP-01">
           <h3>EXP-01 // The Red Queen’s Simulator</h3>
-          <p class="chamber-panel-sub">NW Acropolis · /strategist</p>
+          <p class="chamber-panel-sub">Acropolis · /strategist</p>
 
           <div class="dilemma-box">
             <span class="dilemma-tag">DILEMMA CARD // YEAR 2027</span>
@@ -1571,10 +1525,10 @@
           </div>
         </div>
 
-        <!-- Chamber 04 Interior: Kairos Horologion (/practitioner) -->
+        <!-- Chamber 04 Interior: Horologion (/practitioner) -->
         <div class="chamber-panel" data-chamber-panel="EXP-04" hidden>
           <h3>EXP-04 // The Architect’s Forge</h3>
-          <p class="chamber-panel-sub">Kairos Horologion · /practitioner</p>
+          <p class="chamber-panel-sub">Horologion · /practitioner</p>
 
           <div class="dilemma-box">
             <span class="dilemma-tag">DRAINING MAINTENANCE INPUT</span>
@@ -1632,9 +1586,9 @@
         <article class="chamber-card" data-chamber-id="EXP-01" data-accent="amber">
           <div class="chamber-meta">
             <span class="chamber-id">/strategist · EXP-01</span>
-            <span class="chamber-pillar">NW Acropolis · The Next Gateway</span>
+            <span class="chamber-pillar">Acropolis · The Next Gateway</span>
           </div>
-          <h2>NW Acropolis — Strategist</h2>
+          <h2>Acropolis — Strategist</h2>
           <p>Navigate historical and 2027 AI inflection points, balancing Velocity, Social Cohesion, and Epistemic Trust.</p>
         </article>
 
@@ -1661,7 +1615,7 @@
             <span class="chamber-id">/practitioner · EXP-04</span>
             <span class="chamber-pillar">North Ridge · Kairos OS</span>
           </div>
-          <h2>Kairos Horologion — Practitioner</h2>
+          <h2>Horologion — Practitioner</h2>
           <p>Convert draining administrative chores into pioneering creative quests with an 80/20 agent workflow split.</p>
         </article>
 
