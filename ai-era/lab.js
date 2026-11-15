@@ -26,12 +26,13 @@
     "EXP-01": {
       id: "EXP-01",
       route: "/strategist",
-      title: "Acropolis",
-      roleSubtitle: "Strategist — The Next Gateway",
+      landmark: "Acropolis",
+      title: "The Strategist: The Next Gateway",
+      roleSubtitle: "The Strategist: The Next Gateway",
       thesis:
-        "AI as a one-way civilizational gateway: breaking the Red Queen's Race in deterministic science while testing epistemic trust in human institutions.",
-      prototype: "EXP-01 // The Red Queen's Simulator",
-      pillar: "Strategist — The Next Gateway",
+        "Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine. I'm a historian by training, and I think we are standing in front of another oneway gateway. For decades innovation has felt like a Red Queen's Race: ever more effort to stay roughly where we are. Is AI the exit? I don't know yet. The Next Gateway is where I work on that question.",
+      prototype: "EXP-01 // The Next Gateway",
+      pillar: "The Strategist: The Next Gateway",
       x: 565,
       y: 235,
       camX: 185,
@@ -42,12 +43,13 @@
     "EXP-02": {
       id: "EXP-02",
       route: "/builder",
-      title: "Artisan Forge",
-      roleSubtitle: "Builder — AI Ethics",
+      landmark: "Artisan Forge",
+      title: "The Builder: Applied AI Ethics",
+      roleSubtitle: "The Builder: Applied AI Ethics",
       thesis:
-        "Ethics as a design language, not a rulebook: embedding productive friction, agency, mastery, and participation directly into AI products.",
-      prototype: "EXP-02 // The Alignment Crucible",
-      pillar: "Builder — AI Ethics",
+        "Most AI ethics tells you what not to build. I keep getting stuck on the question it leaves open: what is an ethical AI product good for? My working answer is that it should leave people with more agency, mastery, and judgment than they had before. In an era where AI can build anything, should we start focusing on products that foster internal goods? I test that answer with my students at CU Boulder and in my own product work. Here is where it stands, and where it still breaks.",
+      prototype: "EXP-02 // Applied AI Ethics",
+      pillar: "The Builder: Applied AI Ethics",
       x: 515,
       y: 425,
       camX: 215,
@@ -58,12 +60,13 @@
     "EXP-03": {
       id: "EXP-03",
       route: "/philosopher",
-      title: "Garden in the Citadel",
-      roleSubtitle: "Philosopher — Reading Marcus",
+      landmark: "Garden in the Citadel",
+      title: "The Philosopher: Garden in the Citadel",
+      roleSubtitle: "The Philosopher: Garden in the Citadel",
       thesis:
-        "Guarding the inner citadel amidst algorithmic noise: classical Stoic practice from Marcus Aurelius's Meditations for builders in rapid transition.",
-      prototype: "EXP-03 // The Citadel Diagnostic",
-      pillar: "Philosopher — Reading Marcus",
+        "Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart, and Marcus Aurelius wrote his Meditations between plague and frontier wars. It is finding its readers again in the AI era. But the Stoicism most people meet is the inner citadel: the mind as a fortress nothing external can breach. I think that is only half the picture. A fortress protects; it doesn’t flourish. Flourishing comes from tending a garden inside the walls. What belongs in that garden is the question I keep bringing to the timeless works of stoic philosophy.",
+      prototype: "EXP-03 // Garden in the Citadel",
+      pillar: "The Philosopher: Garden in the Citadel",
       x: 1055,
       y: 385,
       camX: -195,
@@ -74,12 +77,13 @@
     "EXP-04": {
       id: "EXP-04",
       route: "/practitioner",
-      title: "Horologion",
-      roleSubtitle: "Practitioner — Kairos OS",
+      landmark: "Horologion",
+      title: "The Practitioner: Kairos OS",
+      roleSubtitle: "The Practitioner: Kairos OS",
       thesis:
-        "Workflow and energy architecture: delegating 80% of draining maintenance to agentic pipelines to reclaim the 20% where human taste and pioneering craft live.",
-      prototype: "EXP-04 // The Architect's Forge",
-      pillar: "Practitioner — Kairos OS",
+        "The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput. Kairos is the right moment, and the nerve to act on it. Machines are about to own Chronos. So what is left for us? My bet is two things. Commitment, because nothing is at stake for a machine. And curiosity, because if AI really is a gateway, nobody has a map of the far side, and exploring is the best thing we bring to it. Kairos OS is the system I’m building to test that bet on my own working days. Some of it works, some doesn’t yet. I write up both.",
+      prototype: "EXP-04 // Kairos OS",
+      pillar: "The Practitioner: Kairos OS",
       x: 865,
       y: 255,
       camX: -55,
@@ -90,10 +94,11 @@
     HARBOR: {
       id: "HARBOR",
       route: "/about",
-      title: "Harbor Stoa",
+      landmark: "Harbor Stoa",
+      title: "Harbor Stoa: About Me",
       roleSubtitle: "About Me — From Classics to the AI Era",
       thesis:
-        "How the human mind selects data, processes it through competing frameworks, and creates the knowledge we accept as true and act upon.",
+        "Fascinated by how the human mind selects data, processes it through competing frameworks, and creates the knowledge we accept as true and act upon — from Late Antique poetry to modern agentic AI systems.",
       prototype: "HARBOR // About Me & The Voyages",
       pillar: "About Me — Harbor Stoa",
       x: 775,
@@ -667,7 +672,9 @@
         townTitleEl.textContent = info.title;
       }
       if (cardRouteBadgeEl && info) {
-        cardRouteBadgeEl.textContent = info.route;
+        cardRouteBadgeEl.textContent = info.landmark
+          ? info.landmark + " - " + info.route
+          : info.route;
       }
       if (cardRoleSubtitleEl && info) {
         cardRoleSubtitleEl.textContent = info.roleSubtitle;

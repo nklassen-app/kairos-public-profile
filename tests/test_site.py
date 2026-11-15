@@ -234,8 +234,31 @@ def test_graphic_town_and_lab_structure_present() -> None:
         assert f'data-route="{route_path}"' in html, f"Missing isometric landmark route {route_path}"
     assert 'data-chamber-panel="HARBOR"' in html
     assert "About Me" in html
-    assert "Explore →" in html
     assert 'class="floating-bottom-dock"' not in html
+
+    # Simplified four topic cards (titles & copy)
+    expected_topic_cards = [
+        (
+            "The Strategist: The Next Gateway",
+            "Some thresholds only open one way. Humanity did not go back on agriculture, or the mechanical engine.",
+        ),
+        (
+            "The Builder: Applied AI Ethics",
+            "Most AI ethics tells you what not to build. I keep getting stuck on the question it leaves open: what is an ethical AI product good for?",
+        ),
+        (
+            "The Philosopher: Garden in the Citadel",
+            "Stoicism has always been the philosophy of turbulent times. It was born as Alexander’s empire came apart",
+        ),
+        (
+            "The Practitioner: Kairos OS",
+            "The Greeks had two words for time. Chronos is the clock: schedules, backlogs, throughput.",
+        ),
+    ]
+    lab_js_text = LAB_JS.read_text(encoding="utf-8")
+    for card_title, card_snippet in expected_topic_cards:
+        assert card_title in html and card_title in lab_js_text, f"Missing topic card title: {card_title}"
+        assert card_snippet in html and card_snippet in lab_js_text, f"Missing topic card copy: {card_snippet}"
 
     # Landmark roles represented across the Polis
     for role in ("Builder", "Strategist", "Philosopher", "Practitioner"):
