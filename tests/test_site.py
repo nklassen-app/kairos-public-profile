@@ -152,6 +152,20 @@ def test_security_protocol_amended_for_local_js() -> None:
     assert "connect-src 'none'" in text
 
 
+def test_custom_domain_and_root_hosting_setup() -> None:
+    """Verify CNAME, .nojekyll, and root symlinks so https://ai-era.co/ serves the Polis directly."""
+    cname_path = REPO_ROOT / "CNAME"
+    nojekyll_path = REPO_ROOT / ".nojekyll"
+    root_index = REPO_ROOT / "index.html"
+    root_lab_js = REPO_ROOT / "lab.js"
+
+    assert cname_path.exists(), "Expected root CNAME file for GitHub Pages custom domain"
+    assert cname_path.read_text(encoding="utf-8").strip() == "ai-era.co"
+    assert nojekyll_path.exists(), "Expected .nojekyll at repo root for static GitHub Pages serving"
+    assert root_index.is_symlink() and root_index.resolve() == INDEX_HTML.resolve()
+    assert root_lab_js.is_symlink() and root_lab_js.resolve() == LAB_JS.resolve()
+
+
 def test_all_repo_pages_and_stylesheets_pass_security_gate() -> None:
     html_files = sorted(REPO_ROOT.rglob("*.html"))
     assert html_files, "Expected at least one HTML file in repository"
