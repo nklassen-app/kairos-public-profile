@@ -213,6 +213,10 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert 'class="top-header-bar site-header"' in html
     assert 'class="polis-canvas island-stage map-container"' in html
     assert "@media (max-width: 768px)" in html
+    assert "@media (max-width: 900px)" in html
+    assert "scale(1.38) translateY(2%)" in html
+    assert "@media (max-width: 480px)" in html
+    assert "scale(1.48) translateY(3%)" in html
     assert 'aside[aria-live="polite"][data-open="false"]' in html
     assert 'aside[aria-live="polite"][data-open="true"]' in html
     assert 'class="building-pill-inner"' in html

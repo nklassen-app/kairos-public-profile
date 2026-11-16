@@ -1011,26 +1011,16 @@
     .map-container {
       position: relative !important;
       width: 100% !important;
-      height: 44vh !important;
-      min-height: 290px !important;
-      max-height: 380px !important;
-      overflow: hidden;
+      height: 48vh !important;
+      min-height: 330px !important;
+      max-height: 440px !important;
+      overflow: hidden !important;
       background: #1f5c6e;
     }
 
-    .polis-canvas svg,
-    .island-stage svg,
-    .map-container svg {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover;
-      transform: scale(1.12);
-      transform-origin: center center;
-    }
-
-    /* Scale full 'Building - /persona' SVG pill badges slightly smaller on mobile */
+    /* Scale full 'Building - /persona' SVG pill badges for crisp legibility on mobile */
     .building-pill-inner {
-      transform: scale(0.84);
+      transform: scale(1.06);
       transform-origin: 0 0;
     }
 
@@ -1082,6 +1072,64 @@
       grid-template-columns: 1fr !important;
       padding: 1rem !important;
       gap: 1rem !important;
+    }
+  }
+
+  /* ==========================================================================
+     MAP ZOOM & PILL LEGIBILITY FIX (NARROW / MOBILE VIEWPORTS)
+     ========================================================================== */
+  @media (max-width: 900px) {
+    /* 1. Give the map stage slightly more vertical height and clip the excess side ocean */
+    main > div > section[aria-label*="Interactive"] {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .polis-canvas,
+    .island-stage {
+      width: 100% !important;
+      height: 48vh !important;
+      min-height: 330px !important;
+      max-height: 440px !important;
+      overflow: hidden !important;
+      display: block;
+    }
+
+    /* 2. Zoom the island SVG so the cliffs fill the width instead of the empty sea */
+    main > div > section[aria-label*="Interactive"] svg {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+      /* Scale up 1.38x from the center of the island to crop out empty side water */
+      transform: scale(1.38) translateY(2%) !important;
+      transform-origin: 50% 52% !important;
+      display: block;
+    }
+
+    /* 3. Scale building pills for legibility */
+    .building-pill,
+    .landmark-pill {
+      font-size: 0.82rem !important;
+      padding: 0.32rem 0.7rem !important;
+      border-width: 1.5px !important;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18) !important;
+    }
+  }
+
+  /* Extra-tight phone screens (<= 480px) */
+  @media (max-width: 480px) {
+    .polis-canvas,
+    .island-stage {
+      height: 44vh !important;
+      min-height: 300px !important;
+    }
+
+    main > div > section[aria-label*="Interactive"] svg {
+      /* Crops the empty left/right ocean so the island fills 95% of the screen width */
+      transform: scale(1.48) translateY(3%) !important;
+      transform-origin: 50% 54% !important;
     }
   }
 </style>
