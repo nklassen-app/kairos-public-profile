@@ -210,6 +210,12 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert LAB_JS.exists(), "Expected ai-era/lab.js to exist"
 
     # Top-left architectural masthead ('AI Era') + question & inquiries present; old tracking bar removed
+    assert 'class="top-header-bar site-header"' in html
+    assert 'class="polis-canvas island-stage map-container"' in html
+    assert "@media (max-width: 768px)" in html
+    assert 'aside[aria-live="polite"][data-open="false"]' in html
+    assert 'aside[aria-live="polite"][data-open="true"]' in html
+    assert 'class="building-pill-inner"' in html
     assert 'class="brand-title">AI Era<' in html
     assert 'class="brand-lockup brand-masthead"' in html
     assert 'class="brand-question">How do we live well, build, and flourish in an AI-native world?<' in html
@@ -221,7 +227,7 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert "waterfall-grad" not in html
 
     # Consolidated top-right menu & Mode Toggle (Manifesto removed from top-right pill and DOM)
-    nav_match = re.search(r'<nav class="consolidated-menu"[^>]*>(.*?)</nav>', html, re.DOTALL)
+    nav_match = re.search(r'<nav class="consolidated-menu[^"]*"[^>]*>(.*?)</nav>', html, re.DOTALL)
     assert nav_match, "Expected consolidated top-right navigation menu"
     nav_html = nav_match.group(1)
     assert "Manifesto" not in nav_html

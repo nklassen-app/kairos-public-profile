@@ -201,35 +201,53 @@
     animation: pulseForge 2.2s ease-in-out infinite;
   }
 
-  /* ── 1. Top Header Chrome (Warm Limestone Glassmorphism) ── */
-  .top-header-bar {
-    position: fixed;
-    top: 0.9rem;
-    left: 1.25rem;
-    right: 1.25rem;
-    z-index: 50;
-    pointer-events: none;
+  /* ── 1. Dedicated Architectural Header Bar (Fix 2 — Desktop & Mobile) ── */
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5efe2;
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
   }
 
-  .top-header-inner {
-    max-width: 90rem;
+  body[data-sky="nyx"] {
+    background-color: var(--bg);
+  }
+
+  header[role="banner"],
+  .top-header-bar,
+  .site-header {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100%;
+    background: #f5efe2;
+    border-bottom: 1px solid rgba(31, 30, 27, 0.12);
+    padding: 1.1rem 2rem;
+    z-index: 30;
+    box-sizing: border-box;
+    pointer-events: auto;
+  }
+
+  body[data-sky="nyx"] header[role="banner"],
+  body[data-sky="nyx"] .top-header-bar,
+  body[data-sky="nyx"] .site-header {
+    background: var(--bg);
+    border-bottom-color: var(--rule-strong);
+  }
+
+  .top-header-inner,
+  .header-inner {
+    max-width: 1440px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: 1.5rem;
   }
 
-  /* 1. Give the sky & top of the island ~45px more breathing room so the Acropolis roof clears the masthead */
-  .polis-canvas,
-  .island-stage,
-  .polis-viewport,
-  main > div > section:first-child {
-    padding-top: 2.75rem; /* Pushes the isometric island down slightly */
-  }
-
-  /* 2. Remove the bulky pill box, border, and shadow from the title card */
   .brand-masthead,
   .brand-lockup {
     background: transparent !important;
@@ -237,8 +255,8 @@
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    padding: 0;
-    max-width: 540px;
+    padding: 0 !important;
+    max-width: 680px;
     pointer-events: auto;
     appearance: none;
     display: flex;
@@ -248,17 +266,17 @@
     cursor: pointer;
   }
 
-  /* 3. Keep "AI Era | THE POLIS & CONCEPT LAB" tight and architectural */
   .brand-topline {
     display: flex;
     align-items: baseline;
-    gap: 0.75rem;
-    margin-bottom: 0.35rem;
+    gap: 0.65rem;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
   }
 
   .brand-title {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+    font-size: clamp(1.65rem, 2.4vw, 2.15rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     color: #1f1e1b;
@@ -268,7 +286,7 @@
 
   .brand-divider {
     width: 1px;
-    height: 0.95rem;
+    height: 0.9rem;
     background: rgba(31, 30, 27, 0.25);
     align-self: center;
   }
@@ -277,25 +295,24 @@
     font-family: var(--font-sans);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     color: #9c5a25;
   }
 
-  /* 4. Separate the core question from the 4 inquiries so each has its own visual weight */
   .brand-question {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.05rem, 1.4vw, 1.22rem);
-    font-weight: 600;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    font-weight: 700;
     color: #1f1e1b;
     line-height: 1.3;
-    margin: 0 0 0.2rem 0;
+    margin: 0 0 0.15rem 0;
   }
 
   .brand-inquiries {
     font-family: var(--font-sans);
-    font-size: clamp(0.84rem, 1.05vw, 0.92rem);
-    color: rgba(31, 30, 27, 0.72);
+    font-size: clamp(0.84rem, 1.05vw, 0.94rem);
+    color: rgba(31, 30, 27, 0.75);
     line-height: 1.4;
     margin: 0;
   }
@@ -317,7 +334,9 @@
     color: var(--muted);
   }
 
+  .site-nav,
   .consolidated-menu {
+    flex-shrink: 0;
     pointer-events: auto;
     display: inline-flex;
     flex-wrap: wrap;
@@ -361,12 +380,19 @@
     color: var(--surface-solid);
   }
 
-  /* ── 2. Full-Viewport 2.5D Isometric Polis Stage ── */
+  /* ── 2. Full-Viewport 2.5D Isometric Polis Stage (Zero Top Seam) ── */
+  .polis-canvas,
+  .island-stage,
+  .polis-viewport,
+  main > div > section:first-child {
+    padding-top: 0 !important;
+  }
+
   .polis-viewport {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-    min-height: 46rem;
+    width: 100%;
+    height: calc(100vh - 6.35rem);
+    min-height: 42rem;
     overflow: hidden;
     background: linear-gradient(
       180deg,
@@ -376,6 +402,11 @@
       var(--sea-deep) 100%
     );
     user-select: none;
+  }
+
+  .polis-canvas {
+    width: 100%;
+    height: 100%;
   }
 
   .polis-svg {
@@ -472,10 +503,10 @@
   /* ── 3. Floating Right Topic Card (Revealed on Hover or Click) ── */
   .temple-drawer {
     position: absolute;
-    top: 4.5rem;
+    top: 1.25rem;
     right: 1.25rem;
     height: fit-content;
-    max-height: calc(100vh - 5.75rem);
+    max-height: calc(100% - 2.5rem);
     width: min(27.5rem, calc(100vw - 2.5rem));
     background: var(--surface);
     backdrop-filter: blur(18px);
@@ -842,13 +873,13 @@
   .standard-container {
     max-width: 74rem;
     margin: 0 auto;
-    padding: 7.5rem 1.25rem 4rem;
+    padding: 2.5rem 1.25rem 4rem;
   }
 
   .manifesto-container {
     max-width: 42rem;
     margin: 0 auto;
-    padding: 7.5rem 1.25rem 5rem;
+    padding: 2.5rem 1.25rem 5rem;
   }
 
   .bento-grid {
@@ -906,13 +937,160 @@
     color: var(--amber);
     margin: 0 0 0.4rem;
   }
+
+  /* ── 4. Mobile & Tablet Responsive Overhaul (<= 768px) ── */
+  @media (max-width: 768px) {
+    html, body, main {
+      height: auto !important;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto !important;
+    }
+
+    header[role="banner"],
+    .top-header-bar,
+    .site-header {
+      padding: 0.9rem 1rem 0.85rem;
+    }
+
+    .top-header-inner,
+    .header-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+
+    .brand-title {
+      font-size: 1.5rem;
+    }
+
+    .brand-kicker {
+      font-size: 0.64rem;
+      letter-spacing: 0.1em;
+    }
+
+    .brand-question {
+      font-size: 0.98rem;
+      line-height: 1.32;
+    }
+
+    .brand-inquiries {
+      font-size: 0.82rem;
+      line-height: 1.38;
+    }
+
+    .site-nav,
+    .consolidated-menu {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .site-nav > *,
+    .consolidated-menu > .mode-btn {
+      font-size: 0.76rem !important;
+      padding: 0.35rem 0.65rem !important;
+      white-space: nowrap;
+    }
+
+    .polis-layout,
+    .polis-view,
+    .polis-viewport,
+    main > div {
+      display: flex !important;
+      flex-direction: column !important;
+      height: auto !important;
+      min-height: 0 !important;
+      overflow: visible !important;
+    }
+
+    .polis-canvas,
+    .island-stage,
+    .map-container {
+      position: relative !important;
+      width: 100% !important;
+      height: 44vh !important;
+      min-height: 290px !important;
+      max-height: 380px !important;
+      overflow: hidden;
+      background: #1f5c6e;
+    }
+
+    .polis-canvas svg,
+    .island-stage svg,
+    .map-container svg {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+      transform: scale(1.12);
+      transform-origin: center center;
+    }
+
+    /* Scale full 'Building - /persona' SVG pill badges slightly smaller on mobile */
+    .building-pill-inner {
+      transform: scale(0.84);
+      transform-origin: 0 0;
+    }
+
+    /* Keep docked card hidden on mobile until the user taps a building on the map */
+    aside[aria-live="polite"][data-open="false"] {
+      display: none !important;
+    }
+
+    /* Dock the <aside> drawer directly below the map as a clean card sheet when open */
+    aside[aria-live="polite"][data-open="true"] {
+      display: block !important;
+      position: relative !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      max-height: none !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border: 0 !important;
+      border-top: 2px solid rgba(31, 30, 27, 0.15) !important;
+      background: #f6f3ec !important;
+      padding: 1.25rem 1.25rem 2rem !important;
+      box-shadow: none !important;
+      box-sizing: border-box;
+      transform: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      z-index: 10;
+    }
+
+    body[data-sky="nyx"] aside[aria-live="polite"][data-open="true"] {
+      background: var(--surface-solid) !important;
+      border-top-color: var(--rule-strong) !important;
+    }
+
+    .card-actions {
+      margin-top: 1rem;
+    }
+
+    .enter-btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+    }
+
+    .bento-grid {
+      grid-template-columns: 1fr !important;
+      padding: 1rem !important;
+      gap: 1rem !important;
+    }
+  }
 </style>
 </head>
 <body data-lab-mode="lab" data-sky="helios">
 
 <!-- ── Top Header Chrome: "AI Era | THE POLIS & CONCEPT LAB" (Left) + View Switcher (Right) ── -->
-<header class="top-header-bar" role="banner">
-  <div class="top-header-inner">
+<header class="top-header-bar site-header" role="banner">
+  <div class="top-header-inner header-inner">
     <button type="button" class="brand-lockup brand-masthead" data-reset-camera="true" aria-label="AI Era — Return to Full Polis Overview">
       <span class="brand-topline">
         <span class="brand-title">AI Era</span>
@@ -923,7 +1101,7 @@
       <span class="brand-inquiries">Four inquiries into civilizational history, ethical design, Stoic philosophy, and the craft of work.</span>
     </button>
 
-    <nav class="consolidated-menu" aria-label="Site navigation and view controls">
+    <nav class="consolidated-menu site-nav" aria-label="Site navigation and view controls">
       <button type="button" class="mode-btn is-active" data-subview-select="town" aria-pressed="true">
         Polis Map
       </button>
@@ -948,9 +1126,9 @@
   <!-- ═══════════════════════════════════════════════════════════════════
        VIEW A: PLAYABLE LAB MODE (2.5D Isometric Sculpted Aegean Island & Agora)
        ═══════════════════════════════════════════════════════════════════ -->
-  <div data-view="lab">
-    <section data-subview="town" id="polis-viewport" class="polis-viewport" aria-label="Interactive 2.5D Isometric Ancient Greek Polis">
-
+  <div data-view="lab" class="polis-view">
+    <section data-subview="town" id="polis-viewport" class="polis-viewport polis-layout" aria-label="Interactive 2.5D Isometric Ancient Greek Polis">
+      <div class="polis-canvas island-stage map-container">
       <!-- Full-Viewport 2.5D Isometric/Dimetric (30° parallel axes) Illustrated Island SVG -->
       <svg id="citadel-town-map" class="polis-svg" viewBox="0 -30 1600 980" preserveAspectRatio="xMidYMid slice" role="img" aria-label="2.5D Isometric Greek island featuring the NW Acropolis, North Ridge Kairos Horologion, West Artisan Forge, East Cape Garden in the Citadel, and South Cove Harbor Stoa">
         <defs>
@@ -1207,8 +1385,10 @@
 
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Acropolis -->
             <g class="building-pill" transform="translate(532, 286)">
-              <rect class="building-pill-bg" x="-81" y="-13" width="162" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Acropolis</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/strategist</tspan></text>
+              <g class="building-pill-inner">
+                <rect class="building-pill-bg" x="-81" y="-13" width="162" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Acropolis</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/strategist</tspan></text>
+              </g>
             </g>
           </g>
 
@@ -1292,8 +1472,10 @@
 
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Horologion -->
             <g class="building-pill" transform="translate(918, 304)">
-              <rect class="building-pill-bg" x="-90" y="-13" width="180" height="26" rx="13" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="1.8" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Horologion</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#2962AB">/practitioner</tspan></text>
+              <g class="building-pill-inner">
+                <rect class="building-pill-bg" x="-90" y="-13" width="180" height="26" rx="13" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Horologion</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#2962AB">/practitioner</tspan></text>
+              </g>
             </g>
           </g>
 
@@ -1341,8 +1523,10 @@
 
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Artisan Forge -->
             <g class="building-pill" transform="translate(485, 488)">
-              <rect class="building-pill-bg" x="-83" y="-13" width="166" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="1.8" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Artisan Forge</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--terracotta)">/builder</tspan></text>
+              <g class="building-pill-inner">
+                <rect class="building-pill-bg" x="-83" y="-13" width="166" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Artisan Forge</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--terracotta)">/builder</tspan></text>
+              </g>
             </g>
           </g>
 
@@ -1392,8 +1576,10 @@
 
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Garden in the Citadel -->
             <g class="building-pill" transform="translate(1092, 448)">
-              <rect class="building-pill-bg" x="-116" y="-13" width="232" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="1.8" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Garden in the Citadel</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--olive-foliage)">/philosopher</tspan></text>
+              <g class="building-pill-inner">
+                <rect class="building-pill-bg" x="-116" y="-13" width="232" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Garden in the Citadel</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--olive-foliage)">/philosopher</tspan></text>
+              </g>
             </g>
           </g>
 
@@ -1463,8 +1649,10 @@
 
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Harbor Stoa -->
             <g class="building-pill" transform="translate(732, 650)">
-              <rect class="building-pill-bg" x="-72" y="-13" width="144" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
-              <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Harbor Stoa</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/about</tspan></text>
+              <g class="building-pill-inner">
+                <rect class="building-pill-bg" x="-72" y="-13" width="144" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Harbor Stoa</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/about</tspan></text>
+              </g>
             </g>
           </g>
 
@@ -1481,6 +1669,7 @@
 
         </g>
       </svg>
+      </div>
 
       <!-- ── Floating Right Topic Card (Revealed on Hover or Click) ── -->
       <aside id="temple-inspector-drawer" class="temple-drawer" data-open="false" data-expanded="false" aria-live="polite">
