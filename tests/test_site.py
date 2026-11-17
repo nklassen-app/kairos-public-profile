@@ -329,8 +329,8 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert 'id="horologion-sundial"' in html
 
 
-def test_graphic_town_navigation_and_chamber_simulators_in_node() -> None:
-    """Verify town building navigation, avatar coordinates, mode switching, and live chamber simulators."""
+def test_graphic_town_navigation_in_node() -> None:
+    """Verify town building navigation, avatar coordinates and camera, and that the retired simulators are gone."""
     node_script = """
 const fs = require('fs');
 const vm = require('vm');
@@ -377,43 +377,14 @@ if (!hoverState.cardVisible || hoverState.previewInfo.route !== '/practitioner' 
   throw new Error('Expected hoverBuilding(/practitioner) to reveal floating detail card with thesis');
 }
 
-// 3. Role router moves explorer to the corresponding building
-const expectedRoutes = {
-  builder: 'EXP-02',
-  strategist: 'EXP-01',
-  philosopher: 'EXP-03',
-  leader: 'EXP-04',
-};
-for (const [role, expectedChamber] of Object.entries(expectedRoutes)) {
-  const routed = ctrl.selectRole(role);
-  if (routed.activeChamber !== expectedChamber) {
-    throw new Error(`Role ${role} expected ${expectedChamber}, got ${routed.activeChamber}`);
+// 3. The retired Stage 1 simulators and role router are gone from the API
+for (const removed of ['selectRole', 'chooseRedQueenOption', 'toggleFrictionCard', 'selectCitadelTrap', 'selectForgeLens']) {
+  if (removed in ctrl) {
+    throw new Error(`Expected retired API ${removed} to be removed from lab.js`);
   }
 }
-
-// 4. Playable Chamber Simulators inside the buildings work:
-// EXP-01 Red Queen choice updates Velocity / Social Cohesion / Epistemic Trust
-const sim1 = ctrl.chooseRedQueenOption('accelerate');
-if (!sim1.metrics || typeof sim1.metrics.velocity !== 'number') {
-  throw new Error('Expected EXP-01 simulator metrics to update');
-}
-
-// EXP-02 Alignment Crucible friction card toggle updates Deployment Score
-const sim2 = ctrl.toggleFrictionCard('socratic');
-if (typeof sim2.deploymentScore !== 'number') {
-  throw new Error('Expected EXP-02 deploymentScore to be computed');
-}
-
-// EXP-03 Citadel Diagnostic trap selector returns Meditations passage & reframe
-const sim3 = ctrl.selectCitadelTrap('anxiety');
-if (!sim3.quote || !sim3.protocol) {
-  throw new Error('Expected EXP-03 quote and protocol');
-}
-
-// EXP-04 Architect's Forge lens selector returns quest reframe & 80/20 split
-const sim4 = ctrl.selectForgeLens('game');
-if (!sim4.questTitle || !sim4.automation80) {
-  throw new Error('Expected EXP-04 questTitle and automation80');
+if ('ROLE_ROUTES' in api) {
+  throw new Error('Expected ROLE_ROUTES to be removed from lab.js exports');
 }
 
 console.log('TOWN_PROTOTYPE_OK');
@@ -427,3 +398,108 @@ console.log('TOWN_PROTOTYPE_OK');
     assert res.returncode == 0 and "TOWN_PROTOTYPE_OK" in res.stdout, (
         f"Node town prototype test failed:\nSTDOUT: {res.stdout}\nSTDERR: {res.stderr}"
     )
+
+
+# ── Polish: photo weight, dead code, reduced motion, sharing metadata ─────────
+
+SITE = "https://ai-era.co"
+PAGES = {
+    # page file -> its canonical path on the site
+    INDEX_HTML: "/",
+    REPO_ROOT / "about" / "index.html": "/about/",
+    REPO_ROOT / "strategist" / "index.html": "/strategist/",
+    REPO_ROOT / "builder" / "index.html": "/builder/",
+    REPO_ROOT / "philosopher" / "index.html": "/philosopher/",
+    REPO_ROOT / "practitioner" / "index.html": "/practitioner/",
+}
+CLASS_SELECTOR_RE = re.compile(r"\.(-?[a-zA-Z_][\w-]*)")
+
+
+def _jpeg_segments(data: bytes) -> list[tuple[int, int, int]]:
+    """(marker, offset, length) of every JPEG header segment before the scan."""
+    segments, i = [], 2
+    while i + 4 <= len(data) and data[i] == 0xFF and data[i + 1] != 0xDA:
+        length = int.from_bytes(data[i + 2 : i + 4], "big")
+        segments.append((data[i + 1], i, length))
+        i += 2 + length
+    return segments
+
+
+def test_profile_photo_is_sized_for_its_slot_and_carries_no_metadata() -> None:
+    """The portrait shows at 180x220 css px; 480x640 covers a 2x screen. No EXIF at all."""
+    data = (REPO_ROOT / "assets" / "profile.jpg").read_bytes()
+    assert len(data) < 120_000, f"profile.jpg is {len(data)} bytes; resize it"
+    segments = _jpeg_segments(data)
+    assert not [s for s in segments if s[0] == 0xE1], "profile.jpg still has an APP1 (EXIF/XMP) segment"
+    sof = next(s for s in segments if s[0] in (0xC0, 0xC2))
+    height = int.from_bytes(data[sof[1] + 5 : sof[1] + 7], "big")
+    width = int.from_bytes(data[sof[1] + 7 : sof[1] + 9], "big")
+    assert max(width, height) <= 800, f"profile.jpg is {width}x{height}; 480x640 is enough"
+
+
+@pytest.mark.parametrize("page", list(PAGES), ids=lambda p: str(p.relative_to(REPO_ROOT)))
+def test_every_css_class_a_page_styles_is_used(page: Path) -> None:
+    html = page.read_text(encoding="utf-8")
+    css = "".join(re.findall(r"<style>(.*?)</style>", html, re.DOTALL))
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+    markup = html.split("</style>")[-1]
+    if page == INDEX_HTML:
+        markup += LAB_JS.read_text(encoding="utf-8")
+    unused = sorted(
+        c for c in set(CLASS_SELECTOR_RE.findall(css))
+        if not re.search(r"(?<![\w-])" + re.escape(c) + r"(?![\w-])", markup)
+    )
+    assert not unused, f"{page.relative_to(REPO_ROOT)} styles classes nothing uses: {unused}"
+
+
+def test_lab_js_reads_no_element_the_page_lacks() -> None:
+    """Every id lab.js looks up exists in the page, so no dead render branch survives."""
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    js = LAB_JS.read_text(encoding="utf-8")
+    missing = sorted(
+        i for i in set(re.findall(r'getElementById\("([^"]+)"\)', js)) if f'id="{i}"' not in html
+    )
+    assert not missing, f"lab.js looks up ids the page does not have: {missing}"
+    for attr in set(re.findall(r'querySelectorAll\("\[(data-[\w-]+)\]"\)', js)):
+        assert f"{attr}=" in html, f"lab.js binds [{attr}] but the page has none"
+
+
+@pytest.mark.parametrize("page", list(PAGES), ids=lambda p: str(p.relative_to(REPO_ROOT)))
+def test_motion_stops_for_visitors_who_ask_for_less(page: Path) -> None:
+    html = page.read_text(encoding="utf-8")
+    if re.search(r"\b(transition|animation)\s*:", html):
+        block = re.search(r"@media \(prefers-reduced-motion: reduce\)\s*\{(.*?)\n\s*\}", html, re.DOTALL)
+        assert block, f"{page.relative_to(REPO_ROOT)} animates but has no prefers-reduced-motion rule"
+        assert "animation" in block.group(1) and "transition" in block.group(1)
+    if page == INDEX_HTML:
+        js = LAB_JS.read_text(encoding="utf-8")
+        assert "prefers-reduced-motion: reduce" in js, "lab.js must skip the parallax for reduced motion"
+
+
+@pytest.mark.parametrize("page,path", list(PAGES.items()), ids=list(PAGES.values()))
+def test_every_page_has_a_canonical_url_share_card_and_icon(page: Path, path: str) -> None:
+    html = page.read_text(encoding="utf-8")
+    head = html.split("</head>")[0]
+
+    def meta(attr: str, key: str) -> str:
+        m = re.search(rf'<meta {attr}="{re.escape(key)}" content="([^"]*)"', head)
+        assert m, f"{page.relative_to(REPO_ROOT)} lacks <meta {attr}={key!r}>"
+        return m.group(1)
+
+    assert f'<link rel="canonical" href="{path}">' in head
+    assert meta("property", "og:url") == SITE + path
+    assert meta("property", "og:type") in ("website", "profile", "article")
+    assert meta("property", "og:title")
+    assert meta("property", "og:description") == meta("name", "description")
+    assert meta("property", "og:image") == SITE + "/assets/og-card.png"
+    assert meta("name", "twitter:card") == "summary_large_image"
+    assert '<link rel="icon" href="/favicon.svg" type="image/svg+xml">' in head
+    assert (REPO_ROOT / "favicon.svg").exists()
+
+
+def test_share_card_is_a_1200x630_png() -> None:
+    data = (REPO_ROOT / "assets" / "og-card.png").read_bytes()
+    assert data[:8] == b"\x89PNG\r\n\x1a\n"
+    width, height = int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big")
+    assert (width, height) == (1200, 630)
+    assert len(data) < 300_000

@@ -6,7 +6,19 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'; connect-src 'none'">
 <meta name="referrer" content="no-referrer">
 <title>AI Era — The Polis &amp; Concept Lab</title>
-<meta name="description" content="An interactive 2.5D isometric Ancient Greek Polis and digital concept lab exploring AI's civilizational gateway, tactical product ethics, inner resilience, and energy architecture.">
+<meta name="description" content="How do we live well, build, and flourish in an AI-native world? Four inquiries into civilizational history, ethical design, Stoic philosophy, and the craft of work.">
+<link rel="canonical" href="/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Era">
+<meta property="og:title" content="AI Era — The Polis &amp; Concept Lab">
+<meta property="og:description" content="How do we live well, build, and flourish in an AI-native world? Four inquiries into civilizational history, ethical design, Stoic philosophy, and the craft of work.">
+<meta property="og:url" content="https://ai-era.co/">
+<meta property="og:image" content="https://ai-era.co/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI Era: How do we live well, build, and flourish in an AI-native world?">
+<meta name="twitter:card" content="summary_large_image">
 <script src="lab.js" defer></script>
 <style>
   /* ── 1. Palette & 2.5D Isometric Visual System ── */
@@ -582,16 +594,6 @@
     color: var(--ink);
   }
 
-  .floating-card-subtitle {
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--amber);
-    margin: 0 0 0.55rem;
-  }
-
   .floating-card-thesis {
     font-family: var(--font-serif);
     font-size: 0.98rem;
@@ -631,255 +633,11 @@
     background-color: rgba(0, 0, 0, 0.06);
   }
 
-  .chamber-panel {
-    margin-top: 0.95rem;
-    padding-top: 0.95rem;
-    border-top: 1px solid var(--rule-strong);
-  }
-
-  .explore-primary-btn {
-    appearance: none;
-    width: 100%;
-    border: 1px solid var(--amber);
-    background: var(--ink);
-    color: var(--surface-solid);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    padding: 0.58rem 0.95rem;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.18s ease, transform 0.15s ease;
-  }
-
-  .explore-primary-btn:hover {
-    background: var(--amber);
-    color: #1C252C;
-    transform: translateY(-1px);
-  }
-
-  .chamber-panel h3 {
-    font-family: var(--font-serif);
-    font-size: 1.12rem;
-    margin: 0 0 0.2rem;
-  }
-
-  .chamber-panel-sub {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    margin: 0 0 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .dilemma-box {
-    background: var(--surface-elevated);
-    border: 1px solid var(--rule-strong);
-    border-left: 3px solid var(--amber);
-    border-radius: 8px;
-    padding: 0.7rem 0.85rem;
-    font-size: 0.86rem;
-    margin-bottom: 0.8rem;
-    line-height: 1.48;
-  }
-
-  .dilemma-tag {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    color: var(--amber);
-    letter-spacing: 0.06em;
-    margin-bottom: 0.22rem;
-  }
-
-  .sim-btn-stack {
-    display: grid;
-    gap: 0.42rem;
-    margin-bottom: 0.85rem;
-  }
-
-  .sim-btn {
-    appearance: none;
-    width: 100%;
-    text-align: left;
-    background: var(--surface-elevated);
-    border: 1px solid var(--rule-strong);
-    border-radius: 8px;
-    padding: 0.52rem 0.72rem;
-    color: var(--ink);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: border-color 0.15s ease;
-  }
-
-  .sim-btn:hover { border-color: var(--amber); }
-
-  .sim-btn.is-active,
-  .sim-btn[aria-pressed="true"] {
-    border-color: var(--amber);
-    box-shadow: inset 0 0 0 1px var(--amber);
-  }
-
-  .meter-group {
-    display: grid;
-    gap: 0.48rem;
-    margin-bottom: 0.8rem;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-  }
-
-  .meter-row-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.16rem;
-  }
-
-  .meter-track {
-    height: 0.44rem;
-    background: var(--bg);
-    border: 1px solid var(--rule-strong);
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .meter-fill {
-    height: 100%;
-    background: var(--amber);
-    transition: width 0.3s ease;
-  }
-
-  .meter-fill.cohesion { background: var(--sage); }
-  .meter-fill.trust { background: var(--cobalt); }
-
-  .sim-readout {
-    background: var(--surface-elevated);
-    border: 1px solid var(--rule-strong);
-    border-radius: 8px;
-    padding: 0.68rem 0.82rem;
-    font-family: var(--font-mono);
-    font-size: 0.73rem;
-    color: var(--muted);
-    line-height: 1.48;
-  }
-
-  .score-pill {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--copper);
-    margin-bottom: 0.35rem;
-  }
-
-  /* ── 4. Bottom Quick-Select Role Dock (Warm Limestone Glassmorphism) ── */
-  .floating-bottom-dock {
-    position: absolute;
-    left: 1.25rem;
-    right: 1.25rem;
-    bottom: 0.9rem;
-    z-index: 30;
-    pointer-events: none;
-  }
-
-  .dock-card {
-    max-width: 72rem;
-    margin: 0 auto;
-    pointer-events: auto;
-    background: var(--surface);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--rule-strong);
-    border-radius: 16px;
-    padding: 0.68rem 1rem;
-    box-shadow: 0 14px 36px rgba(28, 37, 44, 0.22);
-  }
-
-  .dock-top-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.48rem;
-  }
-
-  .dock-headline {
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .dock-sub {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    margin: 0;
-  }
-
-  .role-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.45rem;
-  }
-
-  @media (max-width: 56rem) {
-    .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-
-  .role-btn {
-    appearance: none;
-    text-align: left;
-    background: var(--surface-elevated);
-    border: 1px solid var(--rule-strong);
-    border-radius: 10px;
-    padding: 0.42rem 0.68rem;
-    color: var(--ink);
-    cursor: pointer;
-    transition: border-color 0.16s ease, transform 0.16s ease;
-  }
-
-  .role-btn:hover {
-    border-color: var(--amber);
-    transform: translateY(-1px);
-  }
-
-  .role-btn.is-active,
-  .role-btn[aria-pressed="true"] {
-    border-color: var(--amber);
-    box-shadow: inset 0 0 0 1px var(--amber);
-  }
-
-  .role-btn-code {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    color: var(--amber);
-    letter-spacing: 0.04em;
-  }
-
-  .role-btn-title {
-    display: block;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
-
   /* ── Subview 2 (Card Grid) & View B (Manifesto Essay) Containers ── */
   .standard-container {
     max-width: 74rem;
     margin: 0 auto;
     padding: 2.5rem 1.25rem 4rem;
-  }
-
-  .manifesto-container {
-    max-width: 42rem;
-    margin: 0 auto;
-    padding: 2.5rem 1.25rem 5rem;
   }
 
   .bento-grid {
@@ -923,20 +681,6 @@
 
   .chamber-id { color: var(--chamber-accent); font-weight: 700; }
   .chamber-pillar { color: var(--muted); }
-
-  .manifesto-chapter {
-    border-top: 1px solid var(--rule-strong);
-    padding: 2.25rem 0 0.75rem;
-  }
-
-  .chapter-numeral {
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin: 0 0 0.4rem;
-  }
 
   /* ── 4. Mobile & Tablet Responsive Overhaul (<= 768px) ── */
   @media (max-width: 768px) {
@@ -1108,8 +852,7 @@
     }
 
     /* 3. Scale building pills for legibility */
-    .building-pill,
-    .landmark-pill {
+    .building-pill {
       font-size: 0.82rem !important;
       padding: 0.32rem 0.7rem !important;
       border-width: 1.5px !important;
@@ -1131,6 +874,11 @@
       transform: scale(1.48) translateY(3%) !important;
       transform-origin: 50% 54% !important;
     }
+  }
+
+  /* ── Reduced motion: no ambient animation, no camera glide ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
 </style>
 </head>
