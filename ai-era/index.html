@@ -110,6 +110,10 @@
   html { -webkit-text-size-adjust: 100%; }
   [hidden] { display: none !important; }
 
+  /* Phone-only pieces (shown in the max-width: 768px block below) */
+  .polis-quick-select { display: none; }
+  .town-building .pill-bg-short { display: none; }
+
   body {
     margin: 0;
     background: var(--bg);
@@ -732,17 +736,16 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .site-nav > *,
     .consolidated-menu > .mode-btn {
       font-size: 0.76rem !important;
       padding: 0.35rem 0.65rem !important;
       white-space: nowrap;
     }
 
-    .polis-layout,
-    .polis-view,
-    .polis-viewport,
-    main > div {
+    .polis-layout:not([hidden]),
+    .polis-view:not([hidden]),
+    .polis-viewport:not([hidden]),
+    main > div:not([hidden]) {
       display: flex !important;
       flex-direction: column !important;
       height: auto !important;
@@ -760,12 +763,6 @@
       max-height: 440px !important;
       overflow: hidden !important;
       background: #1f5c6e;
-    }
-
-    /* Scale full 'Building - /persona' SVG pill badges for crisp legibility on mobile */
-    .building-pill-inner {
-      transform: scale(1.06);
-      transform-origin: 0 0;
     }
 
     /* Keep docked card hidden on mobile until the user taps a building on the map */
@@ -873,6 +870,95 @@
       /* Crops the empty left/right ocean so the island fills 95% of the screen width */
       transform: scale(1.48) translateY(3%) !important;
       transform-origin: 50% 54% !important;
+    }
+  }
+
+  /* ── Phone polish (2026-11-16): readable name-only pills, quick-select row, Enter first ── */
+  @media (max-width: 768px) {
+    /* Pills: the building name only, scaled to about 10px on screen */
+    .town-building .pill-sep,
+    .town-building .building-pill-route,
+    .town-building .pill-bg-full {
+      display: none;
+    }
+    .town-building .pill-bg-short {
+      display: inline;
+    }
+    .building-pill-inner {
+      transform: scale(2);
+    }
+    /* The two edge pills move inward so the zoomed map does not clip them */
+    .town-building[data-building-id="EXP-03"] .building-pill {
+      transform: translate(1008px, 448px);
+    }
+    .town-building[data-building-id="EXP-02"] .building-pill {
+      transform: translate(553px, 488px);
+    }
+
+    /* The explorer token is decoration; the lit building already shows the choice */
+    #town-explorer {
+      display: none;
+    }
+
+    /* While no card is open, the five buildings as buttons under the map */
+    .polis-quick-select {
+      display: block;
+      padding: 1rem 1rem 1.5rem;
+      background: var(--bg);
+      border-top: 2px solid var(--rule);
+    }
+    body[data-sky="nyx"] .polis-quick-select {
+      background: var(--surface-solid);
+    }
+    aside[aria-live="polite"][data-open="true"] ~ .polis-quick-select {
+      display: none;
+    }
+    .quick-select-hint {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .quick-select-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .quick-select-btn {
+      appearance: none;
+      font: 600 0.88rem var(--font-sans);
+      color: var(--ink);
+      background: var(--surface-elevated);
+      border: 1px solid var(--rule-strong);
+      border-radius: 999px;
+      padding: 0.55rem 0.95rem;
+      cursor: pointer;
+    }
+    .quick-select-btn:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 2px;
+    }
+
+    /* The open card: Enter right under the title, the summary after it */
+    .floating-card-summary {
+      display: flex;
+      flex-direction: column;
+    }
+    .floating-card-summary .floating-card-title {
+      order: 1;
+      font-size: 1.22rem;
+      margin-bottom: 0.6rem;
+    }
+    .inspector-route-pill {
+      font-size: 0.68rem;
+    }
+    .floating-card-summary .card-actions {
+      order: 2;
+      margin: 0 0 1rem;
+      justify-content: flex-start;
+    }
+    .floating-card-summary .floating-card-thesis {
+      order: 3;
     }
   }
 
@@ -1182,7 +1268,8 @@
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Acropolis -->
             <g class="building-pill" transform="translate(532, 286)">
               <g class="building-pill-inner">
-                <rect class="building-pill-bg" x="-81" y="-13" width="162" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-full" x="-81" y="-13" width="162" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-short" x="-34.5" y="-13" width="69" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
                 <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Acropolis</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/strategist</tspan></text>
               </g>
             </g>
@@ -1269,7 +1356,8 @@
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Horologion -->
             <g class="building-pill" transform="translate(918, 304)">
               <g class="building-pill-inner">
-                <rect class="building-pill-bg" x="-90" y="-13" width="180" height="26" rx="13" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-full" x="-90" y="-13" width="180" height="26" rx="13" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-short" x="-38.5" y="-13" width="77" height="26" rx="13" fill="var(--surface-solid)" stroke="#2962AB" stroke-width="1.8" filter="url(#soft-shadow)"/>
                 <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Horologion</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#2962AB">/practitioner</tspan></text>
               </g>
             </g>
@@ -1320,7 +1408,8 @@
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Artisan Forge -->
             <g class="building-pill" transform="translate(485, 488)">
               <g class="building-pill-inner">
-                <rect class="building-pill-bg" x="-83" y="-13" width="166" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-full" x="-83" y="-13" width="166" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-short" x="-44.5" y="-13" width="89" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--terracotta)" stroke-width="1.8" filter="url(#soft-shadow)"/>
                 <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Artisan Forge</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--terracotta)">/builder</tspan></text>
               </g>
             </g>
@@ -1373,7 +1462,8 @@
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Garden in the Citadel -->
             <g class="building-pill" transform="translate(1092, 448)">
               <g class="building-pill-inner">
-                <rect class="building-pill-bg" x="-116" y="-13" width="232" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-full" x="-116" y="-13" width="232" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-short" x="-62.5" y="-13" width="125" height="26" rx="13" fill="var(--surface-solid)" stroke="var(--olive-foliage)" stroke-width="1.8" filter="url(#soft-shadow)"/>
                 <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Garden in the Citadel</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="var(--olive-foliage)">/philosopher</tspan></text>
               </g>
             </g>
@@ -1446,7 +1536,8 @@
             <!-- Tightly Fitted Pill Badge Overlapping Front/Lower Plinth Edge of Harbor Stoa -->
             <g class="building-pill" transform="translate(732, 650)">
               <g class="building-pill-inner">
-                <rect class="building-pill-bg" x="-72" y="-13" width="144" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-full" x="-72" y="-13" width="144" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
+                <rect class="building-pill-bg pill-bg-short" x="-40.5" y="-13" width="81" height="26" rx="13" fill="var(--surface-solid)" stroke="#D47A1C" stroke-width="1.8" filter="url(#soft-shadow)"/>
                 <text class="building-pill-text" x="0" y="4" text-anchor="middle"><tspan class="pill-name">Harbor Stoa</tspan><tspan class="pill-sep"> - </tspan><tspan class="building-pill-route" fill="#D47A1C">/about</tspan></text>
               </g>
             </g>
@@ -1487,6 +1578,18 @@
           </div>
         </div>
       </aside>
+
+      <!-- ── Phone only: the five buildings as buttons while no card is open ── -->
+      <nav class="polis-quick-select" aria-label="The five buildings">
+        <p class="quick-select-hint">Tap a building, or choose:</p>
+        <div class="quick-select-buttons">
+          <button type="button" class="quick-select-btn" data-visit-building="EXP-01">The Strategist</button>
+          <button type="button" class="quick-select-btn" data-visit-building="EXP-02">The Builder</button>
+          <button type="button" class="quick-select-btn" data-visit-building="EXP-03">The Philosopher</button>
+          <button type="button" class="quick-select-btn" data-visit-building="EXP-04">The Practitioner</button>
+          <button type="button" class="quick-select-btn" data-visit-building="HARBOR">About Me</button>
+        </div>
+      </nav>
     </section>
 
     <!-- ── SUBVIEW 2: CLASSIC BENTO CARD GRID ── -->

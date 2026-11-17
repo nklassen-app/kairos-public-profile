@@ -503,3 +503,71 @@ def test_share_card_is_a_1200x630_png() -> None:
     width, height = int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big")
     assert (width, height) == (1200, 630)
     assert len(data) < 300_000
+
+
+# ── Mobile polish (2026-11-16): view switch, quick-select row, Enter first, pills, divider ──
+
+BUILDING_IDS = ("EXP-01", "EXP-02", "EXP-03", "EXP-04", "HARBOR")
+
+
+def _phone_css(html: str) -> str:
+    """Every rule inside a max-width: 768px block."""
+    out = []
+    for m in re.finditer(r"@media \(max-width: 768px\)\s*\{", html):
+        depth, i = 1, m.end()
+        while depth:
+            depth += {"{": 1, "}": -1}.get(html[i], 0)
+            i += 1
+        out.append(html[m.end() : i - 1])
+    return "\n".join(out)
+
+
+def test_hidden_view_stays_hidden_on_phones() -> None:
+    """A phone rule forcing display:flex must not re-show the hidden map (Card Grid bug)."""
+    phone = _phone_css(INDEX_HTML.read_text(encoding="utf-8"))
+    for rule in re.finditer(r"([^{}]+)\{([^{}]*)\}", phone):
+        selectors, body = rule.group(1), rule.group(2)
+        if re.search(r"display:\s*(?!none)[\w-]+\s*!important", body):
+            for sel in selectors.split(","):
+                if "polis-viewport" in sel or "polis-layout" in sel or "section" in sel:
+                    assert ":not([hidden])" in sel, f"phone rule re-shows hidden views: {sel.strip()}"
+
+
+def test_menu_divider_is_not_padded_like_a_button() -> None:
+    phone = _phone_css(INDEX_HTML.read_text(encoding="utf-8"))
+    assert ".site-nav > *" not in phone, "the padding rule must target the buttons, not the divider"
+
+
+def test_phone_quick_select_row_offers_all_five_buildings() -> None:
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    m = re.search(r'<nav class="polis-quick-select"[^>]*>(.*?)</nav>', html, re.DOTALL)
+    assert m, "Expected the quick-select row under the map"
+    row = m.group(1)
+    for bid in BUILDING_IDS:
+        assert f'data-visit-building="{bid}"' in row, f"quick-select row lacks {bid}"
+    phone = _phone_css(html)
+    assert re.search(r"(?<![\w-])\.polis-quick-select\s*\{[^}]*display:\s*none", html.split("@media")[0]), (
+        "the row is phone-only: hidden by default"
+    )
+    assert re.search(r"\.polis-quick-select\s*\{[^}]*display:\s*(flex|block|grid)", phone)
+    assert 'aside[aria-live="polite"][data-open="true"] ~ .polis-quick-select' in phone, (
+        "the row steps aside while a building's card is open"
+    )
+
+
+def test_enter_button_comes_before_the_summary_on_phones() -> None:
+    phone = _phone_css(INDEX_HTML.read_text(encoding="utf-8"))
+    actions = re.search(r"\.floating-card-summary \.card-actions\s*\{[^}]*order:\s*(\d+)", phone)
+    thesis = re.search(r"\.floating-card-summary \.floating-card-thesis\s*\{[^}]*order:\s*(\d+)", phone)
+    assert actions and thesis and int(actions.group(1)) < int(thesis.group(1))
+
+
+def test_phone_pills_show_names_only_and_the_explorer_steps_aside() -> None:
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    pills = re.findall(r'<g class="building-pill-inner">(.*?)</g>', html, re.DOTALL)
+    assert len(pills) == 5
+    for pill in pills:
+        assert "pill-bg-full" in pill and "pill-bg-short" in pill, "each pill needs a full and a name-only background"
+    phone = _phone_css(html)
+    for hidden in (".pill-sep", ".building-pill-route", ".pill-bg-full", "#town-explorer"):
+        assert re.search(rf"{re.escape(hidden)}[^{{]*\{{[^}}]*display:\s*none", phone), f"{hidden} must hide on phones"
