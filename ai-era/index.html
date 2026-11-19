@@ -282,47 +282,24 @@
     cursor: pointer;
   }
 
-  .brand-topline {
-    display: flex;
-    align-items: baseline;
-    gap: 0.65rem;
-    margin-bottom: 0.25rem;
-    flex-wrap: wrap;
-  }
-
   .brand-title {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.65rem, 2.4vw, 2.15rem);
+    font-size: clamp(2.3rem, 3.6vw, 3.1rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     color: #1f1e1b;
-    margin: 0;
+    margin: 0 0 0.3rem 0;
     line-height: 1;
-  }
-
-  .brand-divider {
-    width: 1px;
-    height: 0.9rem;
-    background: rgba(31, 30, 27, 0.25);
-    align-self: center;
-  }
-
-  .brand-kicker {
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: #9c5a25;
   }
 
   .brand-question {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1rem, 1.3vw, 1.15rem);
-    font-weight: 700;
+    font-size: clamp(0.98rem, 1.25vw, 1.1rem);
+    font-weight: 400;
+    font-style: italic;
     color: #1f1e1b;
     line-height: 1.3;
-    margin: 0 0 0.15rem 0;
+    margin: 0 0 0.2rem 0;
   }
 
   .brand-inquiries {
@@ -336,14 +313,6 @@
   body[data-sky="nyx"] .brand-title,
   body[data-sky="nyx"] .brand-question {
     color: var(--ink);
-  }
-
-  body[data-sky="nyx"] .brand-divider {
-    background: var(--rule-strong);
-  }
-
-  body[data-sky="nyx"] .brand-kicker {
-    color: var(--amber);
   }
 
   body[data-sky="nyx"] .brand-inquiries {
@@ -709,12 +678,7 @@
     }
 
     .brand-title {
-      font-size: 1.5rem;
-    }
-
-    .brand-kicker {
-      font-size: 0.64rem;
-      letter-spacing: 0.1em;
+      font-size: 2.1rem;
     }
 
     .brand-question {
@@ -974,13 +938,9 @@
 <header class="top-header-bar site-header" role="banner">
   <div class="top-header-inner header-inner">
     <button type="button" class="brand-lockup brand-masthead" data-reset-camera="true" aria-label="AI Era — Return to Full Polis Overview">
-      <span class="brand-topline">
-        <span class="brand-title">AI Era</span>
-        <span class="brand-divider" aria-hidden="true"></span>
-        <span class="brand-kicker">THE POLIS &amp; CONCEPT LAB</span>
-      </span>
-      <span class="brand-question">How do we live well, build, and flourish in an AI-native world?</span>
-      <span class="brand-inquiries">Four inquiries into civilizational history, ethical design, Stoic philosophy, and the craft of work.</span>
+      <span class="brand-question">What will it mean to live in the</span>
+      <span class="brand-title">AI Era</span>
+      <span class="brand-inquiries">Explore my 4 inquiries</span>
     </button>
 
     <nav class="consolidated-menu site-nav" aria-label="Site navigation and view controls">

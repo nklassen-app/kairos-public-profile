@@ -222,11 +222,10 @@ def test_graphic_town_and_lab_structure_present() -> None:
     assert 'class="building-pill-inner"' in html
     assert 'class="brand-title">AI Era<' in html
     assert 'class="brand-lockup brand-masthead"' in html
-    assert 'class="brand-question">How do we live well, build, and flourish in an AI-native world?<' in html
-    assert (
-        'class="brand-inquiries">Four inquiries into civilizational history, '
-        'ethical design, Stoic philosophy, and the craft of work.<'
-    ) in html
+    assert 'class="brand-question">What will it mean to live in the<' in html
+    assert 'class="brand-inquiries">Explore my 4 inquiries<' in html
+    assert html.index('class="brand-question"') < html.index('class="brand-title"') < html.index('class="brand-inquiries"')
+    assert "brand-kicker" not in html
     assert "ONLINE // V1.0" not in html
     assert "waterfall-grad" not in html
 
