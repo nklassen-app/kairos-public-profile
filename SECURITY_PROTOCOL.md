@@ -106,9 +106,9 @@ The accounts are the real attack surface; the sites themselves are static.
   requests, page views, visitors and countries. Cost: the proxy sees each
   visitor's address and request, as the host does. What covers it: no
   script, cookie or pixel in any page (section 3); the proxy's own analytics
-  script stays off; only totals are read, by a read-only key, and no
-  per-visitor record is kept. Encryption runs all the way to the host
-  (Full, strict). **[set once] [quarterly]**
+  script stays off; only totals are read, by a read-only key, and I keep
+  no per-visitor record (the proxy keeps its own request data). Encryption
+  runs all the way to the host (Full, strict). **[set once] [quarterly]**
 
 ### 5. Content
 
