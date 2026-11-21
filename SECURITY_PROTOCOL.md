@@ -129,7 +129,7 @@ happens before the push.
 |---|---|
 | Every push | Section 5 — read what is going out |
 | Every quarter | The whole list, about five minutes |
-| Every year | The payment card on the registrar account is still valid — auto-renew fails silently on an expired card |
+| Every year | The payment card on the registrar account is still valid — auto-renew fails silently on an expired card; `.well-known/security.txt` gets a new Expires date (a test fails once it lapses) |
 | New device | Reinstall the pre-push audit hook |
 | A recovery code used | Generate a new set |
 | A site leaves Pages | Delete its DNS records the same day |
