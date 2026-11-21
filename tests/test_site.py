@@ -570,3 +570,24 @@ def test_phone_pills_show_names_only_and_the_explorer_steps_aside() -> None:
     phone = _phone_css(html)
     for hidden in (".pill-sep", ".building-pill-route", ".pill-bg-full", "#town-explorer"):
         assert re.search(rf"{re.escape(hidden)}[^{{]*\{{[^}}]*display:\s*none", phone), f"{hidden} must hide on phones"
+
+
+SECURITY_TXT = REPO_ROOT / ".well-known" / "security.txt"
+
+
+def test_security_txt_points_to_private_reporting_and_has_not_expired() -> None:
+    """RFC 9116: a Contact and an Expires under a year out; the test fails once
+    it lapses, so the yearly renewal is caught by the next push (AI-era domain 4)."""
+    from datetime import datetime, timezone
+
+    fields = dict(
+        line.split(": ", 1) for line in SECURITY_TXT.read_text().splitlines()
+        if line and not line.startswith("#")
+    )
+    assert fields["Contact"] == (
+        "https://github.com/nklassen-app/kairos-public-profile/security/advisories/new"
+    )
+    expires = datetime.fromisoformat(fields["Expires"].replace("Z", "+00:00"))
+    assert expires > datetime.now(timezone.utc)
+    assert fields["Canonical"] == "https://ai-era.co/.well-known/security.txt"
+    assert (REPO_ROOT / ".nojekyll").exists()   # Pages serves the dot-folder as is
