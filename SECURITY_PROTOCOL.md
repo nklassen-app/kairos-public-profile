@@ -1,7 +1,8 @@
 # Security protocol
 
 This repository holds static websites: text and images, no secrets, no
-accounts, nothing that collects anything from visitors. The protocol below is
+accounts, nothing in the pages that collects anything from visitors. Visits
+are counted only at the network edge, as totals (section 4). The protocol below is
 sized to that — small on purpose. It lists the rules only; which of them are
 in place is tracked privately.
 
@@ -80,9 +81,11 @@ The accounts are the real attack surface; the sites themselves are static.
   only its own scripts, styles and images — nothing from another host and no
   outbound connections. GitHub Pages cannot set headers, so it sits in the page
   as a `<meta>` tag. **[code]**
-- **No forms, analytics, embeds, web fonts or CDN.** Each one would send
-  visitors' data to a third party. **[code]** (a check before each push
-  refuses a page that loads anything from outside)
+- **No forms, analytics scripts or pixels, embeds, web fonts or CDN-hosted
+  files in the pages.** Each one would send visitors' data to a third party
+  from inside the page. *(Amended 2026-11-21: visits may be counted at the
+  edge instead — section 4 — never by anything the page loads.)* **[code]**
+  (a check before each push refuses a page that loads anything from outside)
 - **Outbound links do not leak** — `rel="noopener"` and a strict referrer
   policy (`no-referrer`). **[code]**
 
@@ -94,6 +97,18 @@ The accounts are the real attack surface; the sites themselves are static.
 - **No wildcard DNS records; the records are removed the day a site leaves
   Pages.** A record left pointing at nothing is the classic way a domain is
   taken over. **[set once]**
+- **The domain sends no email, and says so.** No MX record; SPF `v=spf1 -all`
+  and DMARC `p=reject`, so mail forged as coming from the domain is rejected.
+  **[set once] [quarterly]**
+- **Visits are counted at the edge, as totals only.** *(Amended 2026-11-21,
+  to know whether anyone reads the site before it is launched.)* The domain's
+  traffic passes through the DNS provider's proxy (Cloudflare), which counts
+  requests, page views, visitors and countries. Cost: the proxy sees each
+  visitor's address and request, as the host does. What covers it: no
+  script, cookie or pixel in any page (section 3); the proxy's own analytics
+  script stays off; only totals are read, by a read-only key, and no
+  per-visitor record is kept. Encryption runs all the way to the host
+  (Full, strict). **[set once] [quarterly]**
 
 ### 5. Content
 
@@ -118,6 +133,7 @@ happens before the push.
 | New device | Reinstall the pre-push audit hook |
 | A recovery code used | Generate a new set |
 | A site leaves Pages | Delete its DNS records the same day |
+| The analytics key nears its expiry | Renew it with the same read-only scope, or delete it |
 
 ## If something goes wrong
 
