@@ -2,6 +2,9 @@
 description: Set up your own guard rails in Antigravity's CLI (agy), once. Run it in your first session, and again when N. says the rules changed.
 ---
 
+*Checked on the machine: never. Run it, and report what differs from the
+facts below.*
+
 You set up your own permissions, the way the Claude Code sessions carry
 theirs in `.claude/settings.json`. N. does not type rules in.
 
