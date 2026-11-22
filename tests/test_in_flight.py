@@ -29,10 +29,18 @@ def run(work):
     return subprocess.run(["sh", str(SCRIPT)], cwd=work, capture_output=True, text=True).stdout
 
 
-def test_an_unmerged_agent_branch_is_listed_with_its_files(tmp_path):
-    out = run(clone_with(tmp_path, [("claude/words", "about/index.html"), ("feature/other", "x.txt")]))
+def test_an_unmerged_branch_is_listed_with_its_files(tmp_path):
+    out = run(clone_with(tmp_path, [("claude/words", "about/index.html"), ("ccr-123-abc", "x.txt")]))
     assert "origin/claude/words: about/index.html" in out
-    assert "feature/other" not in out          # only agents' branches are claims
+    assert "origin/ccr-123-abc: x.txt" in out   # a cloud session's branch may carry any name
+
+
+def test_a_squash_merged_branch_is_not_taken(tmp_path):
+    work = clone_with(tmp_path, [("claude/done", "a.txt")])
+    git(work, "switch", "-qC", "m", "origin/main")
+    git(work, "merge", "-q", "--squash", "origin/claude/done")
+    git(work, "commit", "-qm", "squashed"); git(work, "push", "-q", "origin", "HEAD:main")
+    assert "claude/done" not in run(work)
 
 
 def test_nothing_taken_says_so(tmp_path):

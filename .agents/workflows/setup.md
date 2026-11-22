@@ -20,9 +20,10 @@ Steps:
 
 1. Read your current settings file. Keep keys you do not change
    (`trustedWorkspaces`, anything N. set).
-2. Merge in the block below. Replace `HOME_OF_N` with the home folder of
-   the person you work for, if you run as a different user than N.; if you
-   run as N., leave that one rule out and say so in step 5.
+2. Merge in the block below. Replace every `HOME` with the absolute path
+   of your home folder (`echo $HOME`); the rules must hold whichever user
+   you run as. If you run as a separate agent user, add one more deny
+   rule: `read_file(<the home folder of N.>)`.
 
 ```json
 {
@@ -43,7 +44,10 @@ Steps:
       "command(git commit -n)", "command(sudo)", "command(ssh)",
       "command(scp)", "command(curl)", "command(wget)", "command(gh)",
       "command(rm -rf)", "command(env)", "command(printenv)",
-      "read_file(HOME_OF_N)", "write_file(.git/)",
+      "read_file(HOME/kairos-private)", "read_file(HOME/.ssh)",
+      "read_file(HOME/.gnupg)", "read_file(HOME/.config/gh)",
+      "read_file(HOME/.claude)", "read_file(HOME/kairos-system)",
+      "read_file(HOME/kairos-foundation)", "write_file(.git/)",
       "write_file(AGENTS.md)", "write_file(CLAUDE.md)",
       "write_file(.claude/)", "execute_url(*)", "mcp(*)"
     ]
@@ -52,12 +56,17 @@ Steps:
 ```
 
 3. Leave `~/.gemini/config/mcp_config.json` empty: no MCP servers.
+   Never open the home folder itself as the workspace, only this repo's
+   folder: with `allowNonWorkspaceAccess` false, the workspace is the
+   limit of what you read and write.
 4. In `~/.gemini/config/config.json`, set the `swarm` plugin to
    `"enabled": false` unless N. asked for it.
 5. Show N. the result, in this order and nothing else: the number of allow
    and deny rules now in the file; any rule you could not write and why;
-   whether you run as N. or as a separate user; the one thing only N. can
-   do: `/config`, **Enable Telemetry**, off.
+   whether you run as N. or as a separate user; whether `KAIROS_AGENT` is
+   set in your shell (`gemini` tells the Kairos guards an agent runs it;
+   you cannot set it for yourself); the one thing only N. can do:
+   `/config`, **Enable Telemetry**, off.
 6. Prove one rule: run `git push --dry-run` and report that it was refused.
    Do not look for another way.
 

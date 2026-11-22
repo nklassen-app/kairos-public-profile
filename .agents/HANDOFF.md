@@ -32,7 +32,7 @@ Three rules follow from the table:
 
 ## 2. Before you start: see what is taken
 
-A branch on GitHub that is not merged is a claim: someone is working there.
+A branch on GitHub whose content is not on main is a claim: someone is working there.
 `session-start.md` lists them with the files each touches:
 
 ```bash

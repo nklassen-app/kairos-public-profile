@@ -5,6 +5,11 @@ description: Check a step before it goes to N. Use every time before you ask N. 
 
 # The step check
 
+*An abridged copy, written 2026-11-22 for an agent that cannot read the
+master (it lives in a private repo, with the Claude Code sessions). Where
+the two differ, the master wins; N. says when this copy is brought up to
+date.*
+
 The rule is `AGENTS.md` section 4: the agent does the work, and N. decides.
 A session that wants N. to do something is the worst judge of whether N.
 must: it has already concluded that it can't. So a fresh subagent that has
