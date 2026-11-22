@@ -12,7 +12,9 @@ a fresh subagent that has not reached that conclusion reads the ask and
 tries to take every line of it off N. This file's master is
 `kairos-foundation/skills/step-check/SKILL.md` (Second agent 2); the copy in
 `kairos-public-profile/.agents/skills/` is generated from it by
-`sync_claude_md.sh`, for the agent there, which cannot read the master.
+`sync_claude_md.sh`, for the agent there, which cannot read the master;
+that repo is public, so the copy leaves out the brief's paragraph on what
+the places can do (N., 2026-11-22).
 
 ## When
 
@@ -82,15 +84,6 @@ recommendation does not.
 > screen to say what it shows; counting or labelling by hand; carrying a
 > message between sessions when the fact could be written into the repo;
 > "to be safe".
->
-> What the places can do. A cloud session: push a branch, open a PR, the
-> GitHub tools; no machine of N.'s. The Chromebook session: N.'s
-> checkouts, commits; N. pushes. The laptop session (user `agent`): its
-> own clones, the model server on loopback, reading the airlock (reports
-> of counts and fixed words that N.'s jobs write), writing the outbox; no
-> `sudo`, no way into N.'s folder, no push. Real data stays in N.'s
-> folder on the laptop, so a check on real data is code that N.'s job
-> runs there and that reports counts through the airlock.
 >
 > For each line give one verdict:
 > - **the session does it** — and how, in a sentence;
