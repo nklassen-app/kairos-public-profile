@@ -28,7 +28,9 @@ Three rules follow from the table:
    commits small, one concern each: small commits merge, large ones collide.
 3. **Never edit the other agent's configuration** (`.claude/` is Claude
    Code's, `.agents/` and `~/.gemini` are yours) or the rule files
-   (`AGENTS.md`, `CLAUDE.md`: copies of a master N. owns).
+   (`AGENTS.md`, `CLAUDE.md`: copies of a master N. owns). One file in
+   `.agents/` is not yours either: `.agents/skills/step-check/SKILL.md` is
+   generated from the master; never edit it, the next sync overwrites it.
 
 ## 2. Before you start: see what is taken
 
