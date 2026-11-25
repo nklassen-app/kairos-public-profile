@@ -54,7 +54,9 @@ recommendation does not.
    left` and what took the others away.
 5. **A step on N.'s device is one paste, and a failure stops.** A command
    with `sudo` is not merged with others to save a step: it stays its own
-   paste, short enough to read. If a paste fails or shows the device is not
+   paste, short enough to read. The copy that brings its code to the laptop
+   is not another step: it is chained before it with `&&`, so a failed copy
+   stops before the install (N., 2026-11-24). If a paste fails or shows the device is not
    what you assumed, do not send a second guess: say what you did not know
    and hand the finding-out to an agent on that device. Never explore N.'s
    machine through N.'s pastes (postmortem, 2026-11-22: about nine `sudo`
@@ -96,7 +98,9 @@ recommendation does not.
 > A step on N.'s device is one paste. Finding out what a device holds
 > or how it is set up is work for an agent on that device, not for N.'s
 > pastes. A `sudo` command is not merged with others to save a step: a
-> bigger root paste is a bigger risk, not less work.
+> bigger root paste is a bigger risk, not less work. The copy that brings
+> an install's code, chained before it with `&&`, is part of that one
+> paste (N., 2026-11-24).
 >
 > Then: can the lines left on N. be merged into one command or one
 > decision (never a `sudo` line with others), and is any of them there
